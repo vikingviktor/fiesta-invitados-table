@@ -1,18 +1,10 @@
-
 import React, { useState } from "react";
-import { Guest, MenuOption } from "@/types/guest";
+import { Guest, MenuOption } from "@/types/guestTypes";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import GuestTableRow from "./GuestTableRow";
-
-// Traducción de menú exportada para otros componentes:
-export const menuTranslation: Record<MenuOption, string> = {
-  normal: "Normal",
-  vegetariano: "Vegetariano",
-  vegano: "Vegano",
-  "sin gluten": "Sin gluten",
-};
+import { mapDbGuestToGuest, getGuestMenuCounts, menuTranslation } from "@/utils/guestUtils";
 
 const mesas = Array.from({ length: 11 }, (_, i) => i + 1);
 
@@ -27,15 +19,8 @@ const GuestTable: React.FC<{
   const [mesaValues, setMesaValues] = useState<Record<string, string>>({});
   const [savingId, setSavingId] = useState<string | null>(null);
 
-  // Contadores por menú
-  const counts = guests.reduce(
-    (acc, g) => {
-      acc["total"] += 1 + (g.plusOne ? 1 : 0);
-      acc[g.menu] = (acc[g.menu] || 0) + 1 + (g.plusOne ? 1 : 0);
-      return acc;
-    },
-    { total: 0, normal: 0, vegetariano: 0, vegano: 0, "sin gluten": 0 } as Record<string, number>
-  );
+  // Usar función utilitaria para los contadores del menú
+  const counts = getGuestMenuCounts(guests);
 
   // Asignar mesa
   const handleMesaSelect = (guestId: string, value: string) => {
