@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Guest, MenuOption } from "@/types/guestTypes";
+import { Guest, MenuOption } from "@/types/guestTypes"; // Asegurarse de que solo se importe desde guestTypes.ts
 import GuestMesaSelect from "./GuestMesaSelect";
 import GuestDeleteModal from "./GuestDeleteModal";
 import { menuTranslation } from "@/utils/guestUtils";
