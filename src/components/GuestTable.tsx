@@ -166,17 +166,17 @@ const GuestTable: React.FC<{
               </tr>
             ) : (
               guests.map((g) => {
-                // Parse mesa:
+                // Usar mesa del state local si existe, o la de la base de datos si no se ha cambiado, o undefined
                 let mesaValueInDB: string | undefined =
-                  typeof (g as any).mesa === "number" && (g as any).mesa >= 1 && (g as any).mesa <= 11
+                  (typeof (g as any).mesa === "number" && (g as any).mesa >= 1 && (g as any).mesa <= 11)
                     ? String((g as any).mesa)
                     : undefined;
 
-                // The displayed value is either local select, or DB value, or undefined (for placeholder)
-                const selectValue = 
+                // El valor mostrado: prioridad a lo seleccionado en el select, luego la base de datos, luego placeholder
+                const selectValue =
                   mesaValues[g.id] !== undefined && mesaValues[g.id] !== ""
                     ? mesaValues[g.id]
-                    : mesaValueInDB;
+                    : mesaValueInDB ?? undefined;
 
                 return (
                   <tr key={g.id} className="hover:bg-secondary/50">
