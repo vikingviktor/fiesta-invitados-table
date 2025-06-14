@@ -11,6 +11,20 @@ type GuestWithMesa = Guest & { mesa?: number | null };
 
 const mesas = Array.from({ length: 11 }, (_, i) => i + 1);
 
+// Helper to map DB fields into GuestWithMesa (snake_case to camelCase)
+function mapDbGuestToGuestWithMesa(dbGuest: any): GuestWithMesa {
+  return {
+    id: dbGuest.id,
+    nombre: dbGuest.nombre,
+    plusOne: dbGuest.plus_one,
+    nombreAcompanante: dbGuest.nombre_acompanante ?? "",
+    menu: dbGuest.menu,
+    comentario: dbGuest.comentario ?? "",
+    date: dbGuest.date,
+    mesa: dbGuest.mesa ?? null,
+  };
+}
+
 const MesaAdminTab: React.FC = () => {
   const [selectedMesa, setSelectedMesa] = useState<number>(1);
   const [guests, setGuests] = useState<GuestWithMesa[]>([]);
@@ -25,12 +39,16 @@ const MesaAdminTab: React.FC = () => {
       .select("*")
       .eq("mesa", mesa)
       .order("nombre", { ascending: true });
-    setGuests(data as GuestWithMesa[] ?? []);
+
+    // Map DB fields to TS types
+    const typedGuests: GuestWithMesa[] = (data ?? []).map(mapDbGuestToGuestWithMesa);
+    setGuests(typedGuests);
     setLoading(false);
   };
 
   useEffect(() => {
     fetchGuestsByMesa(selectedMesa);
+    // eslint-disable-next-line
   }, [selectedMesa]);
 
   const handleMesaChange = (guest: GuestWithMesa, value: string) => {
@@ -142,4 +160,3 @@ const MesaAdminTab: React.FC = () => {
 };
 
 export default MesaAdminTab;
-
