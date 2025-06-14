@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/table";
-import { Guest } from "@/types/guest";
+import { Guest } from "@/types/guestTypes"; // Usar SIEMPRE guestTypes
 
 type GuestWithMesa = Guest & { mesa?: number | null };
 
@@ -22,6 +22,9 @@ function mapDbGuestToGuestWithMesa(dbGuest: any): GuestWithMesa {
     comentario: dbGuest.comentario ?? "",
     date: dbGuest.date,
     mesa: dbGuest.mesa ?? null,
+    consentimientoPublicacion: !!dbGuest.consentimiento_publicacion, // Para coherencia con el modelo actual
+    cancionFavorita: dbGuest.cancion_favorita ?? "",
+    menuAcompanante: dbGuest.menu_acompanante ?? undefined,
   };
 }
 

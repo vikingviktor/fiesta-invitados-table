@@ -9,7 +9,7 @@ import {
   SelectItem
 } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
-import { Guest } from "@/types/guest";
+import { Guest } from "@/types/guestTypes"; // Usar SIEMPRE guestTypes
 
 const mesas = Array.from({ length: 11 }, (_, i) => i + 1);
 
