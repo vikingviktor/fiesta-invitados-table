@@ -43,24 +43,31 @@ const DeletedGuestTable: React.FC = () => {
     // eslint-disable-next-line
   }, []);
 
-  // Restaurar: mover de Supabase deleted_guests a localStorage y borrar de supabase
+  // Restaurar: mover de Supabase deleted_guests a SUPABASE guests y borrar de deleted_guests
   const handleRestore = async (guest: DeletedGuest) => {
     setRestoringId(guest.id);
     try {
-      // Reconstruimos el objeto con los mismos datos, cuidando campos y tipos.
-      const restoredGuest = {
-        id: generateTimestampId(),
+      // Construir el registro para la tabla guests
+      const guestRow = {
         nombre: guest.nombre,
-        plusOne: guest.plus_one,
-        nombreAcompanante: undefined, // No hay campo en deleted_guests por ahora
+        plus_one: guest.plus_one,
+        nombre_acompanante: null, // No disponible tras eliminar, lo dejamos null
         menu: guest.menu,
         comentario: guest.comentario ?? "",
         date: guest.date ?? new Date().toISOString(),
       };
 
-      // Guardar en localStorage
-      const list = JSON.parse(localStorage.getItem("guests") || "[]");
-      localStorage.setItem("guests", JSON.stringify([...list, restoredGuest]));
+      // Insertar el invitado restaurado en Supabase (tabla guests)
+      const { error: insertErr } = await supabase.from("guests").insert([guestRow]);
+      if (insertErr) {
+        toast({
+          title: "Error",
+          description: "No se pudo restaurar el invitado en la lista principal.",
+          variant: "destructive",
+        });
+        setRestoringId(null);
+        return;
+      }
 
       // Borrar de deleted_guests
       const { error } = await supabase
@@ -202,3 +209,4 @@ const DeletedGuestTable: React.FC = () => {
 };
 
 export default DeletedGuestTable;
+
