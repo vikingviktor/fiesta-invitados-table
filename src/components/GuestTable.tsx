@@ -1,5 +1,4 @@
-
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Guest, MenuOption } from "@/types/guest";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -29,38 +28,14 @@ function generateUUIDv4() {
   });
 }
 
-const GuestTable: React.FC = () => {
-  const [guests, setGuests] = useState<Guest[]>([]);
+const GuestTable: React.FC<{
+  guests: Guest[];
+  loading: boolean;
+  fetchGuests: () => void;
+  fetchDeletedGuests: () => void;
+}> = ({ guests, loading, fetchGuests, fetchDeletedGuests }) => {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [loadingDelete, setLoadingDelete] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  const fetchGuests = async () => {
-    setLoading(true);
-    const { data, error } = await supabase
-      .from("guests")
-      .select("*")
-      .order("date", { ascending: false });
-    if (!error && data) {
-      setGuests(
-        data.map((g: GuestDbRow) => ({
-          id: g.id,
-          nombre: g.nombre,
-          plusOne: g.plus_one,
-          nombreAcompanante: g.nombre_acompanante ?? undefined,
-          menu: g.menu as MenuOption, // ¡Aquí va el cast correcto!
-          comentario: g.comentario ?? "",
-          date: g.date,
-        }))
-      );
-    }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchGuests();
-    // Opcional: se podría poner realtime si se requiere.
-  }, []);
 
   // Contadores por menú
   const counts = guests.reduce(
@@ -100,7 +75,9 @@ const GuestTable: React.FC = () => {
         return;
       }
       setDeleteId(null);
+      // Refrescar ambas tablas!
       await fetchGuests();
+      await fetchDeletedGuests();
     } finally {
       setLoadingDelete(false);
     }

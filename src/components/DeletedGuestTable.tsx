@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Database } from "@/integrations/supabase/types";
@@ -7,7 +7,6 @@ import { toast } from "@/components/ui/use-toast";
 
 type DeletedGuest = Database["public"]["Tables"]["deleted_guests"]["Row"];
 
-// Menú translation
 const menuTranslation: Record<string, string> = {
   normal: "Normal",
   vegetariano: "Vegetariano",
@@ -15,49 +14,28 @@ const menuTranslation: Record<string, string> = {
   "sin gluten": "Sin gluten",
 };
 
-// Helper para generar un id string (para localStorage)
-function generateTimestampId() {
-  return Date.now().toString();
-}
-
-const DeletedGuestTable: React.FC = () => {
-  const [deletedGuests, setDeletedGuests] = useState<DeletedGuest[]>([]);
-  const [loading, setLoading] = useState(true);
+const DeletedGuestTable: React.FC<{
+  deletedGuests: DeletedGuest[];
+  loading: boolean;
+  fetchGuests: () => void;
+  fetchDeletedGuests: () => void;
+}> = ({ deletedGuests, loading, fetchGuests, fetchDeletedGuests }) => {
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [restoringId, setRestoringId] = useState<string | null>(null);
   const [loadingDelete, setLoadingDelete] = useState(false);
-
-  const fetchDeleted = async () => {
-    setLoading(true);
-    const { data, error } = await supabase
-      .from("deleted_guests")
-      .select("*")
-      .order("deleted_at", { ascending: false });
-    if (!error && data) setDeletedGuests(data);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchDeleted();
-    // opcional: escucha en tiempo real
-    // eslint-disable-next-line
-  }, []);
 
   // Restaurar: mover de Supabase deleted_guests a SUPABASE guests y borrar de deleted_guests
   const handleRestore = async (guest: DeletedGuest) => {
     setRestoringId(guest.id);
     try {
-      // Construir el registro para la tabla guests
       const guestRow = {
         nombre: guest.nombre,
         plus_one: guest.plus_one,
-        nombre_acompanante: null, // No disponible tras eliminar, lo dejamos null
+        nombre_acompanante: null,
         menu: guest.menu,
         comentario: guest.comentario ?? "",
         date: guest.date ?? new Date().toISOString(),
       };
-
-      // Insertar el invitado restaurado en Supabase (tabla guests)
       const { error: insertErr } = await supabase.from("guests").insert([guestRow]);
       if (insertErr) {
         toast({
@@ -68,13 +46,10 @@ const DeletedGuestTable: React.FC = () => {
         setRestoringId(null);
         return;
       }
-
-      // Borrar de deleted_guests
       const { error } = await supabase
         .from("deleted_guests")
         .delete()
         .eq("id", guest.id);
-
       if (error) {
         toast({
           title: "Error",
@@ -83,13 +58,14 @@ const DeletedGuestTable: React.FC = () => {
         });
         return;
       }
-
       toast({
         title: "Invitado restaurado",
         description: `${guest.nombre} ahora aparece en la lista de invitados.`,
       });
 
-      fetchDeleted();
+      // Refrescamos ambas tablas
+      await fetchGuests();
+      await fetchDeletedGuests();
     } catch (e) {
       toast({
         title: "Error al restaurar",
@@ -109,7 +85,9 @@ const DeletedGuestTable: React.FC = () => {
       .eq("id", id);
     setLoadingDelete(false);
     setDeletingId(null);
-    if (!error) fetchDeleted();
+    if (!error) {
+      await fetchDeletedGuests();
+    }
     else alert("Error eliminando: " + error.message);
   };
 
@@ -146,7 +124,6 @@ const DeletedGuestTable: React.FC = () => {
                   <td className="p-3 border-b">{g.comentario || "-"}</td>
                   <td className="p-3 border-b text-xs">{new Date(g.deleted_at).toLocaleString()}</td>
                   <td className="p-3 border-b flex gap-2 flex-wrap">
-                    {/* Restaurar */}
                     <Button
                       variant="default"
                       size="sm"
@@ -155,7 +132,6 @@ const DeletedGuestTable: React.FC = () => {
                     >
                       {restoringId === g.id ? "Restaurando..." : "Restaurar"}
                     </Button>
-                    {/* Eliminar permanente */}
                     <Button
                       variant="destructive"
                       size="sm"
@@ -164,7 +140,6 @@ const DeletedGuestTable: React.FC = () => {
                     >
                       Eliminar permanente
                     </Button>
-                    {/* Modal de confirmación */}
                     {deletingId === g.id && (
                       <div className="fixed z-50 inset-0 bg-black/50 flex items-center justify-center">
                         <div className="bg-white p-6 rounded shadow-lg max-w-sm w-full">
@@ -209,4 +184,3 @@ const DeletedGuestTable: React.FC = () => {
 };
 
 export default DeletedGuestTable;
-

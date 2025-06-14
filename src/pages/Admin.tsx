@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+
+import React, { useEffect, useState, useCallback } from "react";
 import GuestTable from "@/components/GuestTable";
 import Navbar from "@/components/Navbar";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +11,13 @@ const Admin = () => {
   const navigate = useNavigate();
   const [checkingAuth, setCheckingAuth] = useState(true);
 
-  // Verificar si hay usuario logueado, si no, redireccionar a login
+  // Estado compartido
+  const [guests, setGuests] = useState([]);
+  const [deletedGuests, setDeletedGuests] = useState([]);
+  const [loadingGuests, setLoadingGuests] = useState(true);
+  const [loadingDeleted, setLoadingDeleted] = useState(true);
+
+  // Autenticación
   useEffect(() => {
     let ignore = false;
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -24,6 +31,34 @@ const Admin = () => {
     return () => { ignore = true; };
   }, [navigate]);
 
+  // --- FUNCIONES DE REFRESCO ---
+  const fetchGuests = useCallback(async () => {
+    setLoadingGuests(true);
+    const { data, error } = await supabase
+      .from("guests")
+      .select("*")
+      .order("date", { ascending: false });
+    setGuests(data ?? []);
+    setLoadingGuests(false);
+  }, []);
+
+  const fetchDeletedGuests = useCallback(async () => {
+    setLoadingDeleted(true);
+    const { data, error } = await supabase
+      .from("deleted_guests")
+      .select("*")
+      .order("deleted_at", { ascending: false });
+    setDeletedGuests(data ?? []);
+    setLoadingDeleted(false);
+  }, []);
+
+  // Carga inicial
+  useEffect(() => {
+    fetchGuests();
+    fetchDeletedGuests();
+  }, [fetchGuests, fetchDeletedGuests]);
+
+  // Logout
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate("/auth", { replace: true });
@@ -42,11 +77,22 @@ const Admin = () => {
             Cerrar sesión
           </Button>
         </div>
-        <GuestTable />
-        <DeletedGuestTable />
+        <GuestTable
+          guests={guests}
+          loading={loadingGuests}
+          fetchGuests={fetchGuests}
+          fetchDeletedGuests={fetchDeletedGuests}
+        />
+        <DeletedGuestTable
+          deletedGuests={deletedGuests}
+          loading={loadingDeleted}
+          fetchGuests={fetchGuests}
+          fetchDeletedGuests={fetchDeletedGuests}
+        />
       </section>
     </div>
   );
 };
 
 export default Admin;
+
