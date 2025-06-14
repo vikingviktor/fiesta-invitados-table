@@ -14,6 +14,7 @@ export function mapDbGuestToGuest(dbGuest: any): Guest & { mesa?: number | null 
     cancionFavorita: dbGuest.cancion_favorita ?? "",
     mesa: dbGuest.mesa ?? null,
     consentimientoPublicacion: !!dbGuest.consentimiento_publicacion,
+    menuAcompanante: dbGuest.menu_acompanante ?? undefined, // NUEVO
   };
 }
 
@@ -23,6 +24,9 @@ export function getGuestMenuCounts(guests: (Guest & { mesa?: number | null })[])
     (acc, g) => {
       acc["total"] += 1 + (g.plusOne ? 1 : 0);
       acc[g.menu] = (acc[g.menu] || 0) + 1 + (g.plusOne ? 1 : 0);
+      if (g.plusOne && g.menuAcompanante) {
+        acc[g.menuAcompanante] = (acc[g.menuAcompanante] || 0) + 1;
+      }
       return acc;
     },
     { total: 0, normal: 0, vegetariano: 0, vegano: 0, "sin gluten": 0 } as Record<string, number>

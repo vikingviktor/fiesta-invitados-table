@@ -4,7 +4,7 @@ import { Guest, MenuOption } from "@/types/guestTypes";
 import GuestMesaSelect from "./GuestMesaSelect";
 import GuestDeleteModal from "./GuestDeleteModal";
 import { menuTranslation } from "@/utils/guestUtils";
-import { Switch } from "@/components/ui/switch"; // Usamos el switch de shadcn/ui
+import { Switch } from "@/components/ui/switch";
 
 interface GuestTableRowProps {
   guest: Guest & { mesa?: number | null };
@@ -17,7 +17,6 @@ interface GuestTableRowProps {
   onDeleteClick: (guestId: string) => void;
   onDeleteCancel: () => void;
   onDeleteConfirm: (guestId: string) => void;
-  // NUEVAS props
   onConsentChange: (guestId: string, value: boolean) => void;
   consentSavingId: string | null;
 }
@@ -42,6 +41,10 @@ const GuestTableRow: React.FC<GuestTableRowProps> = ({
     <td className="p-3 border-b">
       {(guest.plusOne && guest.nombreAcompanante) ? guest.nombreAcompanante : (guest.plusOne ? "Sin nombre" : "-")}
     </td>
+    {/* NUEVA COLUMNA */}
+    <td className="p-3 border-b">
+      {(guest.plusOne && guest.menuAcompanante) ? menuTranslation[guest.menuAcompanante] : (guest.plusOne ? "Normal" : "-")}
+    </td>
     <td className="p-3 border-b">{menuTranslation[guest.menu]}</td>
     <td className="p-3 border-b">{guest.comentario || "-"}</td>
     <td className="p-3 border-b">{guest.cancionFavorita || "-"}</td>
@@ -57,7 +60,6 @@ const GuestTableRow: React.FC<GuestTableRowProps> = ({
       />
     </td>
     <td className="p-3 border-b text-center">
-      {/* NUEVO: switch para consentimiento */}
       <div className="flex flex-col items-center gap-1">
         <Switch
           checked={!!guest.consentimientoPublicacion}
@@ -87,7 +89,6 @@ const GuestTableRow: React.FC<GuestTableRowProps> = ({
       >
         Borrar
       </button>
-      {/* Modal de confirmación */}
       {deleteId === guest.id && (
         <GuestDeleteModal
           guestName={guest.nombre}
@@ -101,4 +102,3 @@ const GuestTableRow: React.FC<GuestTableRowProps> = ({
 );
 
 export default GuestTableRow;
-

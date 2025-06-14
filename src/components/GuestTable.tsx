@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Guest, MenuOption } from "@/types/guestTypes";
 import { supabase } from "@/integrations/supabase/client";
@@ -234,6 +235,7 @@ const GuestTable: React.FC<{
               <th className="p-3 border-b">Nombre</th>
               <th className="p-3 border-b">+1</th>
               <th className="p-3 border-b">Nombre de acompañante</th>
+              <th className="p-3 border-b">Menú acompañante</th> {/* NUEVA COLUMNA */}
               <th className="p-3 border-b">Menú</th>
               <th className="p-3 border-b">Comentarios</th>
               <th className="p-3 border-b">Canción favorita</th>
@@ -246,11 +248,11 @@ const GuestTable: React.FC<{
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={10} className="text-center p-5">Cargando...</td>
+                <td colSpan={11} className="text-center p-5">Cargando...</td>
               </tr>
             ) : filterGuests(guests).length === 0 ? (
               <tr>
-                <td colSpan={10} className="text-center p-5">Aún no hay invitados registrados.</td>
+                <td colSpan={11} className="text-center p-5">Aún no hay invitados registrados.</td>
               </tr>
             ) : (
               filterGuests(guests).map(g => (

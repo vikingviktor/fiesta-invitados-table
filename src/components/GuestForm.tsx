@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Guest, MenuOption } from "@/types/guestTypes";
 import { supabase } from "@/integrations/supabase/client";
@@ -23,6 +24,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
   const [mensaje, setMensaje] = useState("");
   const [loading, setLoading] = useState(false);
   const [consentimientoPublicacion, setConsentimientoPublicacion] = useState(false);
+  const [menuAcompanante, setMenuAcompanante] = useState<MenuOption>("normal"); // Nuevo estado
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,6 +52,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
       date: new Date().toISOString(),
       cancionFavorita: cancionFavorita.trim() || undefined,
       consentimientoPublicacion,
+      menuAcompanante: plusOne ? menuAcompanante : undefined, // NUEVO
     };
     const { data, error } = await supabase.from("guests").insert([
       {
@@ -61,6 +64,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         date: nuevoInvitado.date,
         cancion_favorita: nuevoInvitado.cancionFavorita ?? null,
         consentimiento_publicacion: nuevoInvitado.consentimientoPublicacion,
+        menu_acompanante: nuevoInvitado.menuAcompanante ?? null, // NUEVO
       }
     ]).select().single();
 
@@ -80,6 +84,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         date: data.date,
         cancionFavorita: data.cancion_favorita ?? undefined,
         consentimientoPublicacion: !!data.consentimiento_publicacion,
+        menuAcompanante: data.menu_acompanante ?? undefined, // NUEVO
       });
     }
     setMensaje("¡Registro enviado! Gracias por confirmar tu asistencia.");
@@ -90,6 +95,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
     setComentario("");
     setCancionFavorita("");
     setConsentimientoPublicacion(false);
+    setMenuAcompanante("normal"); // Reset menu acompañante
     setTimeout(() => setMensaje(""), 3500);
   };
 
@@ -119,7 +125,10 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
             checked={plusOne}
             onChange={e => {
               setPlusOne(e.target.checked);
-              if (!e.target.checked) setNombreAcompanante("");
+              if (!e.target.checked) {
+                setNombreAcompanante("");
+                setMenuAcompanante("normal");
+              }
             }}
             disabled={loading}
           />
@@ -127,18 +136,33 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         </label>
       </div>
       {plusOne && (
-        <div>
-          <label className="block font-medium mb-1">Nombre del acompañante</label>
-          <input
-            type="text"
-            className="w-full border rounded px-3 py-2 focus:outline-primary"
-            value={nombreAcompanante}
-            onChange={e => setNombreAcompanante(e.target.value)}
-            placeholder="Ej: Pedro López"
-            maxLength={60}
-            disabled={loading}
-          />
-        </div>
+        <>
+          <div>
+            <label className="block font-medium mb-1">Nombre del acompañante</label>
+            <input
+              type="text"
+              className="w-full border rounded px-3 py-2 focus:outline-primary"
+              value={nombreAcompanante}
+              onChange={e => setNombreAcompanante(e.target.value)}
+              placeholder="Ej: Pedro López"
+              maxLength={60}
+              disabled={loading}
+            />
+          </div>
+          <div>
+            <label className="block font-medium mb-1">Menú del acompañante</label>
+            <select
+              className="w-full border rounded px-3 py-2"
+              value={menuAcompanante}
+              onChange={e => setMenuAcompanante(e.target.value as MenuOption)}
+              disabled={loading}
+            >
+              {menuOptions.map(opt => (
+                <option value={opt.value} key={opt.value}>{opt.label}</option>
+              ))}
+            </select>
+          </div>
+        </>
       )}
       <div>
         <label className="block font-medium mb-1">Menú preferido</label>

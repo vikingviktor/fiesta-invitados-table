@@ -18,6 +18,7 @@ export type Database = {
           deleted_at: string
           id: string
           menu: string
+          menu_acompanante: string | null
           nombre: string
           plus_one: boolean
         }
@@ -29,6 +30,7 @@ export type Database = {
           deleted_at?: string
           id: string
           menu: string
+          menu_acompanante?: string | null
           nombre: string
           plus_one: boolean
         }
@@ -40,6 +42,7 @@ export type Database = {
           deleted_at?: string
           id?: string
           menu?: string
+          menu_acompanante?: string | null
           nombre?: string
           plus_one?: boolean
         }
@@ -53,6 +56,7 @@ export type Database = {
           date: string
           id: string
           menu: string
+          menu_acompanante: string | null
           mesa: number | null
           nombre: string
           nombre_acompanante: string | null
@@ -65,6 +69,7 @@ export type Database = {
           date?: string
           id?: string
           menu: string
+          menu_acompanante?: string | null
           mesa?: number | null
           nombre: string
           nombre_acompanante?: string | null
@@ -77,6 +82,7 @@ export type Database = {
           date?: string
           id?: string
           menu?: string
+          menu_acompanante?: string | null
           mesa?: number | null
           nombre?: string
           nombre_acompanante?: string | null
