@@ -16,6 +16,7 @@ interface GuestFormProps {
 const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
   const [nombre, setNombre] = useState("");
   const [plusOne, setPlusOne] = useState(false);
+  const [nombreAcompanante, setNombreAcompanante] = useState("");
   const [menu, setMenu] = useState<MenuOption>("normal");
   const [comentario, setComentario] = useState("");
   const [mensaje, setMensaje] = useState("");
@@ -31,10 +32,15 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
       setMensaje("Por favor, introduce tu nombre.");
       return;
     }
+    if (plusOne && !nombreAcompanante.trim()) {
+      setMensaje("Por favor, introduce el nombre de tu acompañante.");
+      return;
+    }
     const guest: Guest = {
       id: Date.now().toString(),
       nombre,
       plusOne,
+      nombreAcompanante: plusOne ? nombreAcompanante : undefined,
       menu,
       comentario,
       date: new Date().toISOString(),
@@ -44,6 +50,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
     setMensaje("¡Registro enviado! Gracias por confirmar tu asistencia.");
     setNombre("");
     setPlusOne(false);
+    setNombreAcompanante("");
     setMenu("normal");
     setComentario("");
     setTimeout(() => setMensaje(""), 3500);
@@ -73,11 +80,27 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
             type="checkbox"
             className="accent-primary"
             checked={plusOne}
-            onChange={e => setPlusOne(e.target.checked)}
+            onChange={e => {
+              setPlusOne(e.target.checked);
+              if (!e.target.checked) setNombreAcompanante("");
+            }}
           />
           ¿Llevo acompañante? (+1)
         </label>
       </div>
+      {plusOne && (
+        <div>
+          <label className="block font-medium mb-1">Nombre del acompañante</label>
+          <input
+            type="text"
+            className="w-full border rounded px-3 py-2 focus:outline-primary"
+            value={nombreAcompanante}
+            onChange={e => setNombreAcompanante(e.target.value)}
+            placeholder="Ej: Pedro López"
+            maxLength={60}
+          />
+        </div>
+      )}
       <div>
         <label className="block font-medium mb-1">Menú preferido</label>
         <select

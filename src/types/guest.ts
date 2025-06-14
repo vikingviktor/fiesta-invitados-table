@@ -5,6 +5,7 @@ export interface Guest {
   id: string;
   nombre: string;
   plusOne: boolean;
+  nombreAcompanante?: string; // Nuevo campo opcional
   menu: MenuOption;
   comentario: string;
   date: string;
