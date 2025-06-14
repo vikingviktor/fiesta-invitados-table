@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Guest, MenuOption } from "@/types/guestTypes";
 import { supabase } from "@/integrations/supabase/client";
@@ -95,6 +94,14 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
     setTimeout(() => setMensaje(""), 3500);
   };
 
+  const handlePlusOneChange = (checked: boolean) => {
+    setPlusOne(checked);
+    if (!checked) {
+      setNombreAcompanante("");
+      setMenuAcompanante("normal"); // assign valid MenuOption, not ""
+    }
+  };
+
   return (
     <form
       className="bg-white border rounded-2xl shadow-md max-w-lg mx-auto p-8 flex flex-col gap-5"
@@ -116,13 +123,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
             type="checkbox"
             className="accent-primary"
             checked={plusOne}
-            onChange={e => {
-              setPlusOne(e.target.checked);
-              if (!e.target.checked) {
-                setNombreAcompanante("");
-                setMenuAcompanante("normal"); // always assign MenuOption instead of ""
-              }
-            }}
+            onChange={e => handlePlusOneChange(e.target.checked)}
             disabled={loading}
           />
           ¿Llevo acompañante? (+1)
@@ -133,7 +134,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
           nombreAcompanante={nombreAcompanante}
           onNombreAcompananteChange={setNombreAcompanante}
           menuAcompanante={menuAcompanante}
-          onMenuAcompananteChange={setMenuAcompanante}
+          onMenuAcompananteChange={setMenuAcompanante as (v: MenuOption) => void}
           disabled={loading}
         />
       )}
