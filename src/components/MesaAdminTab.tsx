@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -26,6 +25,12 @@ function mapDbGuestToGuestWithMesa(dbGuest: any): GuestWithMesa {
     cancionFavorita: dbGuest.cancion_favorita ?? "",
     menuAcompanante: dbGuest.menu_acompanante ?? undefined,
   };
+}
+
+// Función para contar personas en la mesa seleccionada
+function countPeopleInMesa(guests: GuestWithMesa[]): number {
+  // Cada Invitado vale 2 si plusOne, 1 si no
+  return guests.reduce((total, g) => total + (g.plusOne ? 2 : 1), 0);
 }
 
 const MesaAdminTab: React.FC = () => {
@@ -95,7 +100,7 @@ const MesaAdminTab: React.FC = () => {
     <div className="w-full max-w-3xl mx-auto py-8">
       <div className="flex flex-col gap-4 mb-4 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="font-bold text-xl">Asignar invitados por mesa</h2>
-        <div>
+        <div className="flex items-center gap-2">
           <label className="mr-2 font-medium">Mesa:</label>
           <select
             className="border rounded px-2 py-1 bg-background text-foreground"
@@ -106,6 +111,10 @@ const MesaAdminTab: React.FC = () => {
               <option key={m} value={m}>Mesa {m}</option>
             ))}
           </select>
+          {/* Contador de personas en la mesa */}
+          <span className="ml-2 text-xs bg-accent px-2 py-1 rounded font-mono text-accent-foreground">
+            {countPeopleInMesa(guests)} persona{countPeopleInMesa(guests) !== 1 ? "s" : ""}
+          </span>
         </div>
       </div>
 
