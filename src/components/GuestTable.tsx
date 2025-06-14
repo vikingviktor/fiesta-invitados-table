@@ -25,6 +25,7 @@ const GuestTable: React.FC<{
   const [mesaValues, setMesaValues] = useState<Record<string, string>>({});
   const [savingId, setSavingId] = useState<string | null>(null);
   const [consentimientoFilter, setConsentimientoFilter] = useState("todos");
+  const [consentActionLoading, setConsentActionLoading] = useState(false);
 
   // Usar función utilitaria para los contadores del menú
   const counts = getGuestMenuCounts(guests);
@@ -75,6 +76,45 @@ const GuestTable: React.FC<{
       await fetchGuests();
     }
     setSavingId(null);
+  };
+
+  // Dar consentimiento a todos menos Peter G
+  const handleConsentAllExceptPeterG = async () => {
+    setConsentActionLoading(true);
+    // Obtén todos los invitados menos los llamados "Peter G"
+    const filteredGuests = guests.filter(
+      (g) =>
+        g.nombre.trim().toLowerCase() !== "peter g".toLowerCase()
+    );
+    if (filteredGuests.length === 0) {
+      toast({
+        title: "No hay invitados elegibles",
+        description: "No se encontraron invitados para actualizar.",
+        variant: "destructive",
+      });
+      setConsentActionLoading(false);
+      return;
+    }
+    // Actualiza en bloque en Supabase
+    const idsToUpdate = filteredGuests.map((g) => g.id);
+    const { error } = await supabase
+      .from("guests")
+      .update({ consentimiento_publicacion: true })
+      .in("id", idsToUpdate);
+    if (error) {
+      toast({
+        title: "Error al actualizar el consentimiento",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Consentimiento actualizado",
+        description: "Se ha dado consentimiento a todos excepto a Peter G.",
+      });
+      await fetchGuests();
+    }
+    setConsentActionLoading(false);
   };
 
   // Eliminar invitado: pasa a Supabase (deleted_guests) y borra de guests
@@ -152,6 +192,15 @@ const GuestTable: React.FC<{
               <option value={opt.value} key={opt.value}>{opt.label}</option>
             )}
           </select>
+          {/* Botón de acción masiva */}
+          <Button
+            onClick={handleConsentAllExceptPeterG}
+            variant="outline"
+            className="ml-2 whitespace-nowrap"
+            disabled={consentActionLoading}
+          >
+            {consentActionLoading ? "Actualizando..." : "Consentir todos excepto Peter G"}
+          </Button>
         </div>
       </div>
       <div className="overflow-x-auto">
