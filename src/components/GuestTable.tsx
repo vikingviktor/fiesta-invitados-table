@@ -3,6 +3,14 @@ import React, { useState } from "react";
 import { Guest, MenuOption } from "@/types/guest";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import { toast } from "@/hooks/use-toast";
 
 const menuTranslation: Record<MenuOption, string> = {
   normal: "Normal",
@@ -11,23 +19,7 @@ const menuTranslation: Record<MenuOption, string> = {
   "sin gluten": "Sin gluten",
 };
 
-type GuestDbRow = {
-  id: string;
-  nombre: string;
-  plus_one: boolean;
-  nombre_acompanante: string | null;
-  menu: string;
-  comentario: string | null;
-  date: string;
-};
-
-function generateUUIDv4() {
-  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-    const r = (Math.random() * 16) | 0,
-      v = c === "x" ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
+const mesas = Array.from({ length: 11 }, (_, i) => i + 1);
 
 const GuestTable: React.FC<{
   guests: Guest[];
@@ -37,6 +29,8 @@ const GuestTable: React.FC<{
 }> = ({ guests, loading, fetchGuests, fetchDeletedGuests }) => {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [loadingDelete, setLoadingDelete] = useState(false);
+  const [mesaValues, setMesaValues] = useState<Record<string, string>>({});
+  const [savingId, setSavingId] = useState<string | null>(null);
 
   // Contadores por menú
   const counts = guests.reduce(
@@ -48,8 +42,45 @@ const GuestTable: React.FC<{
     { total: 0, normal: 0, vegetariano: 0, vegano: 0, "sin gluten": 0 } as Record<string, number>
   );
 
+  // Asignar mesa
+  const handleMesaSelect = (guestId: string, value: string) => {
+    setMesaValues((v) => ({ ...v, [guestId]: value }));
+  };
+
+  const handleAssignMesa = async (guest: Guest) => {
+    const mesaNumber = Number(mesaValues[guest.id]);
+    if (isNaN(mesaNumber) || mesaNumber < 1 || mesaNumber > 11) {
+      toast({
+        title: "Número de mesa inválido",
+        description: "Por favor, selecciona un número entre 1 y 11.",
+        variant: "destructive",
+      });
+      return;
+    }
+    setSavingId(guest.id);
+    const { error } = await supabase
+      .from("guests")
+      .update({ mesa: mesaNumber })
+      .eq("id", guest.id);
+    if (error) {
+      toast({
+        title: "Error al asignar mesa",
+        description: "No se pudo actualizar la mesa para el invitado.",
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Mesa asignada",
+        description: `Mesa ${mesaNumber} asignada correctamente.`,
+      });
+      setMesaValues((v) => ({ ...v, [guest.id]: "" }));
+      await fetchGuests();
+    }
+    setSavingId(null);
+  };
+
   // Eliminar invitado: pasa a Supabase (deleted_guests) y borra de guests
-  const handleDelete = async (id: string) => {
+  async function handleDelete(id: string) {
     setLoadingDelete(true);
     try {
       const guest = guests.find(g => g.id === id);
@@ -88,7 +119,15 @@ const GuestTable: React.FC<{
     } finally {
       setLoadingDelete(false);
     }
-  };
+  }
+
+  function generateUUIDv4() {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+      const r = (Math.random() * 16) | 0,
+        v = c === "x" ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+  }
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-2">
@@ -113,17 +152,18 @@ const GuestTable: React.FC<{
               <th className="p-3 border-b">Menú</th>
               <th className="p-3 border-b">Comentarios</th>
               <th className="p-3 border-b">Fecha registro</th>
+              <th className="p-3 border-b">Mesa</th>
               <th className="p-3 border-b">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={7} className="text-center p-5">Cargando...</td>
+                <td colSpan={8} className="text-center p-5">Cargando...</td>
               </tr>
             ) : guests.length === 0 ? (
               <tr>
-                <td colSpan={7} className="text-center p-5">Aún no hay invitados registrados.</td>
+                <td colSpan={8} className="text-center p-5">Aún no hay invitados registrados.</td>
               </tr>
             ) : (
               guests.map((g) => (
@@ -136,6 +176,39 @@ const GuestTable: React.FC<{
                   <td className="p-3 border-b">{menuTranslation[g.menu]}</td>
                   <td className="p-3 border-b">{g.comentario || "-"}</td>
                   <td className="p-3 border-b text-xs">{new Date(g.date).toLocaleString()}</td>
+                  <td className="p-3 border-b">
+                    <div className="flex items-center gap-2">
+                      <Select
+                        value={
+                          mesaValues[g.id] ??
+                          (typeof (g as any).mesa === "number"
+                            ? String((g as any).mesa)
+                            : "")
+                        }
+                        onValueChange={(val) => handleMesaSelect(g.id, val)}
+                      >
+                        <SelectTrigger className="w-24" aria-label="Mesa">
+                          <SelectValue placeholder="Sin mesa" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="">Sin mesa</SelectItem>
+                          {mesas.map((mesaNum) => (
+                            <SelectItem value={String(mesaNum)} key={mesaNum}>
+                              Mesa {mesaNum}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleAssignMesa(g)}
+                        disabled={savingId === g.id || mesaValues[g.id] === undefined || mesaValues[g.id] === ""}
+                      >
+                        {savingId === g.id ? "Guardando..." : "Asignar"}
+                      </Button>
+                    </div>
+                  </td>
                   <td className="p-3 border-b">
                     <Button
                       variant="destructive"
@@ -187,3 +260,4 @@ const GuestTable: React.FC<{
 };
 
 export default GuestTable;
+
