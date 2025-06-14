@@ -8,6 +8,7 @@ import DeletedGuestTable from "@/components/DeletedGuestTable";
 import MesaAdminTab from "@/components/MesaAdminTab";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { mapDbGuestToGuest } from "@/utils/guestUtils";
+import CancionesTab from "@/components/CancionesTab";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -86,6 +87,7 @@ const Admin = () => {
             <TabsTrigger value="invitados">Invitados</TabsTrigger>
             <TabsTrigger value="mesas">Mesas</TabsTrigger>
             <TabsTrigger value="eliminados">Eliminados</TabsTrigger>
+            <TabsTrigger value="canciones">Canciones</TabsTrigger>
           </TabsList>
 
           <TabsContent value="invitados">
@@ -108,6 +110,10 @@ const Admin = () => {
               fetchGuests={fetchGuests}
               fetchDeletedGuests={fetchDeletedGuests}
             />
+          </TabsContent>
+
+          <TabsContent value="canciones">
+            <CancionesTab />
           </TabsContent>
         </Tabs>
       </section>
