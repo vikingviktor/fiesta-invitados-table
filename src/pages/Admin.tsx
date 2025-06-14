@@ -9,6 +9,17 @@ import DeletedGuestTable from "@/components/DeletedGuestTable";
 import MesaAdminTab from "@/components/MesaAdminTab";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
+// Función de mapeo de snake_case a camelCase para Guest
+const mapDbGuestToGuest = (dbGuest: any) => ({
+  id: dbGuest.id,
+  nombre: dbGuest.nombre,
+  plusOne: dbGuest.plus_one,
+  nombreAcompanante: dbGuest.nombre_acompanante ?? "",
+  menu: dbGuest.menu,
+  comentario: dbGuest.comentario ?? "",
+  date: dbGuest.date,
+});
+
 const Admin = () => {
   const navigate = useNavigate();
   const [checkingAuth, setCheckingAuth] = useState(true);
@@ -40,7 +51,9 @@ const Admin = () => {
       .from("guests")
       .select("*")
       .order("date", { ascending: false });
-    setGuests(data ?? []);
+    // Aplicar el mapeo aquí
+    const mappedData = (data ?? []).map(mapDbGuestToGuest);
+    setGuests(mappedData);
     setLoadingGuests(false);
   }, []);
 
