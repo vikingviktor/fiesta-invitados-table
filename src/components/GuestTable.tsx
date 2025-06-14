@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Guest, MenuOption } from "@/types/guest";
 import { supabase } from "@/integrations/supabase/client";
@@ -52,14 +53,20 @@ const GuestTable: React.FC<{
     setLoadingDelete(true);
     try {
       const guest = guests.find(g => g.id === id);
-      if (!guest) return;
+      if (!guest) {
+        alert("Invitado no encontrado.");
+        setLoadingDelete(false);
+        return;
+      }
+      // Prevenir valores null o indefinidos en campos obligatorios
+      const plus_one_correct = typeof guest.plusOne === "boolean" ? guest.plusOne : false;
       // Insertar en deleted_guests con nuevo UUID v4
       const res = await supabase.from("deleted_guests").insert({
         id: generateUUIDv4(),
-        nombre: guest.nombre,
-        plus_one: guest.plusOne,
+        nombre: guest.nombre ?? "",
+        plus_one: plus_one_correct,
         menu: guest.menu,
-        comentario: guest.comentario,
+        comentario: guest.comentario ?? "",
         date: guest.date,
       });
       if (res.error) {
