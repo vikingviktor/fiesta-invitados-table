@@ -1,17 +1,13 @@
+
 import React, { useState } from "react";
 import { Guest, MenuOption } from "@/types/guest";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
+import GuestTableRow from "./GuestTableRow";
 
-const menuTranslation: Record<MenuOption, string> = {
+// Traducción de menú exportada para otros componentes:
+export const menuTranslation: Record<MenuOption, string> = {
   normal: "Normal",
   vegetariano: "Vegetariano",
   vegano: "Vegano",
@@ -21,7 +17,7 @@ const menuTranslation: Record<MenuOption, string> = {
 const mesas = Array.from({ length: 11 }, (_, i) => i + 1);
 
 const GuestTable: React.FC<{
-  guests: Guest[];
+  guests: (Guest & { mesa?: number | null })[];
   loading: boolean;
   fetchGuests: () => void;
   fetchDeletedGuests: () => void;
@@ -46,7 +42,7 @@ const GuestTable: React.FC<{
     setMesaValues((v) => ({ ...v, [guestId]: value }));
   };
 
-  const handleAssignMesa = async (guest: Guest) => {
+  const handleAssignMesa = async (guest: Guest & { mesa?: number | null }) => {
     const mesaNumber = Number(mesaValues[guest.id]);
     if (isNaN(mesaNumber) || mesaNumber < 1 || mesaNumber > 11) {
       toast({
@@ -165,103 +161,21 @@ const GuestTable: React.FC<{
                 <td colSpan={8} className="text-center p-5">Aún no hay invitados registrados.</td>
               </tr>
             ) : (
-              guests.map((g) => {
-                // Usar mesa del state local si existe, o la de la base de datos si no se ha cambiado, o undefined
-                let mesaValueInDB: string | undefined =
-                  (typeof (g as any).mesa === "number" && (g as any).mesa >= 1 && (g as any).mesa <= 11)
-                    ? String((g as any).mesa)
-                    : undefined;
-
-                // El valor mostrado: prioridad a lo seleccionado en el select, luego la base de datos, luego placeholder
-                const selectValue =
-                  mesaValues[g.id] !== undefined && mesaValues[g.id] !== ""
-                    ? mesaValues[g.id]
-                    : mesaValueInDB ?? undefined;
-
-                return (
-                  <tr key={g.id} className="hover:bg-secondary/50">
-                    <td className="p-3 border-b">{g.nombre}</td>
-                    <td className="p-3 border-b text-center">{g.plusOne ? "Sí" : "No"}</td>
-                    <td className="p-3 border-b">
-                      {(g.plusOne && g.nombreAcompanante) ? g.nombreAcompanante : (g.plusOne ? "Sin nombre" : "-")}
-                    </td>
-                    <td className="p-3 border-b">{menuTranslation[g.menu]}</td>
-                    <td className="p-3 border-b">{g.comentario || "-"}</td>
-                    <td className="p-3 border-b text-xs">{new Date(g.date).toLocaleString()}</td>
-                    <td className="p-3 border-b">
-                      <div className="flex items-center gap-2">
-                        <Select
-                          value={selectValue}
-                          onValueChange={val => handleMesaSelect(g.id, val)}
-                        >
-                          <SelectTrigger className="w-24" aria-label="Mesa">
-                            <SelectValue placeholder="Sin mesa" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {mesas.map((mesaNum) => (
-                              <SelectItem value={String(mesaNum)} key={mesaNum}>
-                                Mesa {mesaNum}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => handleAssignMesa(g)}
-                          disabled={
-                            savingId === g.id ||
-                            mesaValues[g.id] === undefined ||
-                            mesaValues[g.id] === ""
-                          }
-                        >
-                          {savingId === g.id ? "Guardando..." : "Asignar"}
-                        </Button>
-                      </div>
-                    </td>
-                    <td className="p-3 border-b">
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => setDeleteId(g.id)}
-                        disabled={loadingDelete}
-                      >
-                        Borrar
-                      </Button>
-                      {/* Modal de confirmación */}
-                      {deleteId === g.id && (
-                        <div className="fixed z-50 inset-0 bg-black/50 flex items-center justify-center">
-                          <div className="bg-white p-6 rounded shadow-lg max-w-sm w-full">
-                            <div className="mb-4">
-                              <h3 className="font-semibold text-lg mb-2">¿Borrar invitado?</h3>
-                              <div className="text-gray-700">
-                                ¿Seguro que quieres borrar a <span className="font-bold">{g.nombre}</span>?<br />
-                                Este registro se archivará como eliminado.
-                              </div>
-                            </div>
-                            <div className="flex gap-3 justify-end">
-                              <Button
-                                variant="secondary"
-                                onClick={() => setDeleteId(null)}
-                                disabled={loadingDelete}
-                              >
-                                Cancelar
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                onClick={() => handleDelete(g.id)}
-                                disabled={loadingDelete}
-                              >
-                                {loadingDelete ? "Eliminando..." : "Borrar"}
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })
+              guests.map(g => (
+                <GuestTableRow
+                  key={g.id}
+                  guest={g}
+                  mesaValue={mesaValues[g.id] ?? ""}
+                  savingId={savingId}
+                  deleteId={deleteId}
+                  loadingDelete={loadingDelete}
+                  onMesaChange={handleMesaSelect}
+                  onMesaSave={handleAssignMesa}
+                  onDeleteClick={setDeleteId}
+                  onDeleteCancel={() => setDeleteId(null)}
+                  onDeleteConfirm={handleDelete}
+                />
+              ))
             )}
           </tbody>
         </table>
