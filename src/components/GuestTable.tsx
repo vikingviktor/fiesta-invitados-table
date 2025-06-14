@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Guest } from "@/types/guest";
 import { supabase } from "@/integrations/supabase/client";
@@ -13,6 +12,16 @@ const menuTranslation: Record<string, string> = {
 
 const getGuests = (): Guest[] =>
   JSON.parse(localStorage.getItem("guests") || "[]");
+
+// Helper para generar un UUID v4 estándar
+function generateUUIDv4() {
+  // Código seguro y corto para un UUID v4 en JS:
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0,
+      v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
 
 const GuestTable: React.FC = () => {
   const [guests, setGuests] = useState<Guest[]>([]);
@@ -42,15 +51,15 @@ const GuestTable: React.FC = () => {
     try {
       const guest = guests.find(g => g.id === id);
       if (!guest) return;
-      // Insertar en deleted_guests
+      // Insertar en deleted_guests con nuevo UUID v4
       const res = await supabase.from("deleted_guests").insert({
-        id: guest.id,
+        id: generateUUIDv4(),
         nombre: guest.nombre,
         plus_one: guest.plusOne,
         menu: guest.menu,
         comentario: guest.comentario,
         date: guest.date,
-        // deleted_at se autogenra por default
+        // deleted_at se autogenera
       });
       // Si hay error al insertar, abortamos borrado
       if (res.error) {
