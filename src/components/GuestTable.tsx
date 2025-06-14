@@ -1,10 +1,10 @@
 
 import React, { useEffect, useState } from "react";
-import { Guest } from "@/types/guest";
+import { Guest, MenuOption } from "@/types/guest";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 
-const menuTranslation: Record<string, string> = {
+const menuTranslation: Record<MenuOption, string> = {
   normal: "Normal",
   vegetariano: "Vegetariano",
   vegano: "Vegano",
@@ -48,7 +48,7 @@ const GuestTable: React.FC = () => {
           nombre: g.nombre,
           plusOne: g.plus_one,
           nombreAcompanante: g.nombre_acompanante ?? undefined,
-          menu: g.menu,
+          menu: g.menu as MenuOption, // ¡Aquí va el cast correcto!
           comentario: g.comentario ?? "",
           date: g.date,
         }))

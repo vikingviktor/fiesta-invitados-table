@@ -66,7 +66,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         nombre: data.nombre,
         plusOne: data.plus_one,
         nombreAcompanante: data.nombre_acompanante ?? undefined,
-        menu: data.menu,
+        menu: data.menu as MenuOption, // Corregido: convertir a MenuOption
         comentario: data.comentario ?? "",
         date: data.date,
       });
