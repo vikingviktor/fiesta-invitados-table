@@ -45,6 +45,7 @@ export type Database = {
           date: string
           id: string
           menu: string
+          mesa: number | null
           nombre: string
           nombre_acompanante: string | null
           plus_one: boolean
@@ -54,6 +55,7 @@ export type Database = {
           date?: string
           id?: string
           menu: string
+          mesa?: number | null
           nombre: string
           nombre_acompanante?: string | null
           plus_one: boolean
@@ -63,6 +65,7 @@ export type Database = {
           date?: string
           id?: string
           menu?: string
+          mesa?: number | null
           nombre?: string
           nombre_acompanante?: string | null
           plus_one?: boolean

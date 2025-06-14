@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import DeletedGuestTable from "@/components/DeletedGuestTable";
+import MesaAdminTab from "@/components/MesaAdminTab";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -77,18 +79,35 @@ const Admin = () => {
             Cerrar sesión
           </Button>
         </div>
-        <GuestTable
-          guests={guests}
-          loading={loadingGuests}
-          fetchGuests={fetchGuests}
-          fetchDeletedGuests={fetchDeletedGuests}
-        />
-        <DeletedGuestTable
-          deletedGuests={deletedGuests}
-          loading={loadingDeleted}
-          fetchGuests={fetchGuests}
-          fetchDeletedGuests={fetchDeletedGuests}
-        />
+        <Tabs defaultValue="invitados" className="w-full">
+          <TabsList className="mb-6">
+            <TabsTrigger value="invitados">Invitados</TabsTrigger>
+            <TabsTrigger value="mesas">Mesas</TabsTrigger>
+            <TabsTrigger value="eliminados">Eliminados</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="invitados">
+            <GuestTable
+              guests={guests}
+              loading={loadingGuests}
+              fetchGuests={fetchGuests}
+              fetchDeletedGuests={fetchDeletedGuests}
+            />
+          </TabsContent>
+
+          <TabsContent value="mesas">
+            <MesaAdminTab />
+          </TabsContent>
+
+          <TabsContent value="eliminados">
+            <DeletedGuestTable
+              deletedGuests={deletedGuests}
+              loading={loadingDeleted}
+              fetchGuests={fetchGuests}
+              fetchDeletedGuests={fetchDeletedGuests}
+            />
+          </TabsContent>
+        </Tabs>
       </section>
     </div>
   );
