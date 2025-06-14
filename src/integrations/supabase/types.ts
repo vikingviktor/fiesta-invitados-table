@@ -39,6 +39,36 @@ export type Database = {
         }
         Relationships: []
       }
+      guests: {
+        Row: {
+          comentario: string | null
+          date: string
+          id: string
+          menu: string
+          nombre: string
+          nombre_acompanante: string | null
+          plus_one: boolean
+        }
+        Insert: {
+          comentario?: string | null
+          date?: string
+          id?: string
+          menu: string
+          nombre: string
+          nombre_acompanante?: string | null
+          plus_one: boolean
+        }
+        Update: {
+          comentario?: string | null
+          date?: string
+          id?: string
+          menu?: string
+          nombre?: string
+          nombre_acompanante?: string | null
+          plus_one?: boolean
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
