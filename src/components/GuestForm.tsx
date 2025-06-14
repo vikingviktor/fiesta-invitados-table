@@ -127,7 +127,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
               setPlusOne(e.target.checked);
               if (!e.target.checked) {
                 setNombreAcompanante("");
-                setMenuAcompanante("normal");
+                setMenuAcompanante("normal"); // <-- estaba "" (string) y debe ser "normal"
               }
             }}
             disabled={loading}
