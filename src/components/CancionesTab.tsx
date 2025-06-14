@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Loader2 } from "lucide-react";
+import { Loader2, Link as LinkIcon } from "lucide-react";
 
 type CancionRow = {
   nombre: string;
@@ -40,6 +40,9 @@ const CancionesTab: React.FC = () => {
     fetchCanciones();
   }, []);
 
+  const makeSpotifyUrl = (cancion: string) =>
+    `https://open.spotify.com/search/${encodeURIComponent(cancion)}`;
+
   return (
     <div className="py-6">
       <Card>
@@ -59,11 +62,26 @@ const CancionesTab: React.FC = () => {
           ) : (
             <ul className="divide-y divide-muted">
               {canciones.map((cancion) => (
-                <li key={cancion.id} className="py-3">
-                  <span className="font-medium">{cancion.cancionFavorita}</span>
-                  <span className="text-muted-foreground text-sm ml-2">
-                    — {cancion.nombre}
-                  </span>
+                <li
+                  key={cancion.id}
+                  className="py-3 flex flex-wrap items-center justify-between gap-2"
+                >
+                  <div>
+                    <span className="font-medium">{cancion.cancionFavorita}</span>
+                    <span className="text-muted-foreground text-sm ml-2">
+                      — {cancion.nombre}
+                    </span>
+                  </div>
+                  <a
+                    href={makeSpotifyUrl(cancion.cancionFavorita)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Buscar en Spotify"
+                    className="flex items-center gap-1 text-green-600 hover:underline"
+                  >
+                    <LinkIcon size={20} />
+                    Spotify
+                  </a>
                 </li>
               ))}
             </ul>
@@ -75,3 +93,4 @@ const CancionesTab: React.FC = () => {
 };
 
 export default CancionesTab;
+
