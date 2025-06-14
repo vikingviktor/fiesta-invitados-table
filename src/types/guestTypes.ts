@@ -1,4 +1,3 @@
-
 export type MenuOption = "normal" | "vegetariano" | "vegano" | "sin gluten";
 
 export interface Guest {
@@ -10,4 +9,5 @@ export interface Guest {
   comentario: string;
   date: string;
   cancionFavorita?: string; // nuevo campo opcional
+  consentimientoPublicacion: boolean; // nuevo campo obligatorio
 }

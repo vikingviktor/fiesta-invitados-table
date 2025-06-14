@@ -13,6 +13,7 @@ export function mapDbGuestToGuest(dbGuest: any): Guest & { mesa?: number | null 
     date: dbGuest.date,
     cancionFavorita: dbGuest.cancion_favorita ?? "",
     mesa: dbGuest.mesa ?? null,
+    consentimientoPublicacion: !!dbGuest.consentimiento_publicacion,
   };
 }
 

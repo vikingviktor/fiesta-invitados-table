@@ -13,6 +13,7 @@ export type Database = {
         Row: {
           cancion_favorita: string | null
           comentario: string | null
+          consentimiento_publicacion: boolean
           date: string
           deleted_at: string
           id: string
@@ -23,6 +24,7 @@ export type Database = {
         Insert: {
           cancion_favorita?: string | null
           comentario?: string | null
+          consentimiento_publicacion?: boolean
           date: string
           deleted_at?: string
           id: string
@@ -33,6 +35,7 @@ export type Database = {
         Update: {
           cancion_favorita?: string | null
           comentario?: string | null
+          consentimiento_publicacion?: boolean
           date?: string
           deleted_at?: string
           id?: string
@@ -46,6 +49,7 @@ export type Database = {
         Row: {
           cancion_favorita: string | null
           comentario: string | null
+          consentimiento_publicacion: boolean
           date: string
           id: string
           menu: string
@@ -57,6 +61,7 @@ export type Database = {
         Insert: {
           cancion_favorita?: string | null
           comentario?: string | null
+          consentimiento_publicacion?: boolean
           date?: string
           id?: string
           menu: string
@@ -68,6 +73,7 @@ export type Database = {
         Update: {
           cancion_favorita?: string | null
           comentario?: string | null
+          consentimiento_publicacion?: boolean
           date?: string
           id?: string
           menu?: string

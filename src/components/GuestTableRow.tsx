@@ -50,6 +50,13 @@ const GuestTableRow: React.FC<GuestTableRowProps> = ({
         disabled={savingId === guest.id}
       />
     </td>
+    <td className="p-3 border-b text-center">
+      {guest.consentimientoPublicacion ? (
+        <span className="text-green-700 font-semibold">Sí</span>
+      ) : (
+        <span className="text-red-700 font-semibold">No</span>
+      )}
+    </td>
     <td className="p-3 border-b">
       <button
         className="bg-destructive text-destructive-foreground rounded px-3 py-1 text-sm hover:bg-destructive/90 transition"
@@ -73,3 +80,4 @@ const GuestTableRow: React.FC<GuestTableRowProps> = ({
 );
 
 export default GuestTableRow;
+

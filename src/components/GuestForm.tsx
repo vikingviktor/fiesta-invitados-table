@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Guest, MenuOption } from "@/types/guestTypes";
 import { supabase } from "@/integrations/supabase/client";
@@ -23,6 +22,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
   const [cancionFavorita, setCancionFavorita] = useState("");
   const [mensaje, setMensaje] = useState("");
   const [loading, setLoading] = useState(false);
+  const [consentimientoPublicacion, setConsentimientoPublicacion] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,6 +35,10 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
       setMensaje("Por favor, introduce el nombre de tu acompañante.");
       return;
     }
+    if (!consentimientoPublicacion) {
+      setMensaje("Debes aceptar el consentimiento para salir en fotos/vídeos.");
+      return;
+    }
     setLoading(true);
     // Insertar en Supabase
     const nuevoInvitado: Omit<Guest, "id"> = {
@@ -45,6 +49,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
       comentario,
       date: new Date().toISOString(),
       cancionFavorita: cancionFavorita.trim() || undefined,
+      consentimientoPublicacion,
     };
     const { data, error } = await supabase.from("guests").insert([
       {
@@ -55,6 +60,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         comentario: nuevoInvitado.comentario,
         date: nuevoInvitado.date,
         cancion_favorita: nuevoInvitado.cancionFavorita ?? null,
+        consentimiento_publicacion: nuevoInvitado.consentimientoPublicacion,
       }
     ]).select().single();
 
@@ -73,6 +79,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         comentario: data.comentario ?? "",
         date: data.date,
         cancionFavorita: data.cancion_favorita ?? undefined,
+        consentimientoPublicacion: !!data.consentimiento_publicacion,
       });
     }
     setMensaje("¡Registro enviado! Gracias por confirmar tu asistencia.");
@@ -82,6 +89,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
     setMenu("normal");
     setComentario("");
     setCancionFavorita("");
+    setConsentimientoPublicacion(false);
     setTimeout(() => setMensaje(""), 3500);
   };
 
@@ -167,6 +175,20 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
           maxLength={200}
           disabled={loading}
         />
+      </div>
+      <div>
+        <label className="flex items-start gap-2 cursor-pointer">
+          <input
+            type="checkbox"
+            className="accent-primary mt-1"
+            checked={consentimientoPublicacion}
+            onChange={e => setConsentimientoPublicacion(e.target.checked)}
+            disabled={loading}
+          />
+          <span>
+            Doy mi consentimiento para aparecer en fotos y vídeos públicos de la boda (en redes, web, etc).
+          </span>
+        </label>
       </div>
       <button
         type="submit"

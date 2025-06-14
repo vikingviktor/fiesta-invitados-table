@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Guest, MenuOption } from "@/types/guestTypes";
 import { supabase } from "@/integrations/supabase/client";
@@ -8,6 +7,12 @@ import GuestTableRow from "./GuestTableRow";
 import { mapDbGuestToGuest, getGuestMenuCounts, menuTranslation } from "@/utils/guestUtils";
 
 const mesas = Array.from({ length: 11 }, (_, i) => i + 1);
+
+const consentimientoOptions = [
+  { label: "Todos", value: "todos" },
+  { label: "Sólo con consentimiento", value: "con" },
+  { label: "Sólo sin consentimiento", value: "sin" },
+];
 
 const GuestTable: React.FC<{
   guests: (Guest & { mesa?: number | null })[];
@@ -19,9 +24,21 @@ const GuestTable: React.FC<{
   const [loadingDelete, setLoadingDelete] = useState(false);
   const [mesaValues, setMesaValues] = useState<Record<string, string>>({});
   const [savingId, setSavingId] = useState<string | null>(null);
+  const [consentimientoFilter, setConsentimientoFilter] = useState("todos");
 
   // Usar función utilitaria para los contadores del menú
   const counts = getGuestMenuCounts(guests);
+
+  // Filtro de consentimiento
+  const filterGuests = (guests: (Guest & { mesa?: number | null })[]) => {
+    if (consentimientoFilter === "con") {
+      return guests.filter(g => g.consentimientoPublicacion);
+    } else if (consentimientoFilter === "sin") {
+      return guests.filter(g => !g.consentimientoPublicacion);
+    } else {
+      return guests;
+    }
+  };
 
   // Asignar mesa
   const handleMesaSelect = (guestId: string, value: string) => {
@@ -112,15 +129,30 @@ const GuestTable: React.FC<{
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-2">
       <h2 className="text-2xl font-bold mb-4">Invitados registrados</h2>
-      <div className="flex gap-6 mb-4 flex-wrap">
-        <div className="bg-secondary px-5 py-3 rounded shadow">
-          <b>Total de comensales:</b> {counts.total}
-        </div>
-        {["normal", "vegetariano", "vegano", "sin gluten"].map((k) => (
-          <div className="bg-secondary px-5 py-3 rounded shadow" key={k}>
-            <b>{menuTranslation[k]}:</b> {counts[k]}
+      <div className="flex flex-wrap gap-4 justify-between items-end mb-4">
+        <div className="flex gap-6 flex-wrap">
+          <div className="bg-secondary px-5 py-3 rounded shadow">
+            <b>Total de comensales:</b> {counts.total}
           </div>
-        ))}
+          {["normal", "vegetariano", "vegano", "sin gluten"].map((k) => (
+            <div className="bg-secondary px-5 py-3 rounded shadow" key={k}>
+              <b>{menuTranslation[k]}:</b> {counts[k]}
+            </div>
+          ))}
+        </div>
+        <div className="flex gap-2 items-center">
+          <label className="font-semibold" htmlFor="consentimiento-filter">Consentimiento:</label>
+          <select
+            id="consentimiento-filter"
+            value={consentimientoFilter}
+            onChange={e => setConsentimientoFilter(e.target.value)}
+            className="border px-2 py-1 rounded"
+          >
+            {consentimientoOptions.map(opt =>
+              <option value={opt.value} key={opt.value}>{opt.label}</option>
+            )}
+          </select>
+        </div>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-background border rounded-lg shadow-md text-left">
@@ -134,20 +166,21 @@ const GuestTable: React.FC<{
               <th className="p-3 border-b">Canción favorita</th>
               <th className="p-3 border-b">Fecha registro</th>
               <th className="p-3 border-b">Mesa</th>
+              <th className="p-3 border-b">Consent.</th>
               <th className="p-3 border-b">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={9} className="text-center p-5">Cargando...</td>
+                <td colSpan={10} className="text-center p-5">Cargando...</td>
               </tr>
-            ) : guests.length === 0 ? (
+            ) : filterGuests(guests).length === 0 ? (
               <tr>
-                <td colSpan={9} className="text-center p-5">Aún no hay invitados registrados.</td>
+                <td colSpan={10} className="text-center p-5">Aún no hay invitados registrados.</td>
               </tr>
             ) : (
-              guests.map(g => (
+              filterGuests(guests).map(g => (
                 <GuestTableRow
                   key={g.id}
                   guest={g}
