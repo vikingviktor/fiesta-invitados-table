@@ -28,13 +28,20 @@ const DeletedGuestTable: React.FC<{
   const handleRestore = async (guest: DeletedGuest) => {
     setRestoringId(guest.id);
     try {
+      // Normalización de campos obligatorios para evitar nulls
+      const plus_one_correct = typeof guest.plus_one === "boolean" ? guest.plus_one : false;
+      const nombre = guest.nombre ?? "";
+      const menu = guest.menu ?? "normal"; // O el menu por defecto que uses en tu app
+      const comentario = guest.comentario ?? "";
+      const date = guest.date ?? new Date().toISOString();
+      // Restablecer el invitado en la tabla principal
       const guestRow = {
-        nombre: guest.nombre,
-        plus_one: guest.plus_one,
-        nombre_acompanante: null,
-        menu: guest.menu,
-        comentario: guest.comentario ?? "",
-        date: guest.date ?? new Date().toISOString(),
+        nombre,
+        plus_one: plus_one_correct,
+        nombre_acompanante: null, // No se almacena nombre de acompañante en deleted_guests
+        menu,
+        comentario,
+        date,
       };
       const { error: insertErr } = await supabase.from("guests").insert([guestRow]);
       if (insertErr) {
