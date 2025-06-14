@@ -91,7 +91,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
     setComentario("");
     setCancionFavorita("");
     setConsentimientoPublicacion(false);
-    setMenuAcompanante("normal");  // <-- Ensure this is always a valid MenuOption
+    setMenuAcompanante("normal"); // always assign a valid MenuOption, not empty string
     setTimeout(() => setMensaje(""), 3500);
   };
 
@@ -120,7 +120,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
               setPlusOne(e.target.checked);
               if (!e.target.checked) {
                 setNombreAcompanante("");
-                setMenuAcompanante("normal"); // <-- Ensure this is always a valid MenuOption
+                setMenuAcompanante("normal"); // always assign MenuOption instead of ""
               }
             }}
             disabled={loading}
