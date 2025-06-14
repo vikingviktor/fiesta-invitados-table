@@ -26,6 +26,7 @@ const GuestTable: React.FC<{
   const [savingId, setSavingId] = useState<string | null>(null);
   const [consentimientoFilter, setConsentimientoFilter] = useState("todos");
   const [consentActionLoading, setConsentActionLoading] = useState(false);
+  const [consentSavingId, setConsentSavingId] = useState<string | null>(null);
 
   // Usar función utilitaria para los contadores del menú
   const counts = getGuestMenuCounts(guests);
@@ -76,6 +77,29 @@ const GuestTable: React.FC<{
       await fetchGuests();
     }
     setSavingId(null);
+  };
+
+  // CAMBIO: Manejar cambio de consentimiento en línea
+  const handleConsentimientoChange = async (guestId: string, value: boolean) => {
+    setConsentSavingId(guestId);
+    const { error } = await supabase
+      .from("guests")
+      .update({ consentimiento_publicacion: value })
+      .eq("id", guestId);
+    if (error) {
+      toast({
+        title: "Error al actualizar el consentimiento",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Consentimiento actualizado",
+        description: value ? "El invitado ahora DA consentimiento." : "El invitado ahora NO da consentimiento.",
+      });
+      await fetchGuests();
+    }
+    setConsentSavingId(null);
   };
 
   // Dar consentimiento a todos menos Peter G
@@ -242,6 +266,8 @@ const GuestTable: React.FC<{
                   onDeleteClick={setDeleteId}
                   onDeleteCancel={() => setDeleteId(null)}
                   onDeleteConfirm={handleDelete}
+                  onConsentChange={handleConsentimientoChange}
+                  consentSavingId={consentSavingId}
                 />
               ))
             )}

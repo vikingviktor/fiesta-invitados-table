@@ -3,7 +3,8 @@ import React from "react";
 import { Guest, MenuOption } from "@/types/guestTypes";
 import GuestMesaSelect from "./GuestMesaSelect";
 import GuestDeleteModal from "./GuestDeleteModal";
-import { menuTranslation } from "@/utils/guestUtils"; // Correct import
+import { menuTranslation } from "@/utils/guestUtils";
+import { Switch } from "@/components/ui/switch"; // Usamos el switch de shadcn/ui
 
 interface GuestTableRowProps {
   guest: Guest & { mesa?: number | null };
@@ -16,6 +17,9 @@ interface GuestTableRowProps {
   onDeleteClick: (guestId: string) => void;
   onDeleteCancel: () => void;
   onDeleteConfirm: (guestId: string) => void;
+  // NUEVAS props
+  onConsentChange: (guestId: string, value: boolean) => void;
+  consentSavingId: string | null;
 }
 
 const GuestTableRow: React.FC<GuestTableRowProps> = ({
@@ -29,6 +33,8 @@ const GuestTableRow: React.FC<GuestTableRowProps> = ({
   onDeleteClick,
   onDeleteCancel,
   onDeleteConfirm,
+  onConsentChange,
+  consentSavingId,
 }) => (
   <tr className="hover:bg-secondary/50">
     <td className="p-3 border-b">{guest.nombre}</td>
@@ -51,11 +57,26 @@ const GuestTableRow: React.FC<GuestTableRowProps> = ({
       />
     </td>
     <td className="p-3 border-b text-center">
-      {guest.consentimientoPublicacion ? (
-        <span className="text-green-700 font-semibold">Sí</span>
-      ) : (
-        <span className="text-red-700 font-semibold">No</span>
-      )}
+      {/* NUEVO: switch para consentimiento */}
+      <div className="flex flex-col items-center gap-1">
+        <Switch
+          checked={!!guest.consentimientoPublicacion}
+          disabled={consentSavingId === guest.id}
+          onCheckedChange={(val) => {
+            if (val !== guest.consentimientoPublicacion) {
+              onConsentChange(guest.id, val);
+            }
+          }}
+          aria-label={guest.consentimientoPublicacion ? "Quitar consentimiento" : "Dar consentimiento"}
+        />
+        {consentSavingId === guest.id ? (
+          <span className="text-xs text-muted-foreground animate-pulse">Guardando…</span>
+        ) : (
+          <span className={guest.consentimientoPublicacion ? "text-green-700 font-semibold text-xs" : "text-red-700 font-semibold text-xs"}>
+            {guest.consentimientoPublicacion ? "Sí" : "No"}
+          </span>
+        )}
+      </div>
     </td>
     <td className="p-3 border-b">
       <button
