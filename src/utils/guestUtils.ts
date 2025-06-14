@@ -11,6 +11,7 @@ export function mapDbGuestToGuest(dbGuest: any): Guest & { mesa?: number | null 
     menu: dbGuest.menu,
     comentario: dbGuest.comentario ?? "",
     date: dbGuest.date,
+    cancionFavorita: dbGuest.cancion_favorita ?? "",
     mesa: dbGuest.mesa ?? null,
   };
 }

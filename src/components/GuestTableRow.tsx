@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Guest, MenuOption } from "@/types/guest";
+import { Guest, MenuOption } from "@/types/guestTypes";
 import GuestMesaSelect from "./GuestMesaSelect";
 import GuestDeleteModal from "./GuestDeleteModal";
 import { menuTranslation } from "@/utils/guestUtils"; // Correct import
@@ -38,6 +38,7 @@ const GuestTableRow: React.FC<GuestTableRowProps> = ({
     </td>
     <td className="p-3 border-b">{menuTranslation[guest.menu]}</td>
     <td className="p-3 border-b">{guest.comentario || "-"}</td>
+    <td className="p-3 border-b">{guest.cancionFavorita || "-"}</td>
     <td className="p-3 border-b text-xs">{new Date(guest.date).toLocaleString()}</td>
     <td className="p-3 border-b">
       <GuestMesaSelect

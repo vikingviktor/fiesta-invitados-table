@@ -9,4 +9,5 @@ export interface Guest {
   menu: MenuOption;
   comentario: string;
   date: string;
+  cancionFavorita?: string; // nuevo campo opcional
 }

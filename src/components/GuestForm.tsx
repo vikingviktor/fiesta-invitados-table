@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { Guest, MenuOption } from "@/types/guest";
+import { Guest, MenuOption } from "@/types/guestTypes";
 import { supabase } from "@/integrations/supabase/client";
 
 const menuOptions: { label: string; value: MenuOption }[] = [
@@ -20,6 +20,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
   const [nombreAcompanante, setNombreAcompanante] = useState("");
   const [menu, setMenu] = useState<MenuOption>("normal");
   const [comentario, setComentario] = useState("");
+  const [cancionFavorita, setCancionFavorita] = useState("");
   const [mensaje, setMensaje] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -43,6 +44,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
       menu,
       comentario,
       date: new Date().toISOString(),
+      cancionFavorita: cancionFavorita.trim() || undefined,
     };
     const { data, error } = await supabase.from("guests").insert([
       {
@@ -52,6 +54,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         menu: nuevoInvitado.menu,
         comentario: nuevoInvitado.comentario,
         date: nuevoInvitado.date,
+        cancion_favorita: nuevoInvitado.cancionFavorita ?? null,
       }
     ]).select().single();
 
@@ -66,9 +69,10 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         nombre: data.nombre,
         plusOne: data.plus_one,
         nombreAcompanante: data.nombre_acompanante ?? undefined,
-        menu: data.menu as MenuOption, // Corregido: convertir a MenuOption
+        menu: data.menu as MenuOption,
         comentario: data.comentario ?? "",
         date: data.date,
+        cancionFavorita: data.cancion_favorita ?? undefined,
       });
     }
     setMensaje("¡Registro enviado! Gracias por confirmar tu asistencia.");
@@ -77,6 +81,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
     setNombreAcompanante("");
     setMenu("normal");
     setComentario("");
+    setCancionFavorita("");
     setTimeout(() => setMensaje(""), 3500);
   };
 
@@ -139,6 +144,18 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
             <option value={opt.value} key={opt.value}>{opt.label}</option>
           ))}
         </select>
+      </div>
+      <div>
+        <label className="block font-medium mb-1">¿Qué canción no puede faltar en la fiesta?</label>
+        <input
+          type="text"
+          className="w-full border rounded px-3 py-2 focus:outline-primary"
+          value={cancionFavorita}
+          onChange={e => setCancionFavorita(e.target.value)}
+          placeholder="Ej: La Macarena, Caballo Dorado, We Found Love..."
+          maxLength={100}
+          disabled={loading}
+        />
       </div>
       <div>
         <label className="block font-medium mb-1">Comentarios/adicionales</label>

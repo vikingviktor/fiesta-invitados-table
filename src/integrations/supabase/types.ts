@@ -11,6 +11,7 @@ export type Database = {
     Tables: {
       deleted_guests: {
         Row: {
+          cancion_favorita: string | null
           comentario: string | null
           date: string
           deleted_at: string
@@ -20,6 +21,7 @@ export type Database = {
           plus_one: boolean
         }
         Insert: {
+          cancion_favorita?: string | null
           comentario?: string | null
           date: string
           deleted_at?: string
@@ -29,6 +31,7 @@ export type Database = {
           plus_one: boolean
         }
         Update: {
+          cancion_favorita?: string | null
           comentario?: string | null
           date?: string
           deleted_at?: string
@@ -41,6 +44,7 @@ export type Database = {
       }
       guests: {
         Row: {
+          cancion_favorita: string | null
           comentario: string | null
           date: string
           id: string
@@ -51,6 +55,7 @@ export type Database = {
           plus_one: boolean
         }
         Insert: {
+          cancion_favorita?: string | null
           comentario?: string | null
           date?: string
           id?: string
@@ -61,6 +66,7 @@ export type Database = {
           plus_one: boolean
         }
         Update: {
+          cancion_favorita?: string | null
           comentario?: string | null
           date?: string
           id?: string

@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Guest, MenuOption } from "@/types/guestTypes";
 import { supabase } from "@/integrations/supabase/client";
@@ -69,7 +70,6 @@ const GuestTable: React.FC<{
         setLoadingDelete(false);
         return;
       }
-      // Prevenir valores null o indefinidos en campos obligatorios
       const plus_one_correct = typeof guest.plusOne === "boolean" ? guest.plusOne : false;
       // Insertar en deleted_guests con nuevo UUID v4
       const res = await supabase.from("deleted_guests").insert({
@@ -78,6 +78,7 @@ const GuestTable: React.FC<{
         plus_one: plus_one_correct,
         menu: guest.menu,
         comentario: guest.comentario ?? "",
+        cancion_favorita: guest.cancionFavorita ?? null,
         date: guest.date,
       });
       if (res.error) {
@@ -93,7 +94,6 @@ const GuestTable: React.FC<{
         return;
       }
       setDeleteId(null);
-      // Refrescar ambas tablas!
       await fetchGuests();
       await fetchDeletedGuests();
     } finally {
@@ -131,6 +131,7 @@ const GuestTable: React.FC<{
               <th className="p-3 border-b">Nombre de acompañante</th>
               <th className="p-3 border-b">Menú</th>
               <th className="p-3 border-b">Comentarios</th>
+              <th className="p-3 border-b">Canción favorita</th>
               <th className="p-3 border-b">Fecha registro</th>
               <th className="p-3 border-b">Mesa</th>
               <th className="p-3 border-b">Acciones</th>
@@ -139,11 +140,11 @@ const GuestTable: React.FC<{
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={8} className="text-center p-5">Cargando...</td>
+                <td colSpan={9} className="text-center p-5">Cargando...</td>
               </tr>
             ) : guests.length === 0 ? (
               <tr>
-                <td colSpan={8} className="text-center p-5">Aún no hay invitados registrados.</td>
+                <td colSpan={9} className="text-center p-5">Aún no hay invitados registrados.</td>
               </tr>
             ) : (
               guests.map(g => (
