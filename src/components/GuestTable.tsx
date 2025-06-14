@@ -1,6 +1,8 @@
 
 import React, { useEffect, useState } from "react";
 import { Guest } from "@/types/guest";
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
 
 const menuTranslation: Record<string, string> = {
   normal: "Normal",
@@ -14,10 +16,11 @@ const getGuests = (): Guest[] =>
 
 const GuestTable: React.FC = () => {
   const [guests, setGuests] = useState<Guest[]>([]);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [loadingDelete, setLoadingDelete] = useState(false);
 
   useEffect(() => {
     setGuests(getGuests());
-    // Listen to storage event to update table if another tab changes data
     const onStorage = () => setGuests(getGuests());
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);
@@ -32,6 +35,38 @@ const GuestTable: React.FC = () => {
     },
     { total: 0, normal: 0, vegetariano: 0, vegano: 0, "sin gluten": 0 } as Record<string, number>
   );
+
+  // Eliminar invitado: pasa a Supabase y borra del localStorage.
+  const handleDelete = async (id: string) => {
+    setLoadingDelete(true);
+    try {
+      const guest = guests.find(g => g.id === id);
+      if (!guest) return;
+      // Insertar en deleted_guests
+      const res = await supabase.from("deleted_guests").insert({
+        id: guest.id,
+        nombre: guest.nombre,
+        plus_one: guest.plusOne,
+        menu: guest.menu,
+        comentario: guest.comentario,
+        date: guest.date,
+        // deleted_at se autogenra por default
+      });
+      // Si hay error al insertar, abortamos borrado
+      if (res.error) {
+        alert("Error al mover el invitado eliminado a Supabase: " + res.error.message);
+        setLoadingDelete(false);
+        return;
+      }
+      // Borra del localStorage
+      const newGuests = guests.filter(g => g.id !== id);
+      localStorage.setItem("guests", JSON.stringify(newGuests));
+      setGuests(newGuests);
+      setDeleteId(null);
+    } finally {
+      setLoadingDelete(false);
+    }
+  };
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-2">
@@ -55,12 +90,13 @@ const GuestTable: React.FC = () => {
               <th className="p-3 border-b">Menú</th>
               <th className="p-3 border-b">Comentarios</th>
               <th className="p-3 border-b">Fecha registro</th>
+              <th className="p-3 border-b">Acciones</th>
             </tr>
           </thead>
           <tbody>
             {guests.length === 0 && (
               <tr>
-                <td colSpan={5} className="text-center p-5">Aún no hay invitados registrados.</td>
+                <td colSpan={6} className="text-center p-5">Aún no hay invitados registrados.</td>
               </tr>
             )}
             {guests.map((g) => (
@@ -70,6 +106,46 @@ const GuestTable: React.FC = () => {
                 <td className="p-3 border-b">{menuTranslation[g.menu]}</td>
                 <td className="p-3 border-b">{g.comentario || "-"}</td>
                 <td className="p-3 border-b text-xs">{new Date(g.date).toLocaleString()}</td>
+                <td className="p-3 border-b">
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => setDeleteId(g.id)}
+                    disabled={loadingDelete}
+                  >
+                    Borrar
+                  </Button>
+                  {/* Modal de confirmación */}
+                  {deleteId === g.id && (
+                    <div className="fixed z-50 inset-0 bg-black/50 flex items-center justify-center">
+                      <div className="bg-white p-6 rounded shadow-lg max-w-sm w-full">
+                        <div className="mb-4">
+                          <h3 className="font-semibold text-lg mb-2">¿Borrar invitado?</h3>
+                          <div className="text-gray-700">
+                            ¿Seguro que quieres borrar a <span className="font-bold">{g.nombre}</span>?<br />
+                            Este registro se archivará como eliminado.
+                          </div>
+                        </div>
+                        <div className="flex gap-3 justify-end">
+                          <Button
+                            variant="secondary"
+                            onClick={() => setDeleteId(null)}
+                            disabled={loadingDelete}
+                          >
+                            Cancelar
+                          </Button>
+                          <Button
+                            variant="destructive"
+                            onClick={() => handleDelete(g.id)}
+                            disabled={loadingDelete}
+                          >
+                            {loadingDelete ? "Eliminando..." : "Borrar"}
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
