@@ -1,5 +1,8 @@
 
-export type MenuOption = "normal" | "vegetariano" | "vegano" | "sin gluten";
+// Antes:
+// export type MenuOption = "normal" | "vegetariano" | "vegano" | "sin gluten";
+// Después:
+export type MenuOption = string;
 
 export interface Guest {
   id: string;
