@@ -3,7 +3,7 @@ import React from "react";
 import { Guest, MenuOption } from "@/types/guest";
 import GuestMesaSelect from "./GuestMesaSelect";
 import GuestDeleteModal from "./GuestDeleteModal";
-import { menuTranslation } from "./GuestTable"; // Usamos la misma traducción
+import { menuTranslation } from "@/utils/guestUtils"; // Correct import
 
 interface GuestTableRowProps {
   guest: Guest & { mesa?: number | null };
