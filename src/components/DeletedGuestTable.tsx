@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Database } from "@/integrations/supabase/types";
-import { toast } from "@/components/ui/use-toast"; // Usamos shadcn/ui toast para feedback
+import { toast } from "@/components/ui/use-toast";
 
 type DeletedGuest = Database["public"]["Tables"]["deleted_guests"]["Row"];
 
+// Menú translation
 const menuTranslation: Record<string, string> = {
   normal: "Normal",
   vegetariano: "Vegetariano",
@@ -48,15 +49,14 @@ const DeletedGuestTable: React.FC = () => {
     try {
       // Reconstruimos el objeto con los mismos datos, cuidando campos y tipos.
       const restoredGuest = {
-        id: generateTimestampId(), // nuevo id como el esquema de localStorage
+        id: generateTimestampId(),
         nombre: guest.nombre,
         plusOne: guest.plus_one,
-        nombreAcompanante: undefined,
+        nombreAcompanante: undefined, // No hay campo en deleted_guests por ahora
         menu: guest.menu,
         comentario: guest.comentario ?? "",
         date: guest.date ?? new Date().toISOString(),
       };
-      // Si el comentario trae el nombreAcompanante incluido (por error), no lo extraemos, porque el campo debe estar aparte y no sabemos el original.
 
       // Guardar en localStorage
       const list = JSON.parse(localStorage.getItem("guests") || "[]");
@@ -120,6 +120,7 @@ const DeletedGuestTable: React.FC = () => {
               <tr>
                 <th className="p-3 border-b">Nombre</th>
                 <th className="p-3 border-b">+1</th>
+                <th className="p-3 border-b">Nombre de acompañante</th>
                 <th className="p-3 border-b">Menú</th>
                 <th className="p-3 border-b">Comentarios</th>
                 <th className="p-3 border-b">Eliminado el</th>
@@ -131,6 +132,9 @@ const DeletedGuestTable: React.FC = () => {
                 <tr key={g.id} className="hover:bg-secondary/50">
                   <td className="p-3 border-b">{g.nombre}</td>
                   <td className="p-3 border-b text-center">{g.plus_one ? "Sí" : "No"}</td>
+                  <td className="p-3 border-b">
+                    {g.plus_one ? "No disponible" : "-"}
+                  </td>
                   <td className="p-3 border-b">{menuTranslation[g.menu] || g.menu}</td>
                   <td className="p-3 border-b">{g.comentario || "-"}</td>
                   <td className="p-3 border-b text-xs">{new Date(g.deleted_at).toLocaleString()}</td>
@@ -198,4 +202,3 @@ const DeletedGuestTable: React.FC = () => {
 };
 
 export default DeletedGuestTable;
-

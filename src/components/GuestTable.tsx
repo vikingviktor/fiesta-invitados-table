@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Guest } from "@/types/guest";
 import { supabase } from "@/integrations/supabase/client";
@@ -96,6 +97,7 @@ const GuestTable: React.FC = () => {
             <tr>
               <th className="p-3 border-b">Nombre</th>
               <th className="p-3 border-b">+1</th>
+              <th className="p-3 border-b">Nombre de acompañante</th>
               <th className="p-3 border-b">Menú</th>
               <th className="p-3 border-b">Comentarios</th>
               <th className="p-3 border-b">Fecha registro</th>
@@ -105,13 +107,16 @@ const GuestTable: React.FC = () => {
           <tbody>
             {guests.length === 0 && (
               <tr>
-                <td colSpan={6} className="text-center p-5">Aún no hay invitados registrados.</td>
+                <td colSpan={7} className="text-center p-5">Aún no hay invitados registrados.</td>
               </tr>
             )}
             {guests.map((g) => (
               <tr key={g.id} className="hover:bg-secondary/50">
                 <td className="p-3 border-b">{g.nombre}</td>
                 <td className="p-3 border-b text-center">{g.plusOne ? "Sí" : "No"}</td>
+                <td className="p-3 border-b">
+                  {(g.plusOne && g.nombreAcompanante) ? g.nombreAcompanante : (g.plusOne ? "Sin nombre" : "-")}
+                </td>
                 <td className="p-3 border-b">{menuTranslation[g.menu]}</td>
                 <td className="p-3 border-b">{g.comentario || "-"}</td>
                 <td className="p-3 border-b text-xs">{new Date(g.date).toLocaleString()}</td>
