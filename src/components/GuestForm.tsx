@@ -2,13 +2,10 @@
 import React, { useState } from "react";
 import { Guest, MenuOption } from "@/types/guestTypes";
 import { supabase } from "@/integrations/supabase/client";
-
-const menuOptions: { label: string; value: MenuOption }[] = [
-  { label: "Normal", value: "normal" },
-  { label: "Vegetariano", value: "vegetariano" },
-  { label: "Vegano", value: "vegano" },
-  { label: "Sin gluten", value: "sin gluten" },
-];
+import TextInput from "./guest-form/TextInput";
+import TextareaInput from "./guest-form/TextareaInput";
+import MenuSelector from "./guest-form/MenuSelector";
+import PlusOneFields from "./guest-form/PlusOneFields";
 
 interface GuestFormProps {
   onSubmit?: (guest: Guest) => void;
@@ -24,7 +21,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
   const [mensaje, setMensaje] = useState("");
   const [loading, setLoading] = useState(false);
   const [consentimientoPublicacion, setConsentimientoPublicacion] = useState(false);
-  const [menuAcompanante, setMenuAcompanante] = useState<MenuOption>("normal"); // Nuevo estado
+  const [menuAcompanante, setMenuAcompanante] = useState<MenuOption>("normal");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +39,6 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
       return;
     }
     setLoading(true);
-    // Insertar en Supabase
     const nuevoInvitado: Omit<Guest, "id"> = {
       nombre,
       plusOne,
@@ -52,7 +48,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
       date: new Date().toISOString(),
       cancionFavorita: cancionFavorita.trim() || undefined,
       consentimientoPublicacion,
-      menuAcompanante: plusOne ? menuAcompanante : undefined, // NUEVO
+      menuAcompanante: plusOne ? menuAcompanante : undefined,
     };
     const { data, error } = await supabase.from("guests").insert([
       {
@@ -64,7 +60,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         date: nuevoInvitado.date,
         cancion_favorita: nuevoInvitado.cancionFavorita ?? null,
         consentimiento_publicacion: nuevoInvitado.consentimientoPublicacion,
-        menu_acompanante: nuevoInvitado.menuAcompanante ?? null, // NUEVO
+        menu_acompanante: nuevoInvitado.menuAcompanante ?? null,
       }
     ]).select().single();
 
@@ -84,7 +80,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         date: data.date,
         cancionFavorita: data.cancion_favorita ?? undefined,
         consentimientoPublicacion: !!data.consentimiento_publicacion,
-        menuAcompanante: data.menu_acompanante ?? undefined, // NUEVO
+        menuAcompanante: data.menu_acompanante ?? undefined,
       });
     }
     setMensaje("¡Registro enviado! Gracias por confirmar tu asistencia.");
@@ -95,7 +91,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
     setComentario("");
     setCancionFavorita("");
     setConsentimientoPublicacion(false);
-    setMenuAcompanante("normal"); // Reset menu acompañante
+    setMenuAcompanante("normal");
     setTimeout(() => setMensaje(""), 3500);
   };
 
@@ -105,18 +101,15 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
       onSubmit={handleSubmit}
     >
       <h2 className="text-2xl font-semibold mb-2 text-center">Confirma tu asistencia</h2>
-      <div>
-        <label className="block font-medium mb-1">Nombre completo</label>
-        <input
-          className="w-full border rounded px-3 py-2 focus:outline-primary"
-          value={nombre}
-          onChange={e => setNombre(e.target.value)}
-          required
-          placeholder="Ej: Ana García"
-          maxLength={60}
-          disabled={loading}
-        />
-      </div>
+      <TextInput
+        label="Nombre completo"
+        value={nombre}
+        onChange={setNombre}
+        placeholder="Ej: Ana García"
+        maxLength={60}
+        disabled={loading}
+        required
+      />
       <div>
         <label className="flex items-center gap-2 cursor-pointer">
           <input
@@ -127,7 +120,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
               setPlusOne(e.target.checked);
               if (!e.target.checked) {
                 setNombreAcompanante("");
-                setMenuAcompanante("normal"); // <-- estaba "" (string) y debe ser "normal"
+                setMenuAcompanante("normal"); // Resetea a "normal" siempre como valor válido
               }
             }}
             disabled={loading}
@@ -136,70 +129,36 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         </label>
       </div>
       {plusOne && (
-        <>
-          <div>
-            <label className="block font-medium mb-1">Nombre del acompañante</label>
-            <input
-              type="text"
-              className="w-full border rounded px-3 py-2 focus:outline-primary"
-              value={nombreAcompanante}
-              onChange={e => setNombreAcompanante(e.target.value)}
-              placeholder="Ej: Pedro López"
-              maxLength={60}
-              disabled={loading}
-            />
-          </div>
-          <div>
-            <label className="block font-medium mb-1">Menú del acompañante</label>
-            <select
-              className="w-full border rounded px-3 py-2"
-              value={menuAcompanante}
-              onChange={e => setMenuAcompanante(e.target.value as MenuOption)}
-              disabled={loading}
-            >
-              {menuOptions.map(opt => (
-                <option value={opt.value} key={opt.value}>{opt.label}</option>
-              ))}
-            </select>
-          </div>
-        </>
+        <PlusOneFields
+          nombreAcompanante={nombreAcompanante}
+          onNombreAcompananteChange={setNombreAcompanante}
+          menuAcompanante={menuAcompanante}
+          onMenuAcompananteChange={setMenuAcompanante}
+          disabled={loading}
+        />
       )}
-      <div>
-        <label className="block font-medium mb-1">Menú preferido</label>
-        <select
-          className="w-full border rounded px-3 py-2"
-          value={menu}
-          onChange={e => setMenu(e.target.value as MenuOption)}
-          disabled={loading}
-        >
-          {menuOptions.map(opt => (
-            <option value={opt.value} key={opt.value}>{opt.label}</option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <label className="block font-medium mb-1">¿Qué canción no puede faltar en la fiesta?</label>
-        <input
-          type="text"
-          className="w-full border rounded px-3 py-2 focus:outline-primary"
-          value={cancionFavorita}
-          onChange={e => setCancionFavorita(e.target.value)}
-          placeholder="Ej: La Macarena, Caballo Dorado, We Found Love..."
-          maxLength={100}
-          disabled={loading}
-        />
-      </div>
-      <div>
-        <label className="block font-medium mb-1">Comentarios/adicionales</label>
-        <textarea
-          className="w-full border rounded px-3 py-2 min-h-[80px]"
-          value={comentario}
-          onChange={e => setComentario(e.target.value)}
-          placeholder="¿Alguna alergia, petición o mensaje para los novios?"
-          maxLength={200}
-          disabled={loading}
-        />
-      </div>
+      <MenuSelector
+        label="Menú preferido"
+        value={menu}
+        onChange={setMenu}
+        disabled={loading}
+      />
+      <TextInput
+        label="¿Qué canción no puede faltar en la fiesta?"
+        value={cancionFavorita}
+        onChange={setCancionFavorita}
+        placeholder="Ej: La Macarena, Caballo Dorado, We Found Love..."
+        maxLength={100}
+        disabled={loading}
+      />
+      <TextareaInput
+        label="Comentarios/adicionales"
+        value={comentario}
+        onChange={setComentario}
+        placeholder="¿Alguna alergia, petición o mensaje para los novios?"
+        maxLength={200}
+        disabled={loading}
+      />
       <div>
         <label className="flex items-start gap-2 cursor-pointer">
           <input
