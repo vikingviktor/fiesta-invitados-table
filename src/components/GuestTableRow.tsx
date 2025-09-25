@@ -3,6 +3,7 @@ import React from "react";
 import { Guest, MenuOption } from "@/types/guestTypes"; // Asegurarse de que solo se importe desde guestTypes.ts
 import GuestMesaSelect from "./GuestMesaSelect";
 import GuestDeleteModal from "./GuestDeleteModal";
+import ColorDisplay from "./ColorDisplay";
 import { menuTranslation } from "@/utils/guestUtils";
 import { Switch } from "@/components/ui/switch";
 
@@ -46,6 +47,16 @@ const GuestTableRow: React.FC<GuestTableRowProps> = ({
       {(guest.plusOne && guest.menuAcompanante) ? menuTranslation[guest.menuAcompanante] : (guest.plusOne ? "Normal" : "-")}
     </td>
     <td className="p-3 border-b">{menuTranslation[guest.menu]}</td>
+    <td className="p-3 border-b">
+      <ColorDisplay color={guest.color} />
+    </td>
+    <td className="p-3 border-b">
+      {guest.plusOne ? (
+        <ColorDisplay color={guest.colorAcompanante} />
+      ) : (
+        <span className="text-gray-400 text-xs">-</span>
+      )}
+    </td>
     <td className="p-3 border-b">{guest.comentario || "-"}</td>
     <td className="p-3 border-b">{guest.cancionFavorita || "-"}</td>
     <td className="p-3 border-b text-xs">{new Date(guest.date).toLocaleString()}</td>

@@ -4,6 +4,8 @@
 // Después:
 export type MenuOption = string;
 
+export type ColorOption = "verde" | "azul" | "rojo" | "amarillo" | "marron" | "morado" | "gris" | "negro" | "blanco" | "dorado" | "rosa";
+
 export interface Guest {
   id: string;
   nombre: string;
@@ -15,4 +17,6 @@ export interface Guest {
   cancionFavorita?: string; // nuevo campo opcional
   consentimientoPublicacion: boolean; // nuevo campo obligatorio
   menuAcompanante?: MenuOption; // NUEVO campo opcional
+  color?: ColorOption; // nuevo campo opcional para color del invitado
+  colorAcompanante?: ColorOption; // nuevo campo opcional para color del acompañante
 }

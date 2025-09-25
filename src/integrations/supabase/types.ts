@@ -56,6 +56,8 @@ export type Database = {
       guests: {
         Row: {
           cancion_favorita: string | null
+          color: string | null
+          color_acompanante: string | null
           comentario: string | null
           consentimiento_publicacion: boolean
           date: string
@@ -69,6 +71,8 @@ export type Database = {
         }
         Insert: {
           cancion_favorita?: string | null
+          color?: string | null
+          color_acompanante?: string | null
           comentario?: string | null
           consentimiento_publicacion?: boolean
           date?: string
@@ -82,6 +86,8 @@ export type Database = {
         }
         Update: {
           cancion_favorita?: string | null
+          color?: string | null
+          color_acompanante?: string | null
           comentario?: string | null
           consentimiento_publicacion?: boolean
           date?: string

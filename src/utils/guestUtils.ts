@@ -1,5 +1,5 @@
 
-import { Guest, MenuOption } from "../types/guestTypes";
+import { Guest, MenuOption, ColorOption } from "../types/guestTypes";
 
 // Función para transformar de snake_case a camelCase
 export function mapDbGuestToGuest(dbGuest: any): Guest & { mesa?: number | null } {
@@ -15,6 +15,8 @@ export function mapDbGuestToGuest(dbGuest: any): Guest & { mesa?: number | null 
     mesa: dbGuest.mesa ?? null,
     consentimientoPublicacion: !!dbGuest.consentimiento_publicacion,
     menuAcompanante: dbGuest.menu_acompanante ?? undefined, // NUEVO
+    color: dbGuest.color as ColorOption ?? undefined,
+    colorAcompanante: dbGuest.color_acompanante as ColorOption ?? undefined,
   };
 }
 
