@@ -33,7 +33,7 @@ const Index = () => {
         >
           <div className="absolute inset-0 bg-white/80 backdrop-blur-md pointer-events-none" aria-hidden="true" />
           <div className="relative z-10 flex flex-col gap-5">
-            <h1 className="text-4xl font-bold mb-2 font-elvish">
+            <h1 className="text-5xl font-bold mb-2 font-elvish">
               ¡Te invitamos a nuestra boda!
             </h1>
             <p className="text-lg text-muted-foreground">

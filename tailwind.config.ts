@@ -19,7 +19,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'elvish': ['Cinzel Decorative', 'serif'],
+				'elvish': ['Tangerine', 'cursive'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
