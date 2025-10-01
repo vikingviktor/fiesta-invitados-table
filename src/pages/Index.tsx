@@ -5,8 +5,18 @@ import Navbar from "@/components/Navbar";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-blue-50">
-      <Navbar />
+    <div 
+      className="min-h-screen relative"
+      style={{
+        backgroundImage: "url('/rivendell-bg.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-emerald-900/20 to-amber-900/30 backdrop-blur-[2px]" aria-hidden="true" />
+      <div className="relative z-10">
+        <Navbar />
       <section className="max-w-2xl mx-auto py-12 px-2 flex flex-col gap-8 items-center">
         <div
           className="
@@ -34,6 +44,7 @@ const Index = () => {
         </div>
         <GuestForm />
       </section>
+      </div>
     </div>
   );
 };
