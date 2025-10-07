@@ -23,7 +23,7 @@ const TextInput: React.FC<TextInputProps> = ({
   type = "text",
 }) => (
   <div>
-    <label className="block font-medium mb-1 font-elvish text-xl">{label}</label>
+    <label className="block font-medium mb-1 font-elvish text-2xl">{label}</label>
     <input
       type={type}
       className="w-full border rounded px-3 py-2 focus:outline-primary"

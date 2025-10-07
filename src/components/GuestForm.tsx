@@ -119,7 +119,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
       className="bg-white border rounded-2xl shadow-md max-w-lg mx-auto p-8 flex flex-col gap-5"
       onSubmit={handleSubmit}
     >
-      <h2 className="text-3xl font-semibold mb-2 text-center font-elvish">Confirma tu asistencia</h2>
+      <h2 className="text-4xl font-semibold mb-2 text-center font-elvish">Confirma tu asistencia</h2>
       <TextInput
         label="Nombre completo"
         value={nombre}
