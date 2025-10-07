@@ -61,6 +61,7 @@ export type Database = {
           comentario: string | null
           consentimiento_publicacion: boolean
           date: string
+          habitacion: string | null
           id: string
           menu: string
           menu_acompanante: string | null
@@ -76,6 +77,7 @@ export type Database = {
           comentario?: string | null
           consentimiento_publicacion?: boolean
           date?: string
+          habitacion?: string | null
           id?: string
           menu: string
           menu_acompanante?: string | null
@@ -91,6 +93,7 @@ export type Database = {
           comentario?: string | null
           consentimiento_publicacion?: boolean
           date?: string
+          habitacion?: string | null
           id?: string
           menu?: string
           menu_acompanante?: string | null

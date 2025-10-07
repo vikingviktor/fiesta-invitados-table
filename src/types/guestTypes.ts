@@ -19,4 +19,5 @@ export interface Guest {
   menuAcompanante?: MenuOption; // NUEVO campo opcional
   color?: ColorOption; // nuevo campo opcional para color del invitado
   colorAcompanante?: ColorOption; // nuevo campo opcional para color del acompañante
+  habitacion?: string; // nuevo campo opcional para habitación
 }
