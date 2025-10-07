@@ -34,7 +34,7 @@ const ColorSelector: React.FC<ColorSelectorProps> = ({
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2 font-elvish">
+      <label className="block text-xl font-medium text-gray-700 mb-2 font-elvish">
         {label} {required && <span className="text-red-500">*</span>}
       </label>
       <div className="grid grid-cols-6 gap-2">
