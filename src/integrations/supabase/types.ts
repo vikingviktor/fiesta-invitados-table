@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      alojamientos: {
+        Row: {
+          created_at: string
+          habitacion: string
+          id: string
+          observaciones: string | null
+          plazas: number
+          propiedad: string
+          tipo_cama: string | null
+        }
+        Insert: {
+          created_at?: string
+          habitacion: string
+          id?: string
+          observaciones?: string | null
+          plazas?: number
+          propiedad: string
+          tipo_cama?: string | null
+        }
+        Update: {
+          created_at?: string
+          habitacion?: string
+          id?: string
+          observaciones?: string | null
+          plazas?: number
+          propiedad?: string
+          tipo_cama?: string | null
+        }
+        Relationships: []
+      }
       deleted_guests: {
         Row: {
           cancion_favorita: string | null
