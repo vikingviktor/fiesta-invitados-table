@@ -19,7 +19,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Home, Users, Bed, Plus, Pencil, Trash2 } from "lucide-react";
+import { Home, Users, Bed, Plus, Pencil, Trash2, Filter } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+
+// Propiedades principales para el filtro
+const PROPIEDADES_PRINCIPALES = [
+  "Aldea Tejera Negra",
+  "La Casona de Campillo",
+  "Plaza Majaelrayo",
+  "Casona Majaelrayo",
+];
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AlojamientoFormModal, { AlojamientoFormData } from "./AlojamientoFormModal";
 import AlojamientoDeleteModal from "./AlojamientoDeleteModal";
@@ -65,6 +75,21 @@ const HabitacionesAdminTab: React.FC = () => {
   const [editingAlojamiento, setEditingAlojamiento] = useState<Alojamiento | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deletingAlojamiento, setDeletingAlojamiento] = useState<Alojamiento | null>(null);
+
+  // Filter state
+  const [soloPrincipales, setSoloPrincipales] = useState(false);
+
+  // Helper to check if a property is "principal"
+  const esPropiedadPrincipal = (propiedad: string) => {
+    return PROPIEDADES_PRINCIPALES.some(
+      (p) => propiedad.toLowerCase().includes(p.toLowerCase())
+    );
+  };
+
+  // Filtered alojamientos based on filter
+  const alojamientosFiltrados = soloPrincipales
+    ? alojamientos.filter((a) => esPropiedadPrincipal(a.propiedad))
+    : alojamientos;
 
   const fetchAlojamientos = async () => {
     const { data, error } = await supabase
@@ -131,8 +156,8 @@ const HabitacionesAdminTab: React.FC = () => {
     setSavingId(null);
   };
 
-  // Agrupar alojamientos por propiedad
-  const propiedadesAgrupadas = alojamientos.reduce((acc, aloj) => {
+  // Agrupar alojamientos filtrados por propiedad
+  const propiedadesAgrupadas = alojamientosFiltrados.reduce((acc, aloj) => {
     if (!acc[aloj.propiedad]) {
       acc[aloj.propiedad] = [];
     }
@@ -278,10 +303,23 @@ const HabitacionesAdminTab: React.FC = () => {
   return (
     <div className="px-4">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-          <Home className="w-6 h-6" />
-          Gestión de Habitaciones
-        </h2>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+          <h2 className="text-2xl font-bold flex items-center gap-2">
+            <Home className="w-6 h-6" />
+            Gestión de Habitaciones
+          </h2>
+          <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-lg">
+            <Filter className="w-4 h-4 text-muted-foreground" />
+            <Switch
+              id="filtro-principales"
+              checked={soloPrincipales}
+              onCheckedChange={setSoloPrincipales}
+            />
+            <Label htmlFor="filtro-principales" className="text-sm cursor-pointer">
+              Solo principales
+            </Label>
+          </div>
+        </div>
       </div>
 
       <Tabs defaultValue="asignar" className="w-full">
@@ -452,14 +490,16 @@ const HabitacionesAdminTab: React.FC = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {alojamientos.length === 0 ? (
+                {alojamientosFiltrados.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
-                      No hay alojamientos. Añade uno para empezar.
+                      {soloPrincipales 
+                        ? "No hay alojamientos principales. Desactiva el filtro para ver todos."
+                        : "No hay alojamientos. Añade uno para empezar."}
                     </TableCell>
                   </TableRow>
                 ) : (
-                  alojamientos.map((aloj) => {
+                  alojamientosFiltrados.map((aloj) => {
                     const ocupacion = getGuestCountForAlojamiento(aloj);
                     return (
                       <TableRow key={aloj.id}>
