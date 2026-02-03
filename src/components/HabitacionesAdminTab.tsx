@@ -27,8 +27,8 @@ import { Label } from "@/components/ui/label";
 const PROPIEDADES_PRINCIPALES = [
   "Aldea Tejera Negra",
   "La Casona de Campillo",
-  "Plaza Majaelrayo",
-  "Casona Majaelrayo",
+  "Apartamentos La Plaza",
+  "La Casona de Majaelrayo",
 ];
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AlojamientoFormModal, { AlojamientoFormData } from "./AlojamientoFormModal";
