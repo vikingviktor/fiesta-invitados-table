@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 const WEDDING_DATE = new Date("2026-11-14T12:00:00");
 
 const Index = () => {
+  const [showForm, setShowForm] = useState(false);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -94,12 +95,18 @@ const Index = () => {
             </div>
 
             <p className="text-lg text-muted-foreground">
-              Por favor, confirma tu asistencia rellenando el siguiente formulario. <br />
               ¡Esperamos compartir este día tan especial contigo!
             </p>
+
+            <button
+              onClick={() => setShowForm(!showForm)}
+              className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105"
+            >
+              {showForm ? "Ocultar formulario" : "Confirma tu asistencia"}
+            </button>
           </div>
         </div>
-        <GuestForm />
+        {showForm && <GuestForm />}
       </section>
       </div>
     </div>
