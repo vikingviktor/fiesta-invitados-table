@@ -50,8 +50,8 @@ const Index = () => {
       <section className="max-w-2xl mx-auto py-12 px-2 flex flex-col gap-8 items-center">
         <div
           className="
-            relative bg-white/90 rounded-xl shadow-xl p-8 border text-center flex flex-col gap-5
-            overflow-hidden
+            relative bg-white/60 rounded-xl shadow-xl p-8 border text-center flex flex-col gap-5
+            overflow-hidden backdrop-blur-sm
           "
           style={{
             backgroundImage: "url('/flowers-bg.jpg')",
@@ -60,7 +60,7 @@ const Index = () => {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div className="absolute inset-0 bg-white/80 backdrop-blur-md pointer-events-none" aria-hidden="true" />
+          <div className="absolute inset-0 bg-white/50 backdrop-blur-sm pointer-events-none" aria-hidden="true" />
           <div className="relative z-10 flex flex-col gap-5">
             <h1 className="text-5xl font-bold mb-2 font-elvish">
               ¡Te invitamos a nuestra boda!
