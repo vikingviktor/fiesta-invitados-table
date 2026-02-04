@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
           {n.label}
         </Link>
       ))}
-      {session ? (
+      {session && pathname === "/admin" && (
         <button
           onClick={async () => {
             await supabase.auth.signOut();
@@ -51,13 +51,6 @@ const Navbar: React.FC = () => {
         >
           Cerrar sesión
         </button>
-      ) : (
-        <Link
-          to="/auth"
-          className="ml-6 font-medium px-4 py-2 bg-primary text-white rounded hover:bg-primary/80 transition"
-        >
-          Acceder
-        </Link>
       )}
     </nav>
   );
