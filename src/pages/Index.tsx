@@ -62,23 +62,17 @@ const Index = () => {
             </h1>
             
             <div className="flex flex-col gap-3">
-              <div className="bg-white/50 rounded-lg p-4 border border-primary/30">
-                <p className="text-sm font-medium text-gray-700 mb-1">Fecha</p>
-                <p className="text-3xl font-bold text-primary">
-                  Sábado, 14 de Noviembre de 2026
-                </p>
-              </div>
-              <div className="bg-white/50 rounded-lg p-4 border border-primary/30">
-                <p className="text-sm font-medium text-gray-700 mb-1">Lugar</p>
-                <a 
-                  href="https://maps.google.com/?q=Aldea+Tejera+Negra,+Campillo+de+Ranas,+Guadalajara" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-xl font-semibold text-gray-800 hover:text-primary underline underline-offset-2 transition-colors"
-                >
-                  Aldea Tejera Negra, Campillo de Ranas, Guadalajara
-                </a>
-              </div>
+              <p className="text-3xl font-semibold text-primary font-elvish">
+                Sábado, 14 de Noviembre de 2026
+              </p>
+              <a 
+                href="https://maps.google.com/?q=Aldea+Tejera+Negra,+Campillo+de+Ranas,+Guadalajara" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-2xl font-semibold text-primary hover:text-primary/80 underline underline-offset-2 transition-colors font-elvish"
+              >
+                Aldea Tejera Negra, Campillo de Ranas, Guadalajara
+              </a>
             </div>
 
             <div className="flex justify-center gap-4 my-4">
@@ -100,11 +94,9 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="bg-primary/10 rounded-lg p-4 border border-primary/20">
-              <p className="text-lg font-medium text-gray-800">
-                ¡Esperamos compartir este día tan especial contigo!
-              </p>
-            </div>
+            <p className="text-2xl font-semibold text-primary font-elvish">
+              ¡Esperamos compartir este día tan especial contigo!
+            </p>
 
             <button
               onClick={() => setShowForm(!showForm)}

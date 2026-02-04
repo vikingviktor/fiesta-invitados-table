@@ -3,8 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Home, Bed, MapPin } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Home, MapPin, Star } from "lucide-react";
 
 type Alojamiento = {
   id: string;
@@ -14,6 +13,13 @@ type Alojamiento = {
   plazas: number;
   observaciones: string | null;
 };
+
+const ALOJAMIENTOS_PRINCIPALES = [
+  "Aldea Tejera Negra",
+  "La Casona de Campillo",
+  "Apartamentos La Plaza",
+  "La Casona de Majaelrayo"
+];
 
 const Alojamiento = () => {
   const [alojamientos, setAlojamientos] = useState<Alojamiento[]>([]);
@@ -28,8 +34,7 @@ const Alojamiento = () => {
       const { data, error } = await supabase
         .from("alojamientos")
         .select("*")
-        .order("propiedad", { ascending: true })
-        .order("habitacion", { ascending: true });
+        .order("propiedad", { ascending: true });
 
       if (error) throw error;
       setAlojamientos(data || []);
@@ -40,17 +45,12 @@ const Alojamiento = () => {
     }
   };
 
-  const groupedAlojamientos = alojamientos.reduce((acc, aloj) => {
-    if (!acc[aloj.propiedad]) {
-      acc[aloj.propiedad] = [];
-    }
-    acc[aloj.propiedad].push(aloj);
-    return acc;
-  }, {} as Record<string, Alojamiento[]>);
-
-  const getTotalPlazas = (habitaciones: Alojamiento[]) => {
-    return habitaciones.reduce((sum, h) => sum + h.plazas, 0);
-  };
+  // Obtener lista única de propiedades
+  const propiedades = Array.from(new Set(alojamientos.map(a => a.propiedad)));
+  
+  // Separar principales y otros
+  const propiedadesPrincipales = propiedades.filter(p => ALOJAMIENTOS_PRINCIPALES.includes(p));
+  const otrasPropiedades = propiedades.filter(p => !ALOJAMIENTOS_PRINCIPALES.includes(p));
 
   return (
     <div 
@@ -82,51 +82,58 @@ const Alojamiento = () => {
                 <p className="text-gray-600">Cargando alojamientos...</p>
               </div>
             ) : (
-              <Accordion type="single" collapsible className="space-y-4">
-                {Object.entries(groupedAlojamientos).map(([propiedad, habitaciones]) => (
-                  <AccordionItem 
-                    key={propiedad} 
-                    value={propiedad}
-                    className="border rounded-lg bg-white/50 overflow-hidden"
-                  >
-                    <AccordionTrigger className="px-6 py-4 hover:bg-white/70 transition-colors">
-                      <div className="flex items-center gap-4 flex-1 text-left">
-                        <Home className="h-6 w-6 text-primary flex-shrink-0" />
-                        <div className="flex-1">
-                          <h3 className="text-xl font-semibold text-gray-800">{propiedad}</h3>
-                          <p className="text-sm text-gray-600 mt-1">
-                            {habitaciones.length} habitaciones • {getTotalPlazas(habitaciones)} plazas totales
-                          </p>
-                        </div>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-6 pb-4">
-                      <div className="grid gap-3 pt-4">
-                        {habitaciones.map((hab) => (
-                          <div 
-                            key={hab.id}
-                            className="flex items-start gap-4 p-4 bg-white/80 rounded-lg border border-gray-200"
-                          >
-                            <Bed className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                            <div className="flex-1">
-                              <h4 className="font-semibold text-gray-800">{hab.habitacion}</h4>
-                              {hab.tipo_cama && (
-                                <p className="text-sm text-gray-600 mt-1">{hab.tipo_cama}</p>
-                              )}
-                              {hab.observaciones && (
-                                <p className="text-sm text-gray-500 mt-1 italic">{hab.observaciones}</p>
-                              )}
+              <div className="space-y-8">
+                {/* Alojamientos Principales - Incluidos en el paquete */}
+                <div>
+                  <div className="mb-6 p-5 bg-primary/10 rounded-lg border-2 border-primary/30">
+                    <div className="flex items-center gap-3 mb-2">
+                      <Star className="h-6 w-6 text-primary fill-primary" />
+                      <h2 className="text-2xl font-bold text-primary font-elvish">
+                        Alojamientos Incluidos en Nuestro Paquete
+                      </h2>
+                    </div>
+                    <p className="text-gray-700 ml-9">
+                      Estos alojamientos están incluidos y no tienen coste adicional para nuestros invitados.
+                    </p>
+                  </div>
+                  
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {propiedadesPrincipales.map((propiedad) => (
+                      <Card key={propiedad} className="bg-primary/5 border-primary/30 border-2 hover:shadow-lg transition-shadow">
+                        <CardHeader>
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 bg-primary/20 rounded-lg">
+                              <Home className="h-6 w-6 text-primary" />
                             </div>
-                            <Badge variant="secondary" className="flex-shrink-0">
-                              {hab.plazas} {hab.plazas === 1 ? 'plaza' : 'plazas'}
-                            </Badge>
+                            <CardTitle className="text-lg text-gray-800">{propiedad}</CardTitle>
                           </div>
-                        ))}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
+                        </CardHeader>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Otros Alojamientos Disponibles */}
+                {otrasPropiedades.length > 0 && (
+                  <div>
+                    <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+                      Otros Alojamientos Disponibles en la Zona
+                    </h2>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {otrasPropiedades.map((propiedad) => (
+                        <Card key={propiedad} className="bg-white/60 border-gray-200 hover:shadow-md transition-shadow">
+                          <CardHeader>
+                            <div className="flex items-center gap-3">
+                              <Home className="h-5 w-5 text-gray-600" />
+                              <CardTitle className="text-base text-gray-800">{propiedad}</CardTitle>
+                            </div>
+                          </CardHeader>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
           </div>
         </section>
