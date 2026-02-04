@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
         Inicio
       </Link>
 
-      <span className="text-2xl font-elvish text-primary">Sara & Victor</span>
+      <span className="text-4xl font-elvish text-primary tracking-widest px-6">Sara & Victor</span>
 
       <Link
         to="/admin"
