@@ -50,17 +50,11 @@ const Index = () => {
       <section className="max-w-2xl mx-auto py-12 px-2 flex flex-col gap-8 items-center">
         <div
           className="
-            relative bg-white/60 rounded-xl shadow-xl p-8 border text-center flex flex-col gap-5
-            overflow-hidden backdrop-blur-sm
+            relative bg-white/30 rounded-xl shadow-xl p-8 border border-white/40 text-center flex flex-col gap-5
+            overflow-hidden backdrop-blur-[3px]
           "
-          style={{
-            backgroundImage: "url('/flowers-bg.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-          }}
         >
-          <div className="absolute inset-0 bg-white/50 backdrop-blur-sm pointer-events-none" aria-hidden="true" />
+          <div className="absolute inset-0 bg-white/20 pointer-events-none" aria-hidden="true" />
           <div className="relative z-10 flex flex-col gap-5">
             <h1 className="text-5xl font-bold mb-2 font-elvish">
               ¡Te invitamos a nuestra boda!
