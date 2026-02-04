@@ -62,14 +62,14 @@ const Index = () => {
             </h1>
             
             <div className="flex flex-col gap-3">
-              <p className="text-3xl font-semibold text-primary font-elvish">
+              <p className="text-4xl font-semibold text-primary font-elvish">
                 Sábado, 14 de Noviembre de 2026
               </p>
               <a 
                 href="https://maps.google.com/?q=Aldea+Tejera+Negra,+Campillo+de+Ranas,+Guadalajara" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-2xl font-semibold text-primary hover:text-primary/80 underline underline-offset-2 transition-colors font-elvish"
+                className="text-3xl font-semibold text-primary hover:text-primary/80 underline underline-offset-2 transition-colors font-elvish"
               >
                 Aldea Tejera Negra, Campillo de Ranas, Guadalajara
               </a>
@@ -94,7 +94,7 @@ const Index = () => {
               </div>
             </div>
 
-            <p className="text-2xl font-semibold text-primary font-elvish">
+            <p className="text-3xl font-semibold text-primary font-elvish">
               ¡Esperamos compartir este día tan especial contigo!
             </p>
 
