@@ -10,17 +10,17 @@ interface ColorSelectorProps {
 }
 
 const colorMap: Record<ColorOption, string> = {
-  verde: "#22c55e",
-  azul: "#3b82f6",
-  rojo: "#ef4444",
-  amarillo: "#eab308",
-  marron: "#a16207",
-  morado: "#a855f7",
-  gris: "#6b7280",
-  negro: "#000000",
+  verde: "#a7f3d0",
+  azul: "#bfdbfe",
+  rojo: "#fecaca",
+  amarillo: "#fef08a",
+  marron: "#d8b4a0",
+  morado: "#e9d5ff",
+  gris: "#d1d5db",
+  negro: "#6b7280",
   blanco: "#ffffff",
-  dorado: "#fbbf24",
-  rosa: "#ec4899"
+  dorado: "#fde68a",
+  rosa: "#fbcfe8"
 };
 
 const ColorSelector: React.FC<ColorSelectorProps> = ({
