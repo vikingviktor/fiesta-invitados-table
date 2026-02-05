@@ -17,7 +17,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Index page
     "index.welcome": "¡Bienvenidos a nuestra boda!",
-    "index.date": "26 de Septiembre de 2026",
+    "index.date": "14 de Noviembre de 2026",
     "index.location": "Aldea Tejera Negra, Campillo de Ranas, Guadalajara",
     "index.countdown.months": "Meses",
     "index.countdown.days": "Días",
@@ -103,7 +103,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Index page
     "index.welcome": "Welcome to our wedding!",
-    "index.date": "September 26th, 2026",
+    "index.date": "November 14th, 2026",
     "index.location": "Aldea Tejera Negra, Campillo de Ranas, Guadalajara",
     "index.countdown.months": "Months",
     "index.countdown.days": "Days",
@@ -189,7 +189,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Index page
     "index.welcome": "Benvenuti al nostro matrimonio!",
-    "index.date": "26 Settembre 2026",
+    "index.date": "14 Novembre 2026",
     "index.location": "Aldea Tejera Negra, Campillo de Ranas, Guadalajara",
     "index.countdown.months": "Mesi",
     "index.countdown.days": "Giorni",
@@ -275,7 +275,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Index page
     "index.welcome": "欢迎参加我们的婚礼！",
-    "index.date": "2026年9月26日",
+    "index.date": "2026年11月14日",
     "index.location": "Aldea Tejera Negra, Campillo de Ranas, Guadalajara",
     "index.countdown.months": "月",
     "index.countdown.days": "天",
