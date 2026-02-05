@@ -10,7 +10,7 @@ import {
 
 const flags: Record<Language, string> = {
   es: "🇪🇸",
-  en: "EN",
+  en: "🇮🇪",
   it: "🇮🇹",
   zh: "🇨🇳",
 };
@@ -34,7 +34,7 @@ const LanguageSelector: React.FC = () => {
         </SelectItem>
         <SelectItem value="en">
           <span className="flex items-center gap-2">
-            <span className="text-xl font-medium">EN</span>
+            <span className="text-xl">🇮🇪</span>
             <span>English</span>
           </span>
         </SelectItem>
