@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/use-toast";
+import { ArrowLeft } from "lucide-react";
 
 const AuthPage = () => {
   const [email, setEmail] = useState("admin@boda.com");
@@ -46,7 +47,16 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-white">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-white relative">
+      <Button
+        variant="ghost"
+        className="absolute top-4 left-4 flex items-center gap-2"
+        onClick={() => navigate("/")}
+      >
+        <ArrowLeft className="h-4 w-4" />
+        <span className="hidden sm:inline">Volver al inicio</span>
+      </Button>
+      
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle>Acceder como administrador</CardTitle>
