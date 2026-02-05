@@ -2,53 +2,63 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPin, TreePine, Church, Mountain, Camera, UtensilsCrossed, Footprints } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const CosasQueHacer = () => {
+  const { t } = useLanguage();
+
   const actividades = [
     {
       icon: TreePine,
-      title: "Hayedo de Tejera Negra",
-      description: "Parque Natural declarado Patrimonio de la Humanidad por la UNESCO. Disfruta de sus rutas de senderismo entre hayas centenarias, especialmente espectaculares en otoño.",
-      distancia: "A 5 km"
+      titleKey: "things.hayedo.title",
+      descriptionKey: "things.hayedo.description",
+      distanceKey: "things.hayedo.distance"
     },
     {
       icon: Mountain,
-      title: "Pueblos Negros",
-      description: "Recorre los encantadores pueblos de arquitectura negra: Campillo de Ranas, Majaelrayo, Valverde de los Arroyos, Robleluengo. Casas construidas con pizarra que les dan ese color oscuro característico.",
-      distancia: "En la zona"
+      titleKey: "things.pueblos.title",
+      descriptionKey: "things.pueblos.description",
+      distanceKey: "things.pueblos.distance"
     },
     {
       icon: Church,
-      title: "Iglesias y Ermitas",
-      description: "Visita las iglesias románicas y ermitas con encanto de la zona. Destacan la iglesia de Campillo de Ranas y la ermita de la Virgen de la Soledad.",
-      distancia: "En el pueblo"
+      titleKey: "things.iglesias.title",
+      descriptionKey: "things.iglesias.description",
+      distanceKey: "things.iglesias.distance"
     },
     {
       icon: Footprints,
-      title: "Rutas de Senderismo",
-      description: "Múltiples rutas señalizadas por el valle del río Sorbe, cascadas, miradores naturales y paisajes de montaña. Desde rutas sencillas hasta más exigentes.",
-      distancia: "Diversas distancias"
+      titleKey: "things.senderismo.title",
+      descriptionKey: "things.senderismo.description",
+      distanceKey: "things.senderismo.distance"
     },
     {
       icon: Camera,
-      title: "Miradores Naturales",
-      description: "Disfruta de impresionantes vistas panorámicas desde los diversos miradores de la zona. Perfectos para fotografía de paisajes y naturaleza.",
-      distancia: "Por toda la zona"
+      titleKey: "things.miradores.title",
+      descriptionKey: "things.miradores.description",
+      distanceKey: "things.miradores.distance"
     },
     {
       icon: UtensilsCrossed,
-      title: "Gastronomía Local",
-      description: "Degusta la cocina tradicional serrana: cabrito asado, judías del Barco, trucha del río, setas de temporada y miel de la zona. Varios restaurantes en los pueblos cercanos.",
-      distancia: "En los pueblos"
+      titleKey: "things.gastronomia.title",
+      descriptionKey: "things.gastronomia.description",
+      distanceKey: "things.gastronomia.distance"
     }
   ];
 
   const pueblosRecomendados = [
-    { nombre: "Valverde de los Arroyos", descripcion: "Uno de los pueblos más bonitos de la arquitectura negra" },
-    { nombre: "Majaelrayo", descripcion: "Pueblo con encanto, ideal para pasear por sus calles empedradas" },
-    { nombre: "Campillo de Ranas", descripcion: "Pueblo base, punto de partida para muchas rutas" },
-    { nombre: "Robleluengo", descripcion: "Pequeño pueblo tranquilo con vistas impresionantes" },
-    { nombre: "Tamajón", descripcion: "Pueblo más grande con servicios y restaurantes" }
+    { nombre: "Valverde de los Arroyos", descriptionKey: "things.village.valverde" },
+    { nombre: "Majaelrayo", descriptionKey: "things.village.majaelrayo" },
+    { nombre: "Campillo de Ranas", descriptionKey: "things.village.campillo" },
+    { nombre: "Robleluengo", descriptionKey: "things.village.robleluengo" },
+    { nombre: "Tamajón", descriptionKey: "things.village.tamajon" }
+  ];
+
+  const tips = [
+    "things.tip1",
+    "things.tip2",
+    "things.tip3",
+    "things.tip4"
   ];
 
   return (
@@ -68,11 +78,10 @@ const CosasQueHacer = () => {
           <div className="relative bg-white/90 rounded-xl shadow-xl p-8 border border-white/40 backdrop-blur-sm">
             <div className="mb-8 text-center">
               <h1 className="text-4xl font-bold mb-3 font-elvish text-primary">
-                Qué Hacer en la Zona
+                {t("things.title")}
               </h1>
               <p className="text-lg text-gray-700">
-                Los Pueblos Negros de Guadalajara ofrecen naturaleza, cultura e historia.
-                Aquí tienes algunas sugerencias para disfrutar de tu estancia.
+                {t("things.subtitle")}
               </p>
             </div>
 
@@ -87,15 +96,15 @@ const CosasQueHacer = () => {
                           <IconComponent className="h-6 w-6 text-primary" />
                         </div>
                         <div className="flex-1">
-                          <CardTitle className="text-xl mb-1">{actividad.title}</CardTitle>
+                          <CardTitle className="text-xl mb-1">{t(actividad.titleKey)}</CardTitle>
                           <CardDescription className="text-primary font-medium">
-                            {actividad.distancia}
+                            {t(actividad.distanceKey)}
                           </CardDescription>
                         </div>
                       </div>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-gray-700">{actividad.description}</p>
+                      <p className="text-gray-700">{t(actividad.descriptionKey)}</p>
                     </CardContent>
                   </Card>
                 );
@@ -105,7 +114,7 @@ const CosasQueHacer = () => {
             <div className="mt-8 p-6 bg-primary/5 rounded-lg border border-primary/20">
               <h2 className="text-2xl font-semibold mb-4 text-gray-800 flex items-center gap-2">
                 <MapPin className="h-6 w-6 text-primary" />
-                Pueblos Recomendados para Visitar
+                {t("things.villages.title")}
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
                 {pueblosRecomendados.map((pueblo, index) => (
@@ -113,7 +122,7 @@ const CosasQueHacer = () => {
                     <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                     <div>
                       <h3 className="font-semibold text-gray-800">{pueblo.nombre}</h3>
-                      <p className="text-sm text-gray-600">{pueblo.descripcion}</p>
+                      <p className="text-sm text-gray-600">{t(pueblo.descriptionKey)}</p>
                     </div>
                   </div>
                 ))}
@@ -121,24 +130,14 @@ const CosasQueHacer = () => {
             </div>
 
             <div className="mt-8 p-6 bg-amber-50 rounded-lg border border-amber-200">
-              <h3 className="font-semibold text-lg mb-2 text-gray-800">💡 Consejos Útiles</h3>
+              <h3 className="font-semibold text-lg mb-2 text-gray-800">{t("things.tips.title")}</h3>
               <ul className="space-y-2 text-gray-700">
-                <li className="flex items-start gap-2">
-                  <span className="text-amber-600 mt-1">•</span>
-                  <span>Lleva calzado cómodo para caminar por las calles empedradas y rutas de montaña</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-amber-600 mt-1">•</span>
-                  <span>La zona es ideal para desconectar; la cobertura móvil puede ser limitada en algunos puntos</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-amber-600 mt-1">•</span>
-                  <span>En otoño (octubre-noviembre) el hayedo está en su máximo esplendor con colores espectaculares</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-amber-600 mt-1">•</span>
-                  <span>Reserva con antelación en restaurantes, especialmente los fines de semana</span>
-                </li>
+                {tips.map((tipKey, index) => (
+                  <li key={index} className="flex items-start gap-2">
+                    <span className="text-amber-600 mt-1">•</span>
+                    <span>{t(tipKey)}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>

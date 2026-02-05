@@ -1,12 +1,13 @@
-
 import React, { useState, useEffect } from "react";
 import GuestForm from "@/components/GuestForm";
 import Navbar from "@/components/Navbar";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const WEDDING_DATE = new Date("2026-11-14T12:00:00");
 
 const Index = () => {
   const [showForm, setShowForm] = useState(false);
+  const { t } = useLanguage();
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -58,12 +59,12 @@ const Index = () => {
           <div className="absolute inset-0 bg-white/20 pointer-events-none" aria-hidden="true" />
           <div className="relative z-10 flex flex-col gap-5">
             <h1 className="text-5xl font-bold mb-2 font-elvish">
-              ¡Te invitamos a nuestra boda!
+              {t("index.welcome")}
             </h1>
             
             <div className="flex flex-col gap-3">
               <p className="text-4xl font-semibold text-primary font-elvish">
-                Sábado, 14 de Noviembre de 2026
+                {t("index.date")}
               </p>
               <a 
                 href="https://maps.google.com/?q=Aldea+Tejera+Negra,+Campillo+de+Ranas,+Guadalajara" 
@@ -71,38 +72,34 @@ const Index = () => {
                 rel="noopener noreferrer"
                 className="text-3xl font-semibold text-primary hover:text-primary/80 underline underline-offset-2 transition-colors font-elvish"
               >
-                Aldea Tejera Negra, Campillo de Ranas, Guadalajara
+                {t("index.location")}
               </a>
             </div>
 
             <div className="flex justify-center gap-4 my-4">
               <div className="flex flex-col items-center bg-primary/10 rounded-lg px-4 py-3 min-w-[70px]">
                 <span className="text-3xl font-bold text-primary">{timeLeft.days}</span>
-                <span className="text-xs text-muted-foreground uppercase tracking-wide">días</span>
+                <span className="text-xs text-muted-foreground uppercase tracking-wide">{t("index.countdown.days")}</span>
               </div>
               <div className="flex flex-col items-center bg-primary/10 rounded-lg px-4 py-3 min-w-[70px]">
                 <span className="text-3xl font-bold text-primary">{timeLeft.hours}</span>
-                <span className="text-xs text-muted-foreground uppercase tracking-wide">horas</span>
+                <span className="text-xs text-muted-foreground uppercase tracking-wide">{t("index.countdown.hours")}</span>
               </div>
               <div className="flex flex-col items-center bg-primary/10 rounded-lg px-4 py-3 min-w-[70px]">
                 <span className="text-3xl font-bold text-primary">{timeLeft.minutes}</span>
-                <span className="text-xs text-muted-foreground uppercase tracking-wide">min</span>
-              </div>
-              <div className="flex flex-col items-center bg-primary/10 rounded-lg px-4 py-3 min-w-[70px]">
-                <span className="text-3xl font-bold text-primary">{timeLeft.seconds}</span>
-                <span className="text-xs text-muted-foreground uppercase tracking-wide">seg</span>
+                <span className="text-xs text-muted-foreground uppercase tracking-wide">{t("index.countdown.minutes")}</span>
               </div>
             </div>
 
             <p className="text-3xl font-semibold text-primary font-elvish">
-              ¡Esperamos compartir este día tan especial contigo!
+              {t("index.rsvp.description")}
             </p>
 
             <button
               onClick={() => setShowForm(!showForm)}
               className="mt-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105"
             >
-              {showForm ? "Ocultar formulario" : "Confirma tu asistencia"}
+              {showForm ? t("index.rsvp.edit") : t("index.rsvp.button")}
             </button>
           </div>
         </div>

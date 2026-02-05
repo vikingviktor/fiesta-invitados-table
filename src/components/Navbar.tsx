@@ -1,12 +1,14 @@
-
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Settings } from "lucide-react";
+import LanguageSelector from "@/components/LanguageSelector";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Navbar: React.FC = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const [session, setSession] = React.useState<any>(null);
 
@@ -33,7 +35,7 @@ const Navbar: React.FC = () => {
               : "hover:bg-primary/10 text-primary"
           }`}
         >
-          Inicio
+          {t("nav.home")}
         </Link>
 
         <Link
@@ -44,7 +46,7 @@ const Navbar: React.FC = () => {
               : "hover:bg-primary/10 text-primary"
           }`}
         >
-          Alojamiento
+          {t("nav.accommodation")}
         </Link>
 
         <Link
@@ -55,8 +57,10 @@ const Navbar: React.FC = () => {
               : "hover:bg-primary/10 text-primary"
           }`}
         >
-          Cosas que hacer
+          {t("nav.things_to_do")}
         </Link>
+
+        <LanguageSelector />
 
         <Link
           to="/admin"

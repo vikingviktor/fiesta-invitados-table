@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Home, Star } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ALOJAMIENTOS_PRINCIPALES = [
   "Aldea Tejera Negra",
@@ -25,6 +26,7 @@ const OTROS_ALOJAMIENTOS = [
 ];
 
 const Alojamiento = () => {
+  const { t } = useLanguage();
 
   return (
     <div 
@@ -42,11 +44,10 @@ const Alojamiento = () => {
           <div className="relative bg-white/90 rounded-xl shadow-xl p-8 border border-white/40 backdrop-blur-sm">
             <div className="mb-8 text-center">
               <h1 className="text-4xl font-bold mb-3 font-elvish text-primary">
-                Alojamientos Disponibles
+                {t("accommodation.title")}
               </h1>
               <p className="text-lg text-gray-700">
-                Disponemos de varios alojamientos en la zona de los Pueblos Negros de Guadalajara.
-                Aquí puedes ver las opciones disponibles.
+                {t("accommodation.subtitle")}
               </p>
             </div>
 
@@ -57,11 +58,11 @@ const Alojamiento = () => {
                   <div className="flex items-center gap-3 mb-2">
                     <Star className="h-6 w-6 text-primary fill-primary" />
                     <h2 className="text-2xl font-bold text-primary font-elvish">
-                      Alojamientos Incluidos en Nuestro Paquete
+                      {t("accommodation.included.title")}
                     </h2>
                   </div>
                   <p className="text-gray-700 ml-9">
-                    Estos alojamientos están incluidos y no tienen coste adicional para nuestros invitados.
+                    {t("accommodation.included.description")}
                   </p>
                 </div>
                 
@@ -84,7 +85,7 @@ const Alojamiento = () => {
               {/* Otros Alojamientos Disponibles */}
               <div>
                 <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                  Otros Alojamientos Disponibles en la Zona
+                  {t("accommodation.others.title")}
                 </h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {OTROS_ALOJAMIENTOS.map((propiedad) => (
