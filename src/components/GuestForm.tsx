@@ -174,7 +174,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         label="¿Qué canción no puede faltar en la fiesta?"
         value={cancionFavorita}
         onChange={setCancionFavorita}
-        placeholder="Ej: La Macarena, Caballo Dorado, We Found Love..."
+        placeholder="Ej: La Macarena, We Found Love, Toxicity..."
         maxLength={100}
         disabled={loading}
       />
