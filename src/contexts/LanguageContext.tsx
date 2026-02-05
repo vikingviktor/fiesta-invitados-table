@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
-export type Language = "es" | "en" | "it";
+export type Language = "es" | "en" | "it" | "zh";
 
 interface LanguageContextType {
   language: Language;
@@ -206,6 +206,72 @@ const translations: Record<Language, Record<string, string>> = {
     "things.tip2": "La zona è ideale per staccare la spina; la copertura mobile può essere limitata in alcuni punti",
     "things.tip3": "In autunno (ottobre-novembre) la faggeta è al suo massimo splendore con colori spettacolari",
     "things.tip4": "Prenota i ristoranti in anticipo, soprattutto nei fine settimana",
+  },
+  zh: {
+    // Navbar
+    "nav.home": "首页",
+    "nav.accommodation": "住宿",
+    "nav.things_to_do": "周边活动",
+    
+    // Index page
+    "index.welcome": "欢迎参加我们的婚礼！",
+    "index.date": "2026年9月26日",
+    "index.location": "Aldea Tejera Negra, Campillo de Ranas, Guadalajara",
+    "index.countdown.months": "月",
+    "index.countdown.days": "天",
+    "index.countdown.hours": "小时",
+    "index.countdown.minutes": "分钟",
+    "index.rsvp.title": "你会来参加我们的婚礼吗？",
+    "index.rsvp.description": "请填写下面的表格确认您的出席。我们很期待与您共度这一天！",
+    "index.rsvp.button": "确认出席",
+    "index.rsvp.confirmed": "感谢您确认出席！",
+    "index.rsvp.edit": "修改回复",
+    
+    // Alojamiento page
+    "accommodation.title": "可用住宿",
+    "accommodation.subtitle": "我们在瓜达拉哈拉黑村地区有多处住宿可供选择。您可以在这里查看可用选项。",
+    "accommodation.included.title": "我们套餐中包含的住宿",
+    "accommodation.included.description": "这些住宿已包含在内，宾客无需额外付费。",
+    "accommodation.others.title": "该地区其他可用住宿",
+    
+    // CosasQueHacer page
+    "things.title": "周边活动",
+    "things.subtitle": "瓜达拉哈拉的黑村提供自然、文化和历史体验。以下是一些享受您住宿的建议。",
+    "things.villages.title": "推荐参观的村庄",
+    "things.tips.title": "💡 实用建议",
+    
+    // Activities
+    "things.hayedo.title": "Tejera Negra 山毛榉林",
+    "things.hayedo.description": "被联合国教科文组织列为世界遗产的自然公园。在百年山毛榉间享受徒步旅行，秋季尤为壮观。",
+    "things.hayedo.distance": "5公里",
+    "things.pueblos.title": "黑村",
+    "things.pueblos.description": "探索迷人的黑色建筑村庄：Campillo de Ranas、Majaelrayo、Valverde de los Arroyos、Robleluengo。用板岩建造的房屋赋予它们独特的深色外观。",
+    "things.pueblos.distance": "在该地区",
+    "things.iglesias.title": "教堂和礼拜堂",
+    "things.iglesias.description": "参观该地区的罗马式教堂和迷人的小教堂。Campillo de Ranas教堂和Virgen de la Soledad小教堂尤为突出。",
+    "things.iglesias.distance": "在村庄内",
+    "things.senderismo.title": "徒步路线",
+    "things.senderismo.description": "Sorbe河谷、瀑布、自然观景台和山地景观中有多条标记路线。从简单到具有挑战性的路线都有。",
+    "things.senderismo.distance": "各种距离",
+    "things.miradores.title": "自然观景台",
+    "things.miradores.description": "从该地区各个观景台欣赏令人惊叹的全景。非常适合风景和自然摄影。",
+    "things.miradores.distance": "遍布全区",
+    "things.gastronomia.title": "当地美食",
+    "things.gastronomia.description": "品尝传统山区美食：烤山羊肉、Barco豆、河鳟鱼、时令蘑菇和当地蜂蜜。附近村庄有多家餐厅。",
+    "things.gastronomia.distance": "在各村庄",
+    
+    // Villages
+    "things.village.valverde": "最美丽的黑色建筑村庄之一",
+    "things.village.majaelrayo": "迷人的村庄，非常适合在鹅卵石街道漫步",
+    "things.village.campillo": "基地村庄，许多路线的起点",
+    "things.village.robleluengo": "安静的小村庄，景色令人印象深刻",
+    "things.village.tamajon": "较大的村庄，有服务设施和餐厅",
+    
+    // Tips
+    "things.tip1": "穿舒适的鞋子，方便在鹅卵石街道和山间小道行走",
+    "things.tip2": "该地区非常适合放松身心；某些地区的手机信号可能有限",
+    "things.tip3": "秋季（10月-11月）山毛榉林色彩最为壮观",
+    "things.tip4": "提前预订餐厅，尤其是周末",
   },
 };
 
