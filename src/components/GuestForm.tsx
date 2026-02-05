@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Guest, MenuOption, ColorOption } from "@/types/guestTypes";
 import { supabase } from "@/integrations/supabase/client";
+import { useLanguage } from "@/contexts/LanguageContext";
 import TextInput from "./guest-form/TextInput";
 import TextareaInput from "./guest-form/TextareaInput";
 import MenuSelector from "./guest-form/MenuSelector";
@@ -12,6 +13,7 @@ interface GuestFormProps {
 }
 
 const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
+  const { t } = useLanguage();
   const [nombre, setNombre] = useState("");
   const [plusOne, setPlusOne] = useState(false);
   const [nombreAcompanante, setNombreAcompanante] = useState("");
@@ -29,15 +31,15 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
     e.preventDefault();
     setMensaje("");
     if (!nombre.trim()) {
-      setMensaje("Por favor, introduce tu nombre.");
+      setMensaje(t("form.error.name"));
       return;
     }
     if (plusOne && !nombreAcompanante.trim()) {
-      setMensaje("Por favor, introduce el nombre de tu acompañante.");
+      setMensaje(t("form.error.companion"));
       return;
     }
     if (!consentimientoPublicacion) {
-      setMensaje("Debes aceptar el consentimiento para salir en fotos/vídeos.");
+      setMensaje(t("form.error.consent"));
       return;
     }
     setLoading(true);
@@ -72,7 +74,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
 
     setLoading(false);
     if (error) {
-      setMensaje("Ocurrió un error al registrar tu invitación. Por favor intenta de nuevo.");
+      setMensaje(t("form.error.submit"));
       return;
     }
     if (onSubmit && data) {
@@ -91,7 +93,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         colorAcompanante: data.color_acompanante as ColorOption ?? undefined,
       });
     }
-    setMensaje("¡Registro enviado! Gracias por confirmar tu asistencia.");
+    setMensaje(t("form.success"));
     setNombre("");
     setPlusOne(false);
     setNombreAcompanante("");
@@ -119,12 +121,12 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
       className="bg-white border rounded-2xl shadow-md max-w-lg mx-auto p-8 flex flex-col gap-5"
       onSubmit={handleSubmit}
     >
-      <h2 className="text-4xl font-semibold mb-2 text-center font-elvish">Confirma tu asistencia</h2>
+      <h2 className="text-4xl font-semibold mb-2 text-center font-elvish">{t("form.title")}</h2>
       <TextInput
-        label="Nombre completo"
+        label={t("form.name")}
         value={nombre}
         onChange={setNombre}
-        placeholder="Ej: Ana García"
+        placeholder={t("form.name.placeholder")}
         maxLength={60}
         disabled={loading}
         required
@@ -138,7 +140,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
             onChange={e => handlePlusOneChange(e.target.checked)}
             disabled={loading}
           />
-          ¿Llevo acompañante? (+1)
+          {t("form.plusone")}
         </label>
       </div>
       {plusOne && (
@@ -151,38 +153,38 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         />
       )}
       <MenuSelector
-        label="Menú preferido"
+        label={t("form.menu")}
         value={menu}
         onChange={setMenu}
         disabled={loading}
       />
       <ColorSelector
-        label="Color preferido"
+        label={t("form.color")}
         value={color}
         onChange={setColor}
         disabled={loading}
       />
       {plusOne && (
         <ColorSelector
-          label="Color del acompañante"
+          label={t("form.color.companion")}
           value={colorAcompanante}
           onChange={setColorAcompanante}
           disabled={loading}
         />
       )}
       <TextInput
-        label="¿Qué canción no puede faltar en la fiesta?"
+        label={t("form.song")}
         value={cancionFavorita}
         onChange={setCancionFavorita}
-        placeholder="Ej: La Macarena, We Found Love, Toxicity..."
+        placeholder={t("form.song.placeholder")}
         maxLength={100}
         disabled={loading}
       />
       <TextareaInput
-        label="Comentarios/adicionales"
+        label={t("form.comments")}
         value={comentario}
         onChange={setComentario}
-        placeholder="¿Alguna alergia, petición o mensaje para los novios?"
+        placeholder={t("form.comments.placeholder")}
         maxLength={200}
         disabled={loading}
       />
@@ -196,7 +198,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
             disabled={loading}
           />
           <span>
-            Doy mi consentimiento para aparecer en fotos y vídeos públicos de la boda (en redes, web, etc).
+            {t("form.consent")}
           </span>
         </label>
       </div>
@@ -205,7 +207,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         className="bg-primary text-white font-semibold py-2 rounded shadow hover:bg-primary/80 transition"
         disabled={loading}
       >
-        {loading ? "Registrando..." : "Confirmar asistencia"}
+        {loading ? "..." : t("form.submit")}
       </button>
       {mensaje && (
         <div className={`rounded px-4 py-2 text-center mt-2 ${
