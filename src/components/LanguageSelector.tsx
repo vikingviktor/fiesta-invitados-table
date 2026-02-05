@@ -34,7 +34,7 @@ const LanguageSelector: React.FC = () => {
         </SelectItem>
         <SelectItem value="en">
           <span className="flex items-center gap-2">
-            <span className="text-xl">🇬🇧</span>
+            <span className="text-xl">EN</span>
             <span>English</span>
           </span>
         </SelectItem>
