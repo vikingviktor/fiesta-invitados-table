@@ -26,6 +26,8 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
   const [menuAcompanante, setMenuAcompanante] = useState<MenuOption>("normal");
   const [color, setColor] = useState<ColorOption | undefined>();
   const [colorAcompanante, setColorAcompanante] = useState<ColorOption | undefined>();
+  const [conNinos, setConNinos] = useState(false);
+  const [pernoctaSabado, setPernoctaSabado] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,6 +57,8 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
       menuAcompanante: plusOne ? menuAcompanante : undefined,
       color: color || undefined,
       colorAcompanante: plusOne ? colorAcompanante : undefined,
+      conNinos,
+      pernoctaSabado,
     };
     const { data, error } = await supabase.from("guests").insert([
       {
@@ -69,6 +73,8 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         menu_acompanante: nuevoInvitado.menuAcompanante ?? null,
         color: nuevoInvitado.color ?? null,
         color_acompanante: nuevoInvitado.colorAcompanante ?? null,
+        con_ninos: nuevoInvitado.conNinos,
+        pernocta_sabado: nuevoInvitado.pernoctaSabado,
       }
     ]).select().single();
 
@@ -91,6 +97,8 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         menuAcompanante: data.menu_acompanante ?? undefined,
         color: data.color as ColorOption ?? undefined,
         colorAcompanante: data.color_acompanante as ColorOption ?? undefined,
+        conNinos: !!data.con_ninos,
+        pernoctaSabado: !!data.pernocta_sabado,
       });
     }
     setMensaje(t("form.success"));
@@ -104,6 +112,8 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
     setMenuAcompanante("normal"); // always assign a valid MenuOption, not empty string
     setColor(undefined);
     setColorAcompanante(undefined);
+    setConNinos(false);
+    setPernoctaSabado(false);
     setTimeout(() => setMensaje(""), 3500);
   };
 
@@ -188,6 +198,33 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         maxLength={200}
         disabled={loading}
       />
+      <div>
+        <label className="flex items-start gap-2 cursor-pointer">
+          <input
+            type="checkbox"
+            className="accent-primary mt-1"
+            checked={conNinos}
+            onChange={e => setConNinos(e.target.checked)}
+            disabled={loading}
+          />
+          <span className="flex flex-col">
+            <span>{t("form.children")}</span>
+            <span className="text-sm text-muted-foreground">{t("form.children.hint")}</span>
+          </span>
+        </label>
+      </div>
+      <div>
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input
+            type="checkbox"
+            className="accent-primary"
+            checked={pernoctaSabado}
+            onChange={e => setPernoctaSabado(e.target.checked)}
+            disabled={loading}
+          />
+          <span>{t("form.overnight")}</span>
+        </label>
+      </div>
       <div>
         <label className="flex items-start gap-2 cursor-pointer">
           <input

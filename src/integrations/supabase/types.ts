@@ -89,6 +89,7 @@ export type Database = {
           color: string | null
           color_acompanante: string | null
           comentario: string | null
+          con_ninos: boolean
           consentimiento_publicacion: boolean
           date: string
           habitacion: string | null
@@ -98,6 +99,7 @@ export type Database = {
           mesa: number | null
           nombre: string
           nombre_acompanante: string | null
+          pernocta_sabado: boolean
           plus_one: boolean
         }
         Insert: {
@@ -105,6 +107,7 @@ export type Database = {
           color?: string | null
           color_acompanante?: string | null
           comentario?: string | null
+          con_ninos?: boolean
           consentimiento_publicacion?: boolean
           date?: string
           habitacion?: string | null
@@ -114,6 +117,7 @@ export type Database = {
           mesa?: number | null
           nombre: string
           nombre_acompanante?: string | null
+          pernocta_sabado?: boolean
           plus_one: boolean
         }
         Update: {
@@ -121,6 +125,7 @@ export type Database = {
           color?: string | null
           color_acompanante?: string | null
           comentario?: string | null
+          con_ninos?: boolean
           consentimiento_publicacion?: boolean
           date?: string
           habitacion?: string | null
@@ -130,6 +135,7 @@ export type Database = {
           mesa?: number | null
           nombre?: string
           nombre_acompanante?: string | null
+          pernocta_sabado?: boolean
           plus_one?: boolean
         }
         Relationships: []
