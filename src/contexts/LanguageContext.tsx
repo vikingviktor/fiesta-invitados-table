@@ -79,6 +79,9 @@ const translations: Record<Language, Record<string, string>> = {
     // Schedule page
     "schedule.title": "Horarios del Evento",
     "schedule.subtitle": "14 de noviembre de 2026 — Así será el día de nuestra boda",
+    "schedule.ceremony.title": "Ceremonia",
+    "schedule.ceremony.time": "13:00h",
+    "schedule.ceremony.description": "Ceremonia nupcial. ¡El momento más especial del día!",
     "schedule.cocktail.title": "Cóctel de Bienvenida",
     "schedule.cocktail.time": "14:00h",
     "schedule.cocktail.description": "Recepción con cóctel de bienvenida para todos los invitados.",
@@ -182,6 +185,9 @@ const translations: Record<Language, Record<string, string>> = {
     // Schedule page
     "schedule.title": "Event Schedule",
     "schedule.subtitle": "November 14th, 2026 — Here's how our wedding day will unfold",
+    "schedule.ceremony.title": "Ceremony",
+    "schedule.ceremony.time": "1:00 PM",
+    "schedule.ceremony.description": "Wedding ceremony. The most special moment of the day!",
     "schedule.cocktail.title": "Welcome Cocktail",
     "schedule.cocktail.time": "2:00 PM",
     "schedule.cocktail.description": "Welcome cocktail reception for all guests.",
@@ -285,6 +291,9 @@ const translations: Record<Language, Record<string, string>> = {
     // Schedule page
     "schedule.title": "Programma dell'Evento",
     "schedule.subtitle": "14 novembre 2026 — Ecco come si svolgerà il giorno del nostro matrimonio",
+    "schedule.ceremony.title": "Cerimonia",
+    "schedule.ceremony.time": "13:00",
+    "schedule.ceremony.description": "Cerimonia nuziale. Il momento più speciale della giornata!",
     "schedule.cocktail.title": "Cocktail di Benvenuto",
     "schedule.cocktail.time": "14:00",
     "schedule.cocktail.description": "Ricevimento con cocktail di benvenuto per tutti gli ospiti.",
@@ -388,6 +397,9 @@ const translations: Record<Language, Record<string, string>> = {
     // Schedule page
     "schedule.title": "活动时间表",
     "schedule.subtitle": "2026年11月14日——我们婚礼当天的安排",
+    "schedule.ceremony.title": "婚礼仪式",
+    "schedule.ceremony.time": "13:00",
+    "schedule.ceremony.description": "婚礼仪式。一天中最特别的时刻！",
     "schedule.cocktail.title": "欢迎鸡尾酒会",
     "schedule.cocktail.time": "14:00",
     "schedule.cocktail.description": "为所有宾客举办的欢迎鸡尾酒会。",

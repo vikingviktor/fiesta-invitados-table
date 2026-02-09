@@ -1,13 +1,19 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Clock, Wine, UtensilsCrossed, PartyPopper, Coffee } from "lucide-react";
+import { Clock, Wine, UtensilsCrossed, PartyPopper, Coffee, Heart } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Horarios = () => {
   const { t } = useLanguage();
 
   const eventos = [
+    {
+      icon: Heart,
+      titleKey: "schedule.ceremony.title",
+      timeKey: "schedule.ceremony.time",
+      descriptionKey: "schedule.ceremony.description",
+    },
     {
       icon: Wine,
       titleKey: "schedule.cocktail.title",
