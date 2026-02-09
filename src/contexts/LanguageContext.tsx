@@ -14,6 +14,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.home": "Inicio",
     "nav.accommodation": "Alojamiento",
     "nav.things_to_do": "Cosas que hacer",
+    "nav.schedule": "Horarios",
     
     // Index page
     "index.welcome": "¡Bienvenidos a nuestra boda!",
@@ -75,6 +76,22 @@ const translations: Record<Language, Record<string, string>> = {
     "things.tip3": "En otoño (octubre-noviembre) el hayedo está en su máximo esplendor con colores espectaculares",
     "things.tip4": "Reserva con antelación en restaurantes, especialmente los fines de semana",
     
+    // Schedule page
+    "schedule.title": "Horarios del Evento",
+    "schedule.subtitle": "14 de noviembre de 2026 — Así será el día de nuestra boda",
+    "schedule.cocktail.title": "Cóctel de Bienvenida",
+    "schedule.cocktail.time": "14:00h",
+    "schedule.cocktail.description": "Recepción con cóctel de bienvenida para todos los invitados.",
+    "schedule.banquet.title": "Banquete",
+    "schedule.banquet.time": "15:00h",
+    "schedule.banquet.description": "Comienza el banquete nupcial. ¡A disfrutar de la comida!",
+    "schedule.openbar.title": "Barra Libre",
+    "schedule.openbar.time": "~17:15h (3 horas)",
+    "schedule.openbar.description": "Comienza la barra libre con música y fiesta. ¡Durará aproximadamente 3 horas!",
+    "schedule.latesupper.title": "Recena",
+    "schedule.latesupper.time": "Después de la barra libre",
+    "schedule.latesupper.description": "Para reponer fuerzas después de la fiesta, habrá una recena para los que sigan en pie.",
+    
     // Form
     "form.title": "Confirma tu asistencia",
     "form.name": "Nombre completo",
@@ -100,6 +117,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.home": "Home",
     "nav.accommodation": "Accommodation",
     "nav.things_to_do": "Things to Do",
+    "nav.schedule": "Schedule",
     
     // Index page
     "index.welcome": "Welcome to our wedding!",
@@ -161,6 +179,22 @@ const translations: Record<Language, Record<string, string>> = {
     "things.tip3": "In autumn (October-November) the beech forest is at its peak with spectacular colors",
     "things.tip4": "Book restaurants in advance, especially on weekends",
     
+    // Schedule page
+    "schedule.title": "Event Schedule",
+    "schedule.subtitle": "November 14th, 2026 — Here's how our wedding day will unfold",
+    "schedule.cocktail.title": "Welcome Cocktail",
+    "schedule.cocktail.time": "2:00 PM",
+    "schedule.cocktail.description": "Welcome cocktail reception for all guests.",
+    "schedule.banquet.title": "Banquet",
+    "schedule.banquet.time": "3:00 PM",
+    "schedule.banquet.description": "The wedding banquet begins. Enjoy the feast!",
+    "schedule.openbar.title": "Open Bar",
+    "schedule.openbar.time": "~5:15 PM (3 hours)",
+    "schedule.openbar.description": "The open bar kicks off with music and partying. It will last approximately 3 hours!",
+    "schedule.latesupper.title": "Late Supper",
+    "schedule.latesupper.time": "After the open bar",
+    "schedule.latesupper.description": "To recharge after the party, there will be a late supper for those still standing.",
+    
     // Form
     "form.title": "Confirm Your Attendance",
     "form.name": "Full Name",
@@ -186,6 +220,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.home": "Home",
     "nav.accommodation": "Alloggio",
     "nav.things_to_do": "Cosa Fare",
+    "nav.schedule": "Orari",
     
     // Index page
     "index.welcome": "Benvenuti al nostro matrimonio!",
@@ -247,6 +282,22 @@ const translations: Record<Language, Record<string, string>> = {
     "things.tip3": "In autunno (ottobre-novembre) la faggeta è al suo massimo splendore con colori spettacolari",
     "things.tip4": "Prenota i ristoranti in anticipo, soprattutto nei fine settimana",
     
+    // Schedule page
+    "schedule.title": "Programma dell'Evento",
+    "schedule.subtitle": "14 novembre 2026 — Ecco come si svolgerà il giorno del nostro matrimonio",
+    "schedule.cocktail.title": "Cocktail di Benvenuto",
+    "schedule.cocktail.time": "14:00",
+    "schedule.cocktail.description": "Ricevimento con cocktail di benvenuto per tutti gli ospiti.",
+    "schedule.banquet.title": "Banchetto",
+    "schedule.banquet.time": "15:00",
+    "schedule.banquet.description": "Inizia il banchetto nuziale. Buon appetito!",
+    "schedule.openbar.title": "Open Bar",
+    "schedule.openbar.time": "~17:15 (3 ore)",
+    "schedule.openbar.description": "Inizia l'open bar con musica e festa. Durerà circa 3 ore!",
+    "schedule.latesupper.title": "Cena Tardiva",
+    "schedule.latesupper.time": "Dopo l'open bar",
+    "schedule.latesupper.description": "Per ricaricare le energie dopo la festa, ci sarà una cena tardiva per chi è ancora in piedi.",
+    
     // Form
     "form.title": "Conferma la Tua Partecipazione",
     "form.name": "Nome Completo",
@@ -272,6 +323,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.home": "首页",
     "nav.accommodation": "住宿",
     "nav.things_to_do": "周边活动",
+    "nav.schedule": "时间表",
     
     // Index page
     "index.welcome": "欢迎参加我们的婚礼！",
@@ -332,6 +384,22 @@ const translations: Record<Language, Record<string, string>> = {
     "things.tip2": "该地区非常适合放松身心；某些地区的手机信号可能有限",
     "things.tip3": "秋季（10月-11月）山毛榉林色彩最为壮观",
     "things.tip4": "提前预订餐厅，尤其是周末",
+    
+    // Schedule page
+    "schedule.title": "活动时间表",
+    "schedule.subtitle": "2026年11月14日——我们婚礼当天的安排",
+    "schedule.cocktail.title": "欢迎鸡尾酒会",
+    "schedule.cocktail.time": "14:00",
+    "schedule.cocktail.description": "为所有宾客举办的欢迎鸡尾酒会。",
+    "schedule.banquet.title": "宴会",
+    "schedule.banquet.time": "15:00",
+    "schedule.banquet.description": "婚宴开始，尽情享用美食！",
+    "schedule.openbar.title": "畅饮时间",
+    "schedule.openbar.time": "约17:15（3小时）",
+    "schedule.openbar.description": "畅饮时间开始，伴随音乐和派对。将持续约3小时！",
+    "schedule.latesupper.title": "夜宵",
+    "schedule.latesupper.time": "畅饮时间之后",
+    "schedule.latesupper.description": "派对结束后，为仍在场的宾客提供夜宵补充体力。",
     
     // Form
     "form.title": "确认您的出席",
