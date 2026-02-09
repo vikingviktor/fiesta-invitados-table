@@ -60,6 +60,8 @@ function mapDbGuestToGuestWithHabitacion(dbGuest: any): GuestWithHabitacion {
     color: dbGuest.color ?? undefined,
     colorAcompanante: dbGuest.color_acompanante ?? undefined,
     habitacion: dbGuest.habitacion ?? null,
+    conNinos: !!dbGuest.con_ninos,
+    pernoctaSabado: !!dbGuest.pernocta_sabado,
   };
 }
 

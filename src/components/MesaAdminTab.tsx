@@ -24,6 +24,8 @@ function mapDbGuestToGuestWithMesa(dbGuest: any): GuestWithMesa {
     consentimientoPublicacion: !!dbGuest.consentimiento_publicacion, // Para coherencia con el modelo actual
     cancionFavorita: dbGuest.cancion_favorita ?? "",
     menuAcompanante: dbGuest.menu_acompanante ?? undefined,
+    conNinos: !!dbGuest.con_ninos,
+    pernoctaSabado: !!dbGuest.pernocta_sabado,
   };
 }
 
