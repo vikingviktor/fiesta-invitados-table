@@ -31,11 +31,8 @@ const translations: Record<Language, Record<string, string>> = {
     "index.rsvp.edit": "Editar respuesta",
     
     // Alojamiento page
-    "accommodation.title": "Alojamientos Disponibles",
-    "accommodation.subtitle": "Disponemos de varios alojamientos en la zona de los Pueblos Negros de Guadalajara. Aquí puedes ver las opciones disponibles.",
-    "accommodation.included.title": "Alojamientos Incluidos en Nuestro Paquete",
-    "accommodation.included.description": "Estos alojamientos están incluidos y no tienen coste adicional para nuestros invitados.",
-    "accommodation.others.title": "Otros Alojamientos Disponibles en la Zona",
+    "accommodation.title": "Alojamientos en la Zona",
+    "accommodation.subtitle": "La finca Tejera Negra nos proporciona el contacto de los siguientes alojamientos/casas rurales por la zona. Por favor escríbenos si tu intención es quedarte a dormir la noche del sábado. ¡Gracias!",
     
     // CosasQueHacer page
     "things.title": "Qué Hacer en la Zona",
@@ -94,6 +91,9 @@ const translations: Record<Language, Record<string, string>> = {
     "schedule.latesupper.title": "Recena",
     "schedule.latesupper.time": "Después de la barra libre",
     "schedule.latesupper.description": "Para reponer fuerzas después de la fiesta, habrá una recena para los que sigan en pie.",
+    "schedule.end.title": "Fin de la Fiesta",
+    "schedule.end.time": "20:30h",
+    "schedule.end.description": "La fiesta terminará como tarde a las 20:30h. ¡Esperamos que hayáis disfrutado tanto como nosotros!",
     
     // Form
     "form.title": "Confirma tu asistencia",
@@ -140,11 +140,8 @@ const translations: Record<Language, Record<string, string>> = {
     "index.rsvp.edit": "Edit response",
     
     // Alojamiento page
-    "accommodation.title": "Available Accommodations",
-    "accommodation.subtitle": "We have several accommodations in the Black Villages area of Guadalajara. Here you can see the available options.",
-    "accommodation.included.title": "Accommodations Included in Our Package",
-    "accommodation.included.description": "These accommodations are included at no additional cost for our guests.",
-    "accommodation.others.title": "Other Available Accommodations in the Area",
+    "accommodation.title": "Accommodations in the Area",
+    "accommodation.subtitle": "The Tejera Negra estate provides us with the contact details for the following accommodations/rural houses in the area. Please let us know if you plan to stay overnight on Saturday. Thank you!",
     
     // CosasQueHacer page
     "things.title": "What to Do in the Area",
@@ -203,6 +200,9 @@ const translations: Record<Language, Record<string, string>> = {
     "schedule.latesupper.title": "Late Supper",
     "schedule.latesupper.time": "After the open bar",
     "schedule.latesupper.description": "To recharge after the party, there will be a late supper for those still standing.",
+    "schedule.end.title": "End of the Party",
+    "schedule.end.time": "8:30 PM",
+    "schedule.end.description": "The party will end at 8:30 PM at the latest. We hope you enjoyed it as much as we did!",
     
     // Form
     "form.title": "Confirm Your Attendance",
@@ -249,11 +249,8 @@ const translations: Record<Language, Record<string, string>> = {
     "index.rsvp.edit": "Modifica risposta",
     
     // Alojamiento page
-    "accommodation.title": "Alloggi Disponibili",
-    "accommodation.subtitle": "Abbiamo diversi alloggi nella zona dei Villaggi Neri di Guadalajara. Qui puoi vedere le opzioni disponibili.",
-    "accommodation.included.title": "Alloggi Inclusi nel Nostro Pacchetto",
-    "accommodation.included.description": "Questi alloggi sono inclusi senza costi aggiuntivi per i nostri ospiti.",
-    "accommodation.others.title": "Altri Alloggi Disponibili nella Zona",
+    "accommodation.title": "Alloggi nella Zona",
+    "accommodation.subtitle": "La tenuta Tejera Negra ci fornisce i contatti dei seguenti alloggi/case rurali nella zona. Per favore scrivici se hai intenzione di restare a dormire sabato notte. Grazie!",
     
     // CosasQueHacer page
     "things.title": "Cosa Fare nella Zona",
@@ -312,6 +309,9 @@ const translations: Record<Language, Record<string, string>> = {
     "schedule.latesupper.title": "Cena Tardiva",
     "schedule.latesupper.time": "Dopo l'open bar",
     "schedule.latesupper.description": "Per ricaricare le energie dopo la festa, ci sarà una cena tardiva per chi è ancora in piedi.",
+    "schedule.end.title": "Fine della Festa",
+    "schedule.end.time": "20:30",
+    "schedule.end.description": "La festa terminerà al più tardi alle 20:30. Speriamo che vi siate divertiti quanto noi!",
     
     // Form
     "form.title": "Conferma la Tua Partecipazione",
@@ -358,11 +358,8 @@ const translations: Record<Language, Record<string, string>> = {
     "index.rsvp.edit": "修改回复",
     
     // Alojamiento page
-    "accommodation.title": "可用住宿",
-    "accommodation.subtitle": "我们在瓜达拉哈拉黑村地区有多处住宿可供选择。您可以在这里查看可用选项。",
-    "accommodation.included.title": "我们套餐中包含的住宿",
-    "accommodation.included.description": "这些住宿已包含在内，宾客无需额外付费。",
-    "accommodation.others.title": "该地区其他可用住宿",
+    "accommodation.title": "附近住宿",
+    "accommodation.subtitle": "Tejera Negra庄园为我们提供了以下地区住宿/乡村民宿的联系方式。如果您打算周六晚上留宿，请联系我们。谢谢！",
     
     // CosasQueHacer page
     "things.title": "周边活动",
@@ -421,6 +418,9 @@ const translations: Record<Language, Record<string, string>> = {
     "schedule.latesupper.title": "夜宵",
     "schedule.latesupper.time": "畅饮时间之后",
     "schedule.latesupper.description": "派对结束后，为仍在场的宾客提供夜宵补充体力。",
+    "schedule.end.title": "派对结束",
+    "schedule.end.time": "20:30",
+    "schedule.end.description": "派对最迟将在20:30结束。希望您和我们一样尽兴！",
     
     // Form
     "form.title": "确认您的出席",

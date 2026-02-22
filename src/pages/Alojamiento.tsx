@@ -1,17 +1,14 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Home, Star } from "lucide-react";
+import { Home } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const ALOJAMIENTOS_PRINCIPALES = [
+const ALOJAMIENTOS = [
   "Aldea Tejera Negra",
   "La Casona de Campillo",
   "Apartamentos La Plaza",
-  "La Casona de Majaelrayo"
-];
-
-const OTROS_ALOJAMIENTOS = [
+  "La Casona de Majaelrayo",
   "El Abejaruco",
   "Apartamento Acebuche",
   "Apartamento Acebo",
@@ -51,55 +48,17 @@ const Alojamiento = () => {
               </p>
             </div>
 
-            <div className="space-y-8">
-              {/* Alojamientos Principales - Incluidos en el paquete */}
-              <div>
-                <div className="mb-6 p-5 bg-primary/10 rounded-lg border-2 border-primary/30">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Star className="h-6 w-6 text-primary fill-primary" />
-                    <h2 className="text-2xl font-bold text-primary font-elvish">
-                      {t("accommodation.included.title")}
-                    </h2>
-                  </div>
-                  <p className="text-gray-700 ml-9">
-                    {t("accommodation.included.description")}
-                  </p>
-                </div>
-                
-                <div className="grid md:grid-cols-2 gap-4">
-                  {ALOJAMIENTOS_PRINCIPALES.map((propiedad) => (
-                    <Card key={propiedad} className="bg-primary/5 border-primary/30 border-2 hover:shadow-lg transition-shadow">
-                      <CardHeader>
-                        <div className="flex items-center gap-3">
-                          <div className="p-2 bg-primary/20 rounded-lg">
-                            <Home className="h-6 w-6 text-primary" />
-                          </div>
-                          <CardTitle className="text-lg text-gray-800">{propiedad}</CardTitle>
-                        </div>
-                      </CardHeader>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-
-              {/* Otros Alojamientos Disponibles */}
-              <div>
-                <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-                  {t("accommodation.others.title")}
-                </h2>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {OTROS_ALOJAMIENTOS.map((propiedad) => (
-                    <Card key={propiedad} className="bg-white/60 border-gray-200 hover:shadow-md transition-shadow">
-                      <CardHeader>
-                        <div className="flex items-center gap-3">
-                          <Home className="h-5 w-5 text-gray-600" />
-                          <CardTitle className="text-base text-gray-800">{propiedad}</CardTitle>
-                        </div>
-                      </CardHeader>
-                    </Card>
-                  ))}
-                </div>
-              </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {ALOJAMIENTOS.map((propiedad) => (
+                <Card key={propiedad} className="bg-white/60 border-gray-200 hover:shadow-md transition-shadow">
+                  <CardHeader>
+                    <div className="flex items-center gap-3">
+                      <Home className="h-5 w-5 text-gray-600" />
+                      <CardTitle className="text-base text-gray-800">{propiedad}</CardTitle>
+                    </div>
+                  </CardHeader>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
