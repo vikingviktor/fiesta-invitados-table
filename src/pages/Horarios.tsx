@@ -38,6 +38,12 @@ const Horarios = () => {
       timeKey: "schedule.latesupper.time",
       descriptionKey: "schedule.latesupper.description",
     },
+    {
+      icon: Clock,
+      titleKey: "schedule.end.title",
+      timeKey: "schedule.end.time",
+      descriptionKey: "schedule.end.description",
+    },
   ];
 
   return (
