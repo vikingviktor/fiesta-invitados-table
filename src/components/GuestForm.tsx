@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Guest, MenuOption, ColorOption } from "@/types/guestTypes";
+import { Guest, MenuOption } from "@/types/guestTypes";
 import { supabase } from "@/integrations/supabase/client";
 import { useLanguage } from "@/contexts/LanguageContext";
 import TextInput from "./guest-form/TextInput";
 import TextareaInput from "./guest-form/TextareaInput";
 import MenuSelector from "./guest-form/MenuSelector";
 import PlusOneFields from "./guest-form/PlusOneFields";
-import ColorSelector from "./guest-form/ColorSelector";
+
 
 interface GuestFormProps {
   onSubmit?: (guest: Guest) => void;
@@ -24,8 +24,6 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
   const [loading, setLoading] = useState(false);
   const [consentimientoPublicacion, setConsentimientoPublicacion] = useState(false);
   const [menuAcompanante, setMenuAcompanante] = useState<MenuOption>("normal");
-  const [color, setColor] = useState<ColorOption | undefined>();
-  const [colorAcompanante, setColorAcompanante] = useState<ColorOption | undefined>();
   const [conNinos, setConNinos] = useState(false);
   const [pernoctaSabado, setPernoctaSabado] = useState(false);
 
@@ -55,8 +53,6 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
       cancionFavorita: cancionFavorita.trim() || undefined,
       consentimientoPublicacion,
       menuAcompanante: plusOne ? menuAcompanante : undefined,
-      color: color || undefined,
-      colorAcompanante: plusOne ? colorAcompanante : undefined,
       conNinos,
       pernoctaSabado,
     };
@@ -71,8 +67,6 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         cancion_favorita: nuevoInvitado.cancionFavorita ?? null,
         consentimiento_publicacion: nuevoInvitado.consentimientoPublicacion,
         menu_acompanante: nuevoInvitado.menuAcompanante ?? null,
-        color: nuevoInvitado.color ?? null,
-        color_acompanante: nuevoInvitado.colorAcompanante ?? null,
         con_ninos: nuevoInvitado.conNinos,
         pernocta_sabado: nuevoInvitado.pernoctaSabado,
       }
@@ -95,8 +89,6 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         cancionFavorita: data.cancion_favorita ?? undefined,
         consentimientoPublicacion: !!data.consentimiento_publicacion,
         menuAcompanante: data.menu_acompanante ?? undefined,
-        color: data.color as ColorOption ?? undefined,
-        colorAcompanante: data.color_acompanante as ColorOption ?? undefined,
         conNinos: !!data.con_ninos,
         pernoctaSabado: !!data.pernocta_sabado,
       });
@@ -110,8 +102,6 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
     setCancionFavorita("");
     setConsentimientoPublicacion(false);
     setMenuAcompanante("normal"); // always assign a valid MenuOption, not empty string
-    setColor(undefined);
-    setColorAcompanante(undefined);
     setConNinos(false);
     setPernoctaSabado(false);
     setTimeout(() => setMensaje(""), 3500);
@@ -122,7 +112,6 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
     if (!checked) {
       setNombreAcompanante("");
       setMenuAcompanante("normal"); // assign valid MenuOption, not ""
-      setColorAcompanante(undefined);
     }
   };
 
@@ -168,20 +157,6 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         onChange={setMenu}
         disabled={loading}
       />
-      <ColorSelector
-        label={t("form.color")}
-        value={color}
-        onChange={setColor}
-        disabled={loading}
-      />
-      {plusOne && (
-        <ColorSelector
-          label={t("form.color.companion")}
-          value={colorAcompanante}
-          onChange={setColorAcompanante}
-          disabled={loading}
-        />
-      )}
       <TextInput
         label={t("form.song")}
         value={cancionFavorita}

@@ -10,6 +10,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { mapDbGuestToGuest } from "@/utils/guestUtils";
 import CancionesTab from "@/components/CancionesTab";
 import HabitacionesAdminTab from "@/components/HabitacionesAdminTab";
+import MapaMesasTab from "@/components/MapaMesasTab";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -90,6 +91,7 @@ const Admin = () => {
             <TabsTrigger value="habitaciones">Habitaciones</TabsTrigger>
             <TabsTrigger value="eliminados">Eliminados</TabsTrigger>
             <TabsTrigger value="canciones">Canciones</TabsTrigger>
+            <TabsTrigger value="mapa">Mapa Mesas</TabsTrigger>
           </TabsList>
 
           <TabsContent value="invitados">
@@ -120,6 +122,10 @@ const Admin = () => {
 
           <TabsContent value="canciones">
             <CancionesTab />
+          </TabsContent>
+
+          <TabsContent value="mapa">
+            <MapaMesasTab />
           </TabsContent>
         </Tabs>
       </section>
