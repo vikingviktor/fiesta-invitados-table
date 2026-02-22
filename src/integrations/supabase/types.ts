@@ -140,6 +140,57 @@ export type Database = {
         }
         Relationships: []
       }
+      mesa_layout_config: {
+        Row: {
+          created_at: string
+          id: string
+          space_height: number
+          space_width: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          space_height?: number
+          space_width?: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          space_height?: number
+          space_width?: number
+        }
+        Relationships: []
+      }
+      mesa_positions: {
+        Row: {
+          created_at: string
+          height: number
+          id: string
+          mesa_name: string
+          width: number
+          x: number
+          y: number
+        }
+        Insert: {
+          created_at?: string
+          height?: number
+          id?: string
+          mesa_name: string
+          width?: number
+          x?: number
+          y?: number
+        }
+        Update: {
+          created_at?: string
+          height?: number
+          id?: string
+          mesa_name?: string
+          width?: number
+          x?: number
+          y?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
