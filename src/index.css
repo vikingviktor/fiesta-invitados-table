@@ -101,3 +101,261 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Hobbit Door Landing Page */
+.font-antiqua {
+  font-family: 'Uncial Antiqua', cursive;
+}
+
+.hobbit-frame {
+  position: relative;
+  width: min(85vw, 380px);
+  height: min(85vw, 380px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .hobbit-frame {
+    width: 420px;
+    height: 420px;
+  }
+}
+
+/* Stone arch around the door */
+.hobbit-arch {
+  position: absolute;
+  inset: -16px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 30% 20%,
+    #8b7355 0%,
+    #6b5a3e 30%,
+    #4a3c28 60%,
+    #3a2e1e 100%
+  );
+  box-shadow:
+    inset 0 0 30px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(0, 0, 0, 0.5),
+    0 0 80px rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.hobbit-arch::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  border: 3px solid rgba(90, 70, 50, 0.4);
+}
+
+/* Vine details */
+.hobbit-vine {
+  position: absolute;
+  width: 40px;
+  height: 120px;
+  z-index: 2;
+}
+
+.hobbit-vine--left {
+  left: -8px;
+  top: 20%;
+  background: linear-gradient(135deg, transparent 40%, #3a5a2a 41%, #2d4a20 60%, transparent 61%);
+  border-radius: 0 50% 50% 0;
+  opacity: 0.6;
+}
+
+.hobbit-vine--right {
+  right: -8px;
+  bottom: 20%;
+  background: linear-gradient(225deg, transparent 40%, #3a5a2a 41%, #2d4a20 60%, transparent 61%);
+  border-radius: 50% 0 0 50%;
+  opacity: 0.6;
+}
+
+/* The circular door */
+.hobbit-door {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 5;
+  transform-origin: left center;
+  transition: transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow:
+    inset 0 0 20px rgba(0, 0, 0, 0.3),
+    0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.hobbit-door--open {
+  transform: perspective(800px) rotateY(-105deg);
+}
+
+/* Wood texture */
+.hobbit-door__wood {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 18px,
+      rgba(0, 0, 0, 0.06) 18px,
+      rgba(0, 0, 0, 0.06) 20px
+    ),
+    radial-gradient(ellipse at 40% 30%, #5a8a4a 0%, #4a7a3a 30%, #3a6a2a 60%, #2d5a20 100%);
+}
+
+/* Horizontal planks */
+.hobbit-door__plank {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.hobbit-door__plank--1 { top: 30%; }
+.hobbit-door__plank--2 { top: 50%; }
+.hobbit-door__plank--3 { top: 70%; }
+
+/* Iron hinges */
+.hobbit-door__hinge {
+  position: absolute;
+  left: 5%;
+  width: 35%;
+  height: 14px;
+  z-index: 6;
+}
+
+.hobbit-door__hinge--top {
+  top: 25%;
+}
+
+.hobbit-door__hinge--bottom {
+  top: 65%;
+}
+
+.hobbit-door__hinge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #4a4a4a 0%, #2a2a2a 50%, #1a1a1a 100%);
+  clip-path: polygon(0% 30%, 0% 70%, 100% 100%, 100% 0%);
+  border-radius: 2px;
+}
+
+.hobbit-door__hinge::after {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #555 0%, #333 60%, #1a1a1a 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Golden knob */
+.hobbit-door__knob {
+  position: absolute;
+  right: 28%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 35% 30%,
+    #ffd700 0%,
+    #daa520 40%,
+    #b8860b 70%,
+    #996515 100%
+  );
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    inset 0 1px 3px rgba(255, 255, 255, 0.3),
+    0 0 15px rgba(255, 215, 0, 0.3);
+  z-index: 7;
+}
+
+.hobbit-door__knob-inner {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 40% 35%,
+    #ffe066 0%,
+    #daa520 60%,
+    #b8860b 100%
+  );
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Text on the door */
+.hobbit-door__text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 8;
+  font-family: 'Uncial Antiqua', cursive;
+  color: rgba(180, 160, 120, 0.7);
+  text-shadow:
+    1px 1px 2px rgba(0, 0, 0, 0.5),
+    0 0 1px rgba(0, 0, 0, 0.3);
+  font-size: clamp(1rem, 4vw, 1.4rem);
+  line-height: 1.4;
+  text-align: center;
+  padding: 20%;
+  pointer-events: none;
+  transition: opacity 0.8s ease-out;
+}
+
+.hobbit-door__text--fade {
+  opacity: 0;
+}
+
+/* Revealed content */
+.hobbit-revealed {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 1s ease-out 0.5s, transform 1s ease-out 0.5s;
+  pointer-events: none;
+}
+
+.hobbit-revealed--visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.hobbit-revealed__inner {
+  text-align: center;
+  padding: 1rem;
+  max-width: 500px;
+}
+
+@media (min-width: 640px) {
+  .hobbit-revealed__inner {
+    padding: 2rem;
+  }
+
+  .hobbit-frame {
+    margin-top: 60px;
+  }
+}
