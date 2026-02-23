@@ -127,9 +127,6 @@ const Index = () => {
             }`}
           >
             <div className="hobbit-revealed__inner">
-              <h1 className="text-3xl sm:text-5xl md:text-6xl font-elvish text-amber-100 mb-4 drop-shadow-[0_2px_10px_rgba(255,200,100,0.6)]">
-                Sara & Victor
-              </h1>
               <p className="text-base sm:text-lg md:text-xl text-amber-200/90 font-antiqua mb-3 leading-relaxed">
                 {t("index.venue")}
                 <br />
