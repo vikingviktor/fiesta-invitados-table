@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Settings, Home, Hotel, MapPin, Clock } from "lucide-react";
+import { Settings, Home, Hotel, MapPin, Clock, Shirt } from "lucide-react";
 import LanguageSelector from "@/components/LanguageSelector";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -77,6 +77,19 @@ const Navbar: React.FC = () => {
         >
           <Clock className="h-5 w-5" />
           <span className="hidden md:inline font-medium">{t("nav.schedule")}</span>
+        </Link>
+
+        <Link
+          to="/etiqueta"
+          className={`p-2 md:px-4 md:py-2 rounded transition-colors flex items-center gap-2 ${
+            pathname === "/etiqueta"
+              ? "bg-primary text-primary-foreground shadow"
+              : "hover:bg-primary/10 text-primary"
+          }`}
+          title={t("nav.dress_code")}
+        >
+          <Shirt className="h-5 w-5" />
+          <span className="hidden md:inline font-medium">{t("nav.dress_code")}</span>
         </Link>
 
         <LanguageSelector />

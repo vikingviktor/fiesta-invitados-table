@@ -11,6 +11,7 @@ import AuthPage from "./pages/Auth";
 import Alojamiento from "./pages/Alojamiento";
 import CosasQueHacer from "./pages/CosasQueHacer";
 import Horarios from "./pages/Horarios";
+import DressCode from "./pages/DressCode";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/alojamiento" element={<Alojamiento />} />
             <Route path="/cosas-que-hacer" element={<CosasQueHacer />} />
             <Route path="/horarios" element={<Horarios />} />
+            <Route path="/etiqueta" element={<DressCode />} />
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/admin" element={<Admin />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

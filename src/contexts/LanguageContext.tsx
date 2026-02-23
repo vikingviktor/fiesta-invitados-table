@@ -15,6 +15,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.accommodation": "Alojamiento",
     "nav.things_to_do": "Cosas que hacer",
     "nav.schedule": "Horarios",
+    "nav.dress_code": "Etiqueta",
     
     // Index page
     "index.welcome": "¡Bienvenidos a nuestra boda!",
@@ -95,6 +96,23 @@ const translations: Record<Language, Record<string, string>> = {
     "schedule.end.time": "20:30h",
     "schedule.end.description": "La fiesta terminará como tarde a las 20:30h. ¡Esperamos que hayáis disfrutado tanto como nosotros!",
     
+    // Dress Code page
+    "dresscode.title": "Etiqueta",
+    "dresscode.subtitle": "¡Nuestra boda será una celebración temática inspirada en El Señor de los Anillos y el mundo Hobbit!",
+    "dresscode.theme.title": "Boda Temática del Señor de los Anillos",
+    "dresscode.theme.description": "Nuestra boda está ambientada en el universo de Tolkien: La Comarca, los Hobbits, la Tierra Media... ¡Queremos que el ambiente sea lo más mágico e inmersivo posible!",
+    "dresscode.noobligation.title": "Sin Obligaciones",
+    "dresscode.noobligation.description": "Nadie está obligado a disfrazarse ni a vestirse de ninguna manera concreta. Ven como te sientas más cómodo/a. ¡Lo importante es que disfrutes del día!",
+    "dresscode.encouraged.title": "¡El Estilo Hobbit Mola!",
+    "dresscode.encouraged.description": "Dicho esto... ¡cuanto más te adaptes al estilo Hobbit/Tolkien, mejor! Tirantes, chalecos, faldas largas, tonos tierra, capas, telas naturales... ¡Todo vale para ambientar la fiesta!",
+    "dresscode.rule.title": "⚠️ La Única Regla: ¡NO TRAJE!",
+    "dresscode.rule.description": "La única norma que ponemos es que NO se puede venir en traje (chaqueta y corbata clásicos). Queremos un ambiente relajado y festivo, ¡no una boda convencional!",
+    "dresscode.tips.title": "💡 Ideas e Inspiración",
+    "dresscode.tips.tip1": "Tonos tierra, verdes, marrones y ocres son perfectos para el estilo Hobbit",
+    "dresscode.tips.tip2": "Tirantes, chalecos, sombreros y accesorios rústicos quedan genial",
+    "dresscode.tips.tip3": "Telas naturales como lino, algodón o lana dan un toque muy acertado",
+    "dresscode.tips.tip4": "¡Consulta Pinterest buscando 'Hobbit outfit' o 'Lord of the Rings wedding' para inspirarte!",
+    
     // Form
     "form.title": "Confirma tu asistencia",
     "form.name": "Nombre completo",
@@ -124,6 +142,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.accommodation": "Accommodation",
     "nav.things_to_do": "Things to Do",
     "nav.schedule": "Schedule",
+    "nav.dress_code": "Dress Code",
     
     // Index page
     "index.welcome": "Welcome to our wedding!",
@@ -204,6 +223,23 @@ const translations: Record<Language, Record<string, string>> = {
     "schedule.end.time": "8:30 PM",
     "schedule.end.description": "The party will end at 8:30 PM at the latest. We hope you enjoyed it as much as we did!",
     
+    // Dress Code page
+    "dresscode.title": "Dress Code",
+    "dresscode.subtitle": "Our wedding will be a Lord of the Rings / Hobbit themed celebration!",
+    "dresscode.theme.title": "Lord of the Rings Themed Wedding",
+    "dresscode.theme.description": "Our wedding is set in the world of Tolkien: The Shire, the Hobbits, Middle-earth... We want the atmosphere to be as magical and immersive as possible!",
+    "dresscode.noobligation.title": "No Obligations",
+    "dresscode.noobligation.description": "Nobody is obligated to dress up or wear anything specific. Come however you feel most comfortable. The important thing is that you enjoy the day!",
+    "dresscode.encouraged.title": "Hobbit Style Is Cool!",
+    "dresscode.encouraged.description": "That said... the more you embrace the Hobbit/Tolkien style, the better! Suspenders, waistcoats, long skirts, earth tones, cloaks, natural fabrics... anything goes to set the mood!",
+    "dresscode.rule.title": "⚠️ The Only Rule: NO SUITS!",
+    "dresscode.rule.description": "The only rule we have is that you CANNOT wear a formal suit (classic jacket and tie). We want a relaxed and festive atmosphere — not a conventional wedding!",
+    "dresscode.tips.title": "💡 Ideas & Inspiration",
+    "dresscode.tips.tip1": "Earth tones, greens, browns and ochres are perfect for the Hobbit style",
+    "dresscode.tips.tip2": "Suspenders, waistcoats, hats and rustic accessories look great",
+    "dresscode.tips.tip3": "Natural fabrics like linen, cotton or wool add a perfect touch",
+    "dresscode.tips.tip4": "Search Pinterest for 'Hobbit outfit' or 'Lord of the Rings wedding' for inspiration!",
+    
     // Form
     "form.title": "Confirm Your Attendance",
     "form.name": "Full Name",
@@ -233,6 +269,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.accommodation": "Alloggio",
     "nav.things_to_do": "Cosa Fare",
     "nav.schedule": "Orari",
+    "nav.dress_code": "Dress Code",
     
     // Index page
     "index.welcome": "Benvenuti al nostro matrimonio!",
@@ -313,6 +350,23 @@ const translations: Record<Language, Record<string, string>> = {
     "schedule.end.time": "20:30",
     "schedule.end.description": "La festa terminerà al più tardi alle 20:30. Speriamo che vi siate divertiti quanto noi!",
     
+    // Dress Code page
+    "dresscode.title": "Dress Code",
+    "dresscode.subtitle": "Il nostro matrimonio sarà una celebrazione a tema Il Signore degli Anelli / Hobbit!",
+    "dresscode.theme.title": "Matrimonio a Tema Il Signore degli Anelli",
+    "dresscode.theme.description": "Il nostro matrimonio è ambientato nel mondo di Tolkien: La Contea, gli Hobbit, la Terra di Mezzo... Vogliamo che l'atmosfera sia il più magica e coinvolgente possibile!",
+    "dresscode.noobligation.title": "Nessun Obbligo",
+    "dresscode.noobligation.description": "Nessuno è obbligato a travestirsi o a vestirsi in modo particolare. Vieni come ti senti più a tuo agio. L'importante è che ti goda la giornata!",
+    "dresscode.encouraged.title": "Lo Stile Hobbit È Fantastico!",
+    "dresscode.encouraged.description": "Detto questo... più ti adatti allo stile Hobbit/Tolkien, meglio è! Bretelle, gilet, gonne lunghe, tonalità terra, mantelli, tessuti naturali... tutto va bene per creare l'atmosfera!",
+    "dresscode.rule.title": "⚠️ L'Unica Regola: NIENTE ABITI FORMALI!",
+    "dresscode.rule.description": "L'unica regola che mettiamo è che NON si può venire in abito formale (giacca e cravatta classici). Vogliamo un'atmosfera rilassata e festosa — non un matrimonio convenzionale!",
+    "dresscode.tips.title": "💡 Idee e Ispirazione",
+    "dresscode.tips.tip1": "Tonalità terra, verdi, marroni e ocra sono perfetti per lo stile Hobbit",
+    "dresscode.tips.tip2": "Bretelle, gilet, cappelli e accessori rustici stanno benissimo",
+    "dresscode.tips.tip3": "Tessuti naturali come lino, cotone o lana danno un tocco perfetto",
+    "dresscode.tips.tip4": "Cerca su Pinterest 'Hobbit outfit' o 'Lord of the Rings wedding' per ispirarti!",
+    
     // Form
     "form.title": "Conferma la Tua Partecipazione",
     "form.name": "Nome Completo",
@@ -342,6 +396,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.accommodation": "住宿",
     "nav.things_to_do": "周边活动",
     "nav.schedule": "时间表",
+    "nav.dress_code": "着装要求",
     
     // Index page
     "index.welcome": "欢迎参加我们的婚礼！",
@@ -421,6 +476,23 @@ const translations: Record<Language, Record<string, string>> = {
     "schedule.end.title": "派对结束",
     "schedule.end.time": "20:30",
     "schedule.end.description": "派对最迟将在20:30结束。希望您和我们一样尽兴！",
+    
+    // Dress Code page
+    "dresscode.title": "着装要求",
+    "dresscode.subtitle": "我们的婚礼将是一场《指环王》/霍比特人主题的庆祝活动！",
+    "dresscode.theme.title": "指环王主题婚礼",
+    "dresscode.theme.description": "我们的婚礼以托尔金的世界为背景：夏尔、霍比特人、中土世界……我们希望氛围尽可能充满魔法和沉浸感！",
+    "dresscode.noobligation.title": "没有强制要求",
+    "dresscode.noobligation.description": "没有人被要求必须装扮成特定样子。穿你觉得最舒服的衣服来就好。最重要的是你能享受这一天！",
+    "dresscode.encouraged.title": "霍比特风格超酷！",
+    "dresscode.encouraged.description": "话虽如此……你越贴近霍比特人/托尔金的风格越好！背带裤、马甲、长裙、大地色系、斗篷、天然面料……一切都能帮助营造氛围！",
+    "dresscode.rule.title": "⚠️ 唯一的规则：不能穿西装！",
+    "dresscode.rule.description": "我们唯一的规则是不能穿正式西装（经典的西装外套和领带）。我们希望营造轻松愉快的氛围——而不是传统婚礼！",
+    "dresscode.tips.title": "💡 灵感与建议",
+    "dresscode.tips.tip1": "大地色系、绿色、棕色和赭色非常适合霍比特风格",
+    "dresscode.tips.tip2": "背带裤、马甲、帽子和乡村风配饰效果很好",
+    "dresscode.tips.tip3": "亚麻、棉花或羊毛等天然面料增添完美质感",
+    "dresscode.tips.tip4": "在Pinterest上搜索'Hobbit outfit'或'Lord of the Rings wedding'获取灵感！",
     
     // Form
     "form.title": "确认您的出席",
