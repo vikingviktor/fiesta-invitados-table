@@ -20,6 +20,7 @@ export default {
 		extend: {
 			fontFamily: {
 				'elvish': ['Tangerine', 'cursive'],
+				'antiqua': ['Uncial Antiqua', 'cursive'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
