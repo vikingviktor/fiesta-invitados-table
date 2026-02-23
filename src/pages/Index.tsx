@@ -131,19 +131,19 @@ const Index = () => {
                 Sara & Victor
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-amber-200/90 font-antiqua mb-3 leading-relaxed">
-                Nov 14, 2026, at Aldea Tejera Negra.
+                {t("index.venue")}
                 <br />
-                Ceremony at 13:00h.
+                {t("index.ceremony_time")}
               </p>
               <p className="text-sm sm:text-base md:text-lg text-amber-300/80 italic font-antiqua mb-2 max-w-md mx-auto leading-relaxed">
-                "One wedding to rule them all,
+                {t("index.quote1")}
                 <br />
-                and in the happiness bind them."
+                {t("index.quote2")}
               </p>
               <p className="text-sm sm:text-base text-amber-200/70 font-antiqua mb-6">
-                We're going on an adventure,
+                {t("index.adventure1")}
                 <br />
-                and we want you with us!
+                {t("index.adventure2")}
               </p>
 
               {/* Countdown */}
