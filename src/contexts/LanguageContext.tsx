@@ -16,6 +16,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.things_to_do": "Cosas que hacer",
     "nav.schedule": "Horarios",
     "nav.dress_code": "Etiqueta",
+    "nav.mobile_hint": "¡Consulta alojamientos, horarios y más info en las pestañas de arriba!",
     
     // Index page
     "index.welcome": "¡Bienvenidos a nuestra boda!",
@@ -149,6 +150,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.things_to_do": "Things to Do",
     "nav.schedule": "Schedule",
     "nav.dress_code": "Dress Code",
+    "nav.mobile_hint": "Check accommodation, schedule & more info in the tabs above!",
     
     // Index page
     "index.welcome": "Welcome to our wedding!",
@@ -282,6 +284,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.things_to_do": "Cosa Fare",
     "nav.schedule": "Orari",
     "nav.dress_code": "Dress Code",
+    "nav.mobile_hint": "Consulta alloggi, orari e altre info nelle schede sopra!",
     
     // Index page
     "index.welcome": "Benvenuti al nostro matrimonio!",
@@ -415,6 +418,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.things_to_do": "周边活动",
     "nav.schedule": "时间表",
     "nav.dress_code": "着装要求",
+    "nav.mobile_hint": "点击上方标签查看住宿、时间表和更多信息！",
     
     // Index page
     "index.welcome": "欢迎参加我们的婚礼！",
@@ -548,6 +552,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.things_to_do": "Aktivitäten",
     "nav.schedule": "Zeitplan",
     "nav.dress_code": "Dresscode",
+    "nav.mobile_hint": "Unterkunft, Zeitplan & mehr Infos findest du in den Tabs oben!",
     
     // Index page
     "index.welcome": "Willkommen zu unserer Hochzeit!",
