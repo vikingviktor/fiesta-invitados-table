@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
 import { Card, CardContent } from "@/components/ui/card";
-import { Shirt, Sparkles, Ban, TreePine } from "lucide-react";
+import { Shirt, Sparkles, Ban, Ring } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const DressCode = () => {
@@ -39,7 +39,7 @@ const DressCode = () => {
               <Card className="border-primary/20 bg-primary/5">
                 <CardContent className="flex items-start gap-4 pt-6">
                   <div className="bg-primary/10 p-3 rounded-full shrink-0">
-                    <TreePine className="h-6 w-6 text-primary" />
+                    <Ring className="h-6 w-6 text-primary" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg text-primary mb-1">
