@@ -72,8 +72,9 @@ const Index = () => {
           doorOpen ? "opacity-100" : "opacity-0"
         }`}
         style={{
+          /* pastel green glow */
           background:
-            "radial-gradient(ellipse at center, rgba(255,200,100,0.5) 0%, rgba(255,160,60,0.2) 40%, transparent 70%)",
+            "radial-gradient(ellipse at center, rgba(200,255,200,0.5) 0%, rgba(180,245,180,0.2) 40%, transparent 70%)",
         }}
       />
 

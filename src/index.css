@@ -180,7 +180,8 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: url('/hobbit-door.png') center / cover no-repeat;
+  /* use the second door image */
+  background: url('/hobbit-door-2.png') center / cover no-repeat;
 }
 
 /* Horizontal planks — hidden, included in image */
