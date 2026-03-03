@@ -47,6 +47,10 @@ const translations: Record<Language, Record<string, string>> = {
     "accommodation.table.phone": "Teléfono",
     "accommodation.table.website": "Página web",
     "accommodation.table.details": "Detalles",
+    "accommodation.filter.locality": "Localidad",
+    "accommodation.filter.all": "Todos",
+    "accommodation.filter.locality": "Localidad",
+    "accommodation.filter.all": "Todos",
     
     // CosasQueHacer page
     "things.title": "Qué Hacer en la Zona",
@@ -188,6 +192,8 @@ const translations: Record<Language, Record<string, string>> = {
     "accommodation.table.phone": "Phone",
     "accommodation.table.website": "Website",
     "accommodation.table.details": "Details",
+    "accommodation.filter.locality": "Locality",
+    "accommodation.filter.all": "All",
     
     // CosasQueHacer page
     "things.title": "What to Do in the Area",
@@ -329,6 +335,8 @@ const translations: Record<Language, Record<string, string>> = {
     "accommodation.table.phone": "Telefono",
     "accommodation.table.website": "Sito web",
     "accommodation.table.details": "Dettagli",
+    "accommodation.filter.locality": "Località",
+    "accommodation.filter.all": "Tutti",
     
     // CosasQueHacer page
     "things.title": "Cosa Fare nella Zona",
@@ -470,6 +478,8 @@ const translations: Record<Language, Record<string, string>> = {
     "accommodation.table.phone": "电话",
     "accommodation.table.website": "网站",
     "accommodation.table.details": "详细信息",
+    "accommodation.filter.locality": "位置",
+    "accommodation.filter.all": "全部",
     
     // CosasQueHacer page
     "things.title": "周边活动",
@@ -611,6 +621,8 @@ const translations: Record<Language, Record<string, string>> = {
     "accommodation.table.phone": "Telefon",
     "accommodation.table.website": "Webseite",
     "accommodation.table.details": "Details",
+    "accommodation.filter.locality": "Ort",
+    "accommodation.filter.all": "Alle",
     
     // CosasQueHacer page
     "things.title": "Aktivitäten in der Umgebung",

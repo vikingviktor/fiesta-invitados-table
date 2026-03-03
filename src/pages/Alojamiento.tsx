@@ -6,10 +6,6 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const ALOJAMIENTOS = [
-  "Aldea Tejera Negra",
-  "La Casona de Campillo",
-  "Apartamentos La Plaza",
-  "La Casona de Majaelrayo",
   "El Abejaruco",
   "Apartamento Acebuche",
   "Apartamento Acebo",
@@ -25,10 +21,6 @@ const ALOJAMIENTOS = [
 
 // principales que no se muestran en la tabla desplegable
 const MAIN_PROPS = [
-  "Aldea Tejera Negra",
-  "La Casona de Majaelrayo",
-  "La Plaza de Majaelrayo",
-  "La Casona de Campillo",
   "Las Cabezadas"
 ];
 
@@ -207,6 +199,13 @@ const EXTRA_ACOMM = [
 
 const Alojamiento = () => {
   const { t } = useLanguage();
+  const [filterLocality, setFilterLocality] = React.useState("");
+
+  const localities = Array.from(new Set(EXTRA_ACOMM.map((a) => a.locality)));
+
+  const filteredExtras = filterLocality
+    ? EXTRA_ACOMM.filter((a) => a.locality === filterLocality)
+    : EXTRA_ACOMM;
 
   return (
     <div 
@@ -253,6 +252,24 @@ const Alojamiento = () => {
                       {t("accommodation.more.title")}
                     </AccordionTrigger>
                     <AccordionContent>
+                      {/* locality filter */}
+                      <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-700">
+                          {t("accommodation.filter.locality")}
+                        </label>
+                        <select
+                          value={filterLocality}
+                          onChange={(e) => setFilterLocality(e.target.value)}
+                          className="mt-1 block w-full rounded-md border-gray-300 focus:border-primary focus:ring-primary"
+                        >
+                          <option value="">{t("accommodation.filter.all")}</option>
+                          {localities.map((loc) => (
+                            <option key={loc} value={loc}>
+                              {loc}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                       <table className="w-full text-left">
                         <thead className="border-b">
                           <tr>
@@ -264,7 +281,7 @@ const Alojamiento = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {EXTRA_ACOMM.map((a) => (
+                          {filteredExtras.map((a) => (
                             <tr key={a.name} className="border-b last:border-none">
                               <td className="py-1">{a.name}</td>
                               <td className="py-1">{a.locality}</td>

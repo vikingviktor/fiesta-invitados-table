@@ -130,7 +130,7 @@ const DressCode = () => {
 
               {/* shopping links section */}
               <div className="mt-8 p-4 bg-secondary/5 rounded-lg border border-secondary/10">
-                <h3 className="font-semibold text-secondary mb-3">
+                <h3 className="font-semibold text-black mb-3">
                   {t("dresscode.buy.title")}
                 </h3>
                 <ul className="list-disc list-inside text-blue-600">
