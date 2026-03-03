@@ -127,6 +127,30 @@ const DressCode = () => {
                   </li>
                 </ul>
               </div>
+
+              {/* shopping links section */}
+              <div className="mt-8 p-4 bg-secondary/5 rounded-lg border border-secondary/10">
+                <h3 className="font-semibold text-secondary mb-3">
+                  {t("dresscode.buy.title")}
+                </h3>
+                <ul className="list-disc list-inside text-blue-600">
+                  <li>
+                    <a href="https://lacortedeltejon.shop/categoria-producto/colecciones/el-senor-de-los-anillos/hobbits/" target="_blank" rel="noopener noreferrer">
+                      lacortedeltejon.shop – El Señor de los Anillos / Hobbits
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://burgschneider.com/es-eu/collections/ropa-de-larp/fantasy" target="_blank" rel="noopener noreferrer">
+                      burgschneider.com – ropa LARP / fantasy
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://epicarmoury.com/collections/clothing" target="_blank" rel="noopener noreferrer">
+                      epicarmoury.com – fantasy clothing
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>

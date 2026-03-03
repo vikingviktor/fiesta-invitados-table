@@ -125,6 +125,7 @@ const translations: Record<Language, Record<string, string>> = {
     "dresscode.tips.tip2": "Tirantes, chalecos, sombreros y accesorios rústicos quedan genial",
     "dresscode.tips.tip3": "Telas naturales como lino, algodón o lana dan un toque muy acertado",
     "dresscode.tips.tip4": "¡Consulta Pinterest buscando 'Hobbit outfit' o 'Lord of the Rings wedding' para inspirarte!",
+    "dresscode.buy.title": "Tiendas donde comprar ropa temática",
     
     // Form
     "form.title": "Confirma tu asistencia",
@@ -265,6 +266,7 @@ const translations: Record<Language, Record<string, string>> = {
     "dresscode.tips.tip2": "Suspenders, waistcoats, hats and rustic accessories look great",
     "dresscode.tips.tip3": "Natural fabrics like linen, cotton or wool add a perfect touch",
     "dresscode.tips.tip4": "Search Pinterest for 'Hobbit outfit' or 'Lord of the Rings wedding' for inspiration!",
+    "dresscode.buy.title": "Places to shop for themed attire",
     
     // Form
     "form.title": "Confirm Your Attendance",
@@ -405,6 +407,7 @@ const translations: Record<Language, Record<string, string>> = {
     "dresscode.tips.tip2": "Bretelle, gilet, cappelli e accessori rustici stanno benissimo",
     "dresscode.tips.tip3": "Tessuti naturali come lino, cotone o lana danno un tocco perfetto",
     "dresscode.tips.tip4": "Cerca su Pinterest 'Hobbit outfit' o 'Lord of the Rings wedding' per ispirarti!",
+    "dresscode.buy.title": "Negozi dove acquistare abiti a tema",
     
     // Form
     "form.title": "Conferma la Tua Partecipazione",
@@ -545,6 +548,7 @@ const translations: Record<Language, Record<string, string>> = {
     "dresscode.tips.tip2": "背带裤、马甲、帽子和乡村风配饰效果很好",
     "dresscode.tips.tip3": "亚麻、棉花或羊毛等天然面料增添完美质感",
     "dresscode.tips.tip4": "在Pinterest上搜索'Hobbit outfit'或'Lord of the Rings wedding'获取灵感！",
+    "dresscode.buy.title": "购买主题服装的商店",
     
     // Form
     "form.title": "确认您的出席",
@@ -685,6 +689,7 @@ const translations: Record<Language, Record<string, string>> = {
     "dresscode.tips.tip2": "Hosenträger, Westen, Hüte und rustikale Accessoires sehen großartig aus",
     "dresscode.tips.tip3": "Natürliche Stoffe wie Leinen, Baumwolle oder Wolle geben den perfekten Touch",
     "dresscode.tips.tip4": "Suche auf Pinterest nach 'Hobbit outfit' oder 'Lord of the Rings wedding' für Inspiration!",
+    "dresscode.buy.title": "Geschäfte für thematische Kleidung",
     
     // Form
     "form.title": "Bestätige deine Teilnahme",
