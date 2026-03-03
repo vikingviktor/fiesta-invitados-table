@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Home } from "lucide-react";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const ALOJAMIENTOS = [
@@ -21,6 +22,21 @@ const ALOJAMIENTOS = [
   "Casa Rural Beba",
   "Cerezas y Miel"
 ];
+
+// principales que no se muestran en la tabla desplegable
+const MAIN_PROPS = [
+  "Aldea Tejera Negra",
+  "La Casona de Majaelrayo",
+  "La Plaza de Majaelrayo",
+  "La Casona de Campillo",
+  "Las Cabezadas"
+];
+
+// rellenar con datos reales extraídos del PDF
+const EXTRA_ACOMM = ALOJAMIENTOS
+  .filter((p) => !MAIN_PROPS.includes(p))
+  .map((name) => ({ name, details: "" }));
+
 
 const Alojamiento = () => {
   const { t } = useLanguage();
@@ -60,6 +76,39 @@ const Alojamiento = () => {
                 </Card>
               ))}
             </div>
+
+            {/* collapsible list of extras */}
+            {EXTRA_ACOMM.length > 0 && (
+              <div className="mt-8">
+                <Accordion type="single" collapsible>
+                  <AccordionItem value="extras">
+                    <AccordionTrigger className="text-primary">
+                      {t("accommodation.more.title")}
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <table className="w-full text-left">
+                        <thead className="border-b">
+                          <tr>
+                            <th className="py-1">{t("accommodation.table.name")}</th>
+                            <th className="py-1">{t("accommodation.table.details")}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {EXTRA_ACOMM.map((a) => (
+                            <tr key={a.name} className="border-b last:border-none">
+                              <td className="py-1">{a.name}</td>
+                              <td className="py-1 text-gray-600 text-sm">
+                                {a.details || "–"}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+            )}
           </div>
         </section>
       </div>

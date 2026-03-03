@@ -41,6 +41,9 @@ const translations: Record<Language, Record<string, string>> = {
     // Alojamiento page
     "accommodation.title": "Alojamientos en la Zona",
     "accommodation.subtitle": "La finca Tejera Negra nos proporciona el contacto de los siguientes alojamientos/casas rurales por la zona. Por favor escríbenos si tu intención es quedarte a dormir la noche del sábado. ¡Gracias!",
+    "accommodation.more.title": "Otros Alojamientos",
+    "accommodation.table.name": "Nombre",
+    "accommodation.table.details": "Detalles",
     
     // CosasQueHacer page
     "things.title": "Qué Hacer en la Zona",
@@ -175,6 +178,12 @@ const translations: Record<Language, Record<string, string>> = {
     // Alojamiento page
     "accommodation.title": "Accommodations in the Area",
     "accommodation.subtitle": "The Tejera Negra estate provides us with the contact details for the following accommodations/rural houses in the area. Please let us know if you plan to stay overnight on Saturday. Thank you!",
+    "accommodation.more.title": "Weitere Unterkünfte",
+    "accommodation.table.name": "Name",
+    "accommodation.table.details": "Details",
+    "accommodation.more.title": "Other Accommodations",
+    "accommodation.table.name": "Name",
+    "accommodation.table.details": "Details",
     
     // CosasQueHacer page
     "things.title": "What to Do in the Area",
@@ -309,6 +318,9 @@ const translations: Record<Language, Record<string, string>> = {
     // Alojamiento page
     "accommodation.title": "Alloggi nella Zona",
     "accommodation.subtitle": "La tenuta Tejera Negra ci fornisce i contatti dei seguenti alloggi/case rurali nella zona. Per favore scrivici se hai intenzione di restare a dormire sabato notte. Grazie!",
+    "accommodation.more.title": "Altri Alloggi",
+    "accommodation.table.name": "Nome",
+    "accommodation.table.details": "Dettagli",
     
     // CosasQueHacer page
     "things.title": "Cosa Fare nella Zona",
@@ -443,6 +455,9 @@ const translations: Record<Language, Record<string, string>> = {
     // Alojamiento page
     "accommodation.title": "附近住宿",
     "accommodation.subtitle": "Tejera Negra庄园为我们提供了以下地区住宿/乡村民宿的联系方式。如果您打算周六晚上留宿，请联系我们。谢谢！",
+    "accommodation.more.title": "其他住宿",
+    "accommodation.table.name": "名称",
+    "accommodation.table.details": "详细信息",
     
     // CosasQueHacer page
     "things.title": "周边活动",
