@@ -109,8 +109,9 @@
 
 .hobbit-frame {
   position: relative;
-  width: min(85vw, 380px);
-  height: min(85vw, 380px);
+  /* larger circle so text never overflows */
+  width: min(90vw, 480px);
+  height: min(90vw, 480px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -119,8 +120,8 @@
 
 @media (min-width: 640px) {
   .hobbit-frame {
-    width: 420px;
-    height: 420px;
+    width: 480px;
+    height: 480px;
   }
 }
 
