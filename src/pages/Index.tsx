@@ -59,7 +59,7 @@ const Index = () => {
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: "url('/rivendell-bg.jpg')",
+          backgroundImage: "url('/generic-bg-1.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           filter: "blur(3px) brightness(0.7)",
