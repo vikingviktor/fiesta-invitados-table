@@ -54,7 +54,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-[#1a0f0a]">
+    <div className="min-h-screen relative overflow-hidden bg-[#f8f6f1]">
       {/* Shire background behind the door */}
       <div
         className="absolute inset-0 z-0"
@@ -67,17 +67,7 @@ const Index = () => {
         }}
       />
 
-      {/* Warm glow behind door */}
-      <div
-        className={`absolute inset-0 z-[1] transition-opacity duration-[2000ms] ${
-          doorOpen ? "opacity-100" : "opacity-0"
-        }`}
-        style={{
-          /* pastel green glow */
-          background:
-            "radial-gradient(ellipse at center, rgba(200,255,200,0.5) 0%, rgba(180,245,180,0.2) 40%, transparent 70%)",
-        }}
-      />
+      {/* Removed green glow */}
 
       {/* Door scene */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen" style={{ perspective: "1200px" }}>
@@ -129,15 +119,15 @@ const Index = () => {
             }`}
           >
             <div className="hobbit-revealed__inner">
-              <p className="text-base sm:text-lg md:text-xl text-amber-200/90 font-antiqua mb-3 leading-relaxed whitespace-pre-line">
+              <p className="text-base sm:text-lg md:text-xl text-amber-900 font-antiqua mb-3 leading-relaxed whitespace-pre-line">
                 {t("index.venue")}
               </p>
-              <p className="text-sm sm:text-base md:text-lg text-amber-300/80 italic font-antiqua mb-2 max-w-md mx-auto leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg text-amber-800 italic font-antiqua mb-2 max-w-md mx-auto leading-relaxed">
                 {t("index.quote1")}
                 <br />
                 {t("index.quote2")}
               </p>
-              <p className="text-sm sm:text-base text-amber-200/70 font-antiqua mb-6">
+              <p className="text-sm sm:text-base text-amber-900/80 font-antiqua mb-6">
                 {t("index.adventure1")}
                 <br />
                 {t("index.adventure2")}
@@ -152,19 +142,19 @@ const Index = () => {
                 ].map(({ val, label }) => (
                   <div
                     key={label}
-                    className="flex flex-col items-center bg-amber-900/40 border border-amber-700/30 rounded-lg px-3 py-2 sm:px-4 sm:py-3 min-w-[56px] sm:min-w-[70px] backdrop-blur-sm"
+                    className="flex flex-col items-center bg-amber-800/20 border border-amber-700/30 rounded-lg px-3 py-2 sm:px-4 sm:py-3 min-w-[56px] sm:min-w-[70px] backdrop-blur-sm"
                   >
-                    <span className="text-2xl sm:text-3xl font-bold text-amber-200">
+                    <span className="text-2xl sm:text-3xl font-bold text-amber-900">
                       {val}
                     </span>
-                    <span className="text-[10px] sm:text-xs text-amber-400/70 uppercase tracking-wide">
+                    <span className="text-[10px] sm:text-xs text-amber-700 uppercase tracking-wide">
                       {label}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <p className="text-sm sm:text-base text-amber-200/80 font-antiqua mb-4">
+              <p className="text-sm sm:text-base text-amber-900/80 font-antiqua mb-4">
                 {t("index.rsvp.description")}
               </p>
 
