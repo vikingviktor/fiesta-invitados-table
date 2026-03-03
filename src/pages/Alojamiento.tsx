@@ -230,7 +230,8 @@ const Alojamiento = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Cards - hidden on mobile */}
+            <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {ALOJAMIENTOS.map((propiedad) => (
                 <Card key={propiedad} className="bg-white/60 border-gray-200 hover:shadow-md transition-shadow">
                   <CardHeader>
@@ -243,9 +244,19 @@ const Alojamiento = () => {
               ))}
             </div>
 
-            {/* collapsible list of extras */}
+            {/* Mobile simple list */}
+            <ul className="md:hidden space-y-2 mb-4">
+              {ALOJAMIENTOS.map((propiedad) => (
+                <li key={propiedad} className="flex items-center gap-2 bg-white/60 rounded-lg px-3 py-2 text-sm text-gray-800">
+                  <Home className="h-4 w-4 text-gray-500 shrink-0" />
+                  {propiedad}
+                </li>
+              ))}
+            </ul>
+
+            {/* Accommodation details */}
             {EXTRA_ACOMM.length > 0 && (
-              <div className="mt-8">
+              <div className="mt-6 md:mt-8">
                 <Accordion type="single" collapsible>
                   <AccordionItem value="extras">
                     <AccordionTrigger className="text-primary">
@@ -270,36 +281,59 @@ const Alojamiento = () => {
                           ))}
                         </select>
                       </div>
-                      <table className="w-full text-left">
-                        <thead className="border-b">
-                          <tr>
-                            <th className="py-1">{t("accommodation.table.name")}</th>
-                            <th className="py-1">{t("accommodation.table.locality")}</th>
-                            <th className="py-1">{t("accommodation.table.phone")}</th>
-                            <th className="py-1">{t("accommodation.table.website")}</th>
-                            <th className="py-1">{t("accommodation.table.details")}</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {filteredExtras.map((a) => (
-                            <tr key={a.name} className="border-b last:border-none">
-                              <td className="py-1">{a.name}</td>
-                              <td className="py-1">{a.locality}</td>
-                              <td className="py-1">{a.phone}</td>
-                              <td className="py-1">
-                                {a.website ? (
-                                  <a href={a.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
-                                    {a.website}
-                                  </a>
-                                ) : "–"}
-                              </td>
-                              <td className="py-1 text-gray-600 text-sm">
-                                {a.details || "–"}
-                              </td>
+
+                      {/* Desktop table */}
+                      <div className="hidden md:block">
+                        <table className="w-full text-left">
+                          <thead className="border-b">
+                            <tr>
+                              <th className="py-1">{t("accommodation.table.name")}</th>
+                              <th className="py-1">{t("accommodation.table.locality")}</th>
+                              <th className="py-1">{t("accommodation.table.phone")}</th>
+                              <th className="py-1">{t("accommodation.table.website")}</th>
+                              <th className="py-1">{t("accommodation.table.details")}</th>
                             </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                          </thead>
+                          <tbody>
+                            {filteredExtras.map((a) => (
+                              <tr key={a.name} className="border-b last:border-none">
+                                <td className="py-1">{a.name}</td>
+                                <td className="py-1">{a.locality}</td>
+                                <td className="py-1">{a.phone}</td>
+                                <td className="py-1">
+                                  {a.website ? (
+                                    <a href={a.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                                      {a.website}
+                                    </a>
+                                  ) : "–"}
+                                </td>
+                                <td className="py-1 text-gray-600 text-sm">
+                                  {a.details || "–"}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* Mobile cards */}
+                      <div className="md:hidden space-y-3">
+                        {filteredExtras.map((a) => (
+                          <div key={a.name} className="bg-white/70 rounded-lg p-3 border border-gray-200 space-y-1">
+                            <p className="font-semibold text-gray-900 text-sm">{a.name}</p>
+                            <p className="text-xs text-gray-500">{a.locality}</p>
+                            <p className="text-xs text-gray-700">📞 {a.phone}</p>
+                            {a.website && (
+                              <a href={a.website} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-600 underline break-all">
+                                {a.website}
+                              </a>
+                            )}
+                            {a.details && (
+                              <p className="text-xs text-gray-600 pt-1">{a.details}</p>
+                            )}
+                          </div>
+                        ))}
+                      </div>
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
