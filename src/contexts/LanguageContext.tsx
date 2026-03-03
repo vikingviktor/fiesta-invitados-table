@@ -41,8 +41,11 @@ const translations: Record<Language, Record<string, string>> = {
     // Alojamiento page
     "accommodation.title": "Alojamientos en la Zona",
     "accommodation.subtitle": "La finca Tejera Negra nos proporciona el contacto de los siguientes alojamientos/casas rurales por la zona. Por favor escríbenos si tu intención es quedarte a dormir la noche del sábado. ¡Gracias!",
-    "accommodation.more.title": "Otros Alojamientos",
+    "accommodation.more.title": "Datos de los alojamientos",
     "accommodation.table.name": "Nombre",
+    "accommodation.table.locality": "Localidad",
+    "accommodation.table.phone": "Teléfono",
+    "accommodation.table.website": "Página web",
     "accommodation.table.details": "Detalles",
     
     // CosasQueHacer page
@@ -178,11 +181,11 @@ const translations: Record<Language, Record<string, string>> = {
     // Alojamiento page
     "accommodation.title": "Accommodations in the Area",
     "accommodation.subtitle": "The Tejera Negra estate provides us with the contact details for the following accommodations/rural houses in the area. Please let us know if you plan to stay overnight on Saturday. Thank you!",
-    "accommodation.more.title": "Weitere Unterkünfte",
+    "accommodation.more.title": "Accommodation data",
     "accommodation.table.name": "Name",
-    "accommodation.table.details": "Details",
-    "accommodation.more.title": "Other Accommodations",
-    "accommodation.table.name": "Name",
+    "accommodation.table.locality": "Locality",
+    "accommodation.table.phone": "Phone",
+    "accommodation.table.website": "Website",
     "accommodation.table.details": "Details",
     
     // CosasQueHacer page
@@ -318,8 +321,11 @@ const translations: Record<Language, Record<string, string>> = {
     // Alojamiento page
     "accommodation.title": "Alloggi nella Zona",
     "accommodation.subtitle": "La tenuta Tejera Negra ci fornisce i contatti dei seguenti alloggi/case rurali nella zona. Per favore scrivici se hai intenzione di restare a dormire sabato notte. Grazie!",
-    "accommodation.more.title": "Altri Alloggi",
+    "accommodation.more.title": "Dati degli alloggi",
     "accommodation.table.name": "Nome",
+    "accommodation.table.locality": "Località",
+    "accommodation.table.phone": "Telefono",
+    "accommodation.table.website": "Sito web",
     "accommodation.table.details": "Dettagli",
     
     // CosasQueHacer page
@@ -455,8 +461,11 @@ const translations: Record<Language, Record<string, string>> = {
     // Alojamiento page
     "accommodation.title": "附近住宿",
     "accommodation.subtitle": "Tejera Negra庄园为我们提供了以下地区住宿/乡村民宿的联系方式。如果您打算周六晚上留宿，请联系我们。谢谢！",
-    "accommodation.more.title": "其他住宿",
+    "accommodation.more.title": "住宿资料",
     "accommodation.table.name": "名称",
+    "accommodation.table.locality": "位置",
+    "accommodation.table.phone": "电话",
+    "accommodation.table.website": "网站",
     "accommodation.table.details": "详细信息",
     
     // CosasQueHacer page
@@ -592,6 +601,12 @@ const translations: Record<Language, Record<string, string>> = {
     // Alojamiento page
     "accommodation.title": "Unterkünfte in der Umgebung",
     "accommodation.subtitle": "Das Anwesen Tejera Negra stellt uns die Kontaktdaten folgender Unterkünfte/Landhäuser in der Umgebung zur Verfügung. Bitte teile uns mit, ob du am Samstagabend übernachten möchtest. Danke!",
+    "accommodation.more.title": "Unterkunftsdaten",
+    "accommodation.table.name": "Name",
+    "accommodation.table.locality": "Ort",
+    "accommodation.table.phone": "Telefon",
+    "accommodation.table.website": "Webseite",
+    "accommodation.table.details": "Details",
     
     // CosasQueHacer page
     "things.title": "Aktivitäten in der Umgebung",
