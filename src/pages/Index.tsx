@@ -127,10 +127,8 @@ const Index = () => {
             }`}
           >
             <div className="hobbit-revealed__inner">
-              <p className="text-base sm:text-lg md:text-xl text-amber-200/90 font-antiqua mb-3 leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-amber-200/90 font-antiqua mb-3 leading-relaxed whitespace-pre-line">
                 {t("index.venue")}
-                <br />
-                {t("index.ceremony_time")}
               </p>
               <p className="text-sm sm:text-base md:text-lg text-amber-300/80 italic font-antiqua mb-2 max-w-md mx-auto leading-relaxed">
                 {t("index.quote1")}
