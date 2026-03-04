@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Guest, MenuOption } from "@/types/guestTypes";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -21,6 +21,12 @@ const ninosOptions = [
   { label: "Sin niños", value: "sin" },
 ];
 
+const pernoctaOptions = [
+  { label: "Todos", value: "todos" },
+  { label: "Pernoctan", value: "si" },
+  { label: "No pernoctan", value: "no" },
+];
+
 const GuestTable: React.FC<{
   guests: (Guest & { mesa?: number | null })[];
   loading: boolean;
@@ -35,6 +41,33 @@ const GuestTable: React.FC<{
   const [consentActionLoading, setConsentActionLoading] = useState(false);
   const [consentSavingId, setConsentSavingId] = useState<string | null>(null);
   const [ninosFilter, setNinosFilter] = useState("todos");
+  const [pernoctaFilter, setPernoctaFilter] = useState("todos");
+
+  // Refs for dual scrollbar sync
+  const topScrollRef = useRef<HTMLDivElement>(null);
+  const bottomScrollRef = useRef<HTMLDivElement>(null);
+  const tableRef = useRef<HTMLTableElement>(null);
+  const [tableWidth, setTableWidth] = useState(0);
+
+  const syncScroll = useCallback((source: 'top' | 'bottom') => {
+    if (source === 'top' && topScrollRef.current && bottomScrollRef.current) {
+      bottomScrollRef.current.scrollLeft = topScrollRef.current.scrollLeft;
+    } else if (source === 'bottom' && topScrollRef.current && bottomScrollRef.current) {
+      topScrollRef.current.scrollLeft = bottomScrollRef.current.scrollLeft;
+    }
+  }, []);
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (tableRef.current) {
+        setTableWidth(tableRef.current.scrollWidth);
+      }
+    };
+    updateWidth();
+    const observer = new ResizeObserver(updateWidth);
+    if (tableRef.current) observer.observe(tableRef.current);
+    return () => observer.disconnect();
+  }, [guests, loading]);
 
   // Usar función utilitaria para los contadores del menú
   const counts = getGuestMenuCounts(guests);
@@ -51,6 +84,11 @@ const GuestTable: React.FC<{
       filtered = filtered.filter(g => g.conNinos);
     } else if (ninosFilter === "sin") {
       filtered = filtered.filter(g => !g.conNinos);
+    }
+    if (pernoctaFilter === "si") {
+      filtered = filtered.filter(g => g.pernocta);
+    } else if (pernoctaFilter === "no") {
+      filtered = filtered.filter(g => !g.pernocta);
     }
     return filtered;
   };
@@ -252,9 +290,35 @@ const GuestTable: React.FC<{
             )}
           </select>
         </div>
+        <div className="flex gap-2 items-center">
+          <label className="font-semibold" htmlFor="pernocta-filter">Pernocta:</label>
+          <select
+            id="pernocta-filter"
+            value={pernoctaFilter}
+            onChange={e => setPernoctaFilter(e.target.value)}
+            className="border px-2 py-1 rounded"
+          >
+            {pernoctaOptions.map(opt =>
+              <option value={opt.value} key={opt.value}>{opt.label}</option>
+            )}
+          </select>
+        </div>
       </div>
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-background border rounded-lg shadow-md text-left">
+      {/* Top scrollbar */}
+      <div
+        ref={topScrollRef}
+        onScroll={() => syncScroll('top')}
+        className="overflow-x-auto"
+        style={{ height: '20px' }}
+      >
+        <div style={{ width: tableWidth, height: '1px' }} />
+      </div>
+      <div
+        ref={bottomScrollRef}
+        onScroll={() => syncScroll('bottom')}
+        className="overflow-x-auto"
+      >
+        <table ref={tableRef} className="min-w-full bg-background border rounded-lg shadow-md text-left">
           <thead>
             <tr>
               <th className="p-3 border-b">Nombre</th>
