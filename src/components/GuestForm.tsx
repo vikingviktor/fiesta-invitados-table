@@ -149,7 +149,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
             onChange={e => handlePlusOneChange(e.target.checked)}
             disabled={loading}
           />
-          {t("form.plusone")}
+          <span className="font-elvish text-2xl">{t("form.plusone")}</span>
         </label>
       </div>
       {plusOne && (
@@ -175,14 +175,6 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         maxLength={100}
         disabled={loading}
       />
-      <TextareaInput
-        label={t("form.comments")}
-        value={comentario}
-        onChange={setComentario}
-        placeholder={t("form.comments.placeholder")}
-        maxLength={200}
-        disabled={loading}
-      />
       <div>
         <label className="flex items-center gap-2 cursor-pointer">
           <input
@@ -198,7 +190,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
             }}
             disabled={loading}
           />
-          <span>{t("form.children")}</span>
+          <span className="font-elvish text-2xl">{t("form.children")}</span>
         </label>
         {conNinos && (
           <div className="mt-3 ml-6 flex flex-col gap-3">
@@ -238,9 +230,17 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
             onChange={e => setPernoctaSabado(e.target.checked)}
             disabled={loading}
           />
-          <span>{t("form.overnight")}</span>
+          <span className="font-elvish text-2xl">{t("form.overnight")}</span>
         </label>
       </div>
+      <TextareaInput
+        label={t("form.comments")}
+        value={comentario}
+        onChange={setComentario}
+        placeholder={t("form.comments.placeholder")}
+        maxLength={200}
+        disabled={loading}
+      />
       <div>
         <label className="flex items-start gap-2 cursor-pointer">
           <input
@@ -250,7 +250,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
             onChange={e => setConsentimientoPublicacion(e.target.checked)}
             disabled={loading}
           />
-          <span>
+          <span className="font-elvish text-2xl">
             {t("form.consent")}
           </span>
         </label>
