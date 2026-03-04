@@ -201,6 +201,9 @@ const Alojamiento = () => {
   const { t } = useLanguage();
   const [filterLocality, setFilterLocality] = React.useState("");
 
+  const normalizeUrl = (url: string) =>
+    url.startsWith("http://") || url.startsWith("https://") ? url : `https://${url}`;
+
   const localities = Array.from(new Set(EXTRA_ACOMM.map((a) => a.locality)));
 
   const filteredExtras = filterLocality
@@ -302,7 +305,7 @@ const Alojamiento = () => {
                                 <td className="py-1">{a.phone}</td>
                                 <td className="py-1">
                                   {a.website ? (
-                                    <a href={a.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                                    <a href={normalizeUrl(a.website)} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
                                       {a.website}
                                     </a>
                                   ) : "–"}
@@ -324,7 +327,7 @@ const Alojamiento = () => {
                             <p className="text-xs text-gray-500">{a.locality}</p>
                             <p className="text-xs text-gray-700">📞 {a.phone}</p>
                             {a.website && (
-                              <a href={a.website} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-600 underline break-all">
+                              <a href={normalizeUrl(a.website)} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-600 underline break-all">
                                 {a.website}
                               </a>
                             )}
