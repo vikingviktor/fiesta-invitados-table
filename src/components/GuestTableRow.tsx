@@ -59,6 +59,10 @@ const GuestTableRow: React.FC<GuestTableRowProps> = ({
     </td>
     <td className="p-3 border-b">{guest.comentario || "-"}</td>
     <td className="p-3 border-b">{guest.cancionFavorita || "-"}</td>
+    <td className="p-3 border-b text-center">{guest.conNinos ? "Sí" : "No"}</td>
+    <td className="p-3 border-b text-center">{guest.conNinos ? (guest.numeroNinos ?? 0) : "-"}</td>
+    <td className="p-3 border-b text-xs">{guest.conNinos ? (guest.comentariosNinos || "-") : "-"}</td>
+    <td className="p-3 border-b text-center">{guest.pernoctaSabado ? "Sí" : "No"}</td>
     <td className="p-3 border-b text-xs">{new Date(guest.date).toLocaleString()}</td>
     <td className="p-3 border-b">
       <GuestMesaSelect
