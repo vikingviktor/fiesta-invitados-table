@@ -86,9 +86,9 @@ const GuestTable: React.FC<{
       filtered = filtered.filter(g => !g.conNinos);
     }
     if (pernoctaFilter === "si") {
-      filtered = filtered.filter(g => g.pernocta);
+      filtered = filtered.filter(g => g.pernoctaSabado);
     } else if (pernoctaFilter === "no") {
-      filtered = filtered.filter(g => !g.pernocta);
+      filtered = filtered.filter(g => !g.pernoctaSabado);
     }
     return filtered;
   };
