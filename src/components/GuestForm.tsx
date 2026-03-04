@@ -25,6 +25,8 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
   const [consentimientoPublicacion, setConsentimientoPublicacion] = useState(false);
   const [menuAcompanante, setMenuAcompanante] = useState<MenuOption>("normal");
   const [conNinos, setConNinos] = useState(false);
+  const [numeroNinos, setNumeroNinos] = useState(0);
+  const [comentariosNinos, setComentariosNinos] = useState("");
   const [pernoctaSabado, setPernoctaSabado] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -54,6 +56,8 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
       consentimientoPublicacion,
       menuAcompanante: plusOne ? menuAcompanante : undefined,
       conNinos,
+      numeroNinos: conNinos ? numeroNinos : undefined,
+      comentariosNinos: conNinos ? comentariosNinos.trim() || undefined : undefined,
       pernoctaSabado,
     };
     const { data, error } = await supabase.from("guests").insert([
@@ -68,6 +72,8 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         consentimiento_publicacion: nuevoInvitado.consentimientoPublicacion,
         menu_acompanante: nuevoInvitado.menuAcompanante ?? null,
         con_ninos: nuevoInvitado.conNinos,
+        numero_ninos: nuevoInvitado.numeroNinos ?? 0,
+        comentarios_ninos: nuevoInvitado.comentariosNinos ?? null,
         pernocta_sabado: nuevoInvitado.pernoctaSabado,
       }
     ]).select().single();
@@ -90,6 +96,8 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         consentimientoPublicacion: !!data.consentimiento_publicacion,
         menuAcompanante: data.menu_acompanante ?? undefined,
         conNinos: !!data.con_ninos,
+        numeroNinos: data.numero_ninos ?? 0,
+        comentariosNinos: data.comentarios_ninos ?? undefined,
         pernoctaSabado: !!data.pernocta_sabado,
       });
     }
@@ -103,6 +111,8 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
     setConsentimientoPublicacion(false);
     setMenuAcompanante("normal"); // always assign a valid MenuOption, not empty string
     setConNinos(false);
+    setNumeroNinos(0);
+    setComentariosNinos("");
     setPernoctaSabado(false);
     setTimeout(() => setMensaje(""), 3500);
   };
@@ -174,19 +184,50 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         disabled={loading}
       />
       <div>
-        <label className="flex items-start gap-2 cursor-pointer">
+        <label className="flex items-center gap-2 cursor-pointer">
           <input
             type="checkbox"
-            className="accent-primary mt-1"
+            className="accent-primary"
             checked={conNinos}
-            onChange={e => setConNinos(e.target.checked)}
+            onChange={e => {
+              setConNinos(e.target.checked);
+              if (!e.target.checked) {
+                setNumeroNinos(0);
+                setComentariosNinos("");
+              }
+            }}
             disabled={loading}
           />
-          <span className="flex flex-col">
-            <span>{t("form.children")}</span>
-            <span className="text-sm text-muted-foreground">{t("form.children.hint")}</span>
-          </span>
+          <span>{t("form.children")}</span>
         </label>
+        {conNinos && (
+          <div className="mt-3 ml-6 flex flex-col gap-3">
+            <div>
+              <label className="block font-medium mb-1 font-elvish text-2xl">{t("form.children.count")}</label>
+              <input
+                type="number"
+                className="w-full border rounded px-3 py-2 focus:outline-primary"
+                value={numeroNinos || ""}
+                onChange={e => setNumeroNinos(Math.max(0, parseInt(e.target.value) || 0))}
+                placeholder="0"
+                min={0}
+                max={20}
+                disabled={loading}
+              />
+            </div>
+            <div>
+              <label className="block font-medium mb-1 font-elvish text-2xl">{t("form.children.names")}</label>
+              <textarea
+                className="w-full border rounded px-3 py-2 min-h-[60px]"
+                value={comentariosNinos}
+                onChange={e => setComentariosNinos(e.target.value)}
+                placeholder={t("form.children.names.placeholder")}
+                maxLength={300}
+                disabled={loading}
+              />
+            </div>
+          </div>
+        )}
       </div>
       <div>
         <label className="flex items-center gap-2 cursor-pointer">

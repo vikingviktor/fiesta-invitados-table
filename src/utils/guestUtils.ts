@@ -19,6 +19,8 @@ export function mapDbGuestToGuest(dbGuest: any): Guest & { mesa?: number | null 
     colorAcompanante: dbGuest.color_acompanante as ColorOption ?? undefined,
     habitacion: dbGuest.habitacion ?? undefined,
     conNinos: !!dbGuest.con_ninos,
+    numeroNinos: dbGuest.numero_ninos ?? 0,
+    comentariosNinos: dbGuest.comentarios_ninos ?? undefined,
     pernoctaSabado: !!dbGuest.pernocta_sabado,
   };
 }

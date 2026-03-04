@@ -89,6 +89,7 @@ export type Database = {
           color: string | null
           color_acompanante: string | null
           comentario: string | null
+          comentarios_ninos: string | null
           con_ninos: boolean
           consentimiento_publicacion: boolean
           date: string
@@ -99,6 +100,7 @@ export type Database = {
           mesa: number | null
           nombre: string
           nombre_acompanante: string | null
+          numero_ninos: number | null
           pernocta_sabado: boolean
           plus_one: boolean
         }
@@ -107,6 +109,7 @@ export type Database = {
           color?: string | null
           color_acompanante?: string | null
           comentario?: string | null
+          comentarios_ninos?: string | null
           con_ninos?: boolean
           consentimiento_publicacion?: boolean
           date?: string
@@ -117,6 +120,7 @@ export type Database = {
           mesa?: number | null
           nombre: string
           nombre_acompanante?: string | null
+          numero_ninos?: number | null
           pernocta_sabado?: boolean
           plus_one: boolean
         }
@@ -125,6 +129,7 @@ export type Database = {
           color?: string | null
           color_acompanante?: string | null
           comentario?: string | null
+          comentarios_ninos?: string | null
           con_ninos?: boolean
           consentimiento_publicacion?: boolean
           date?: string
@@ -135,6 +140,7 @@ export type Database = {
           mesa?: number | null
           nombre?: string
           nombre_acompanante?: string | null
+          numero_ninos?: number | null
           pernocta_sabado?: boolean
           plus_one?: boolean
         }

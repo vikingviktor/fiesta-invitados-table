@@ -21,5 +21,7 @@ export interface Guest {
   colorAcompanante?: ColorOption; // nuevo campo opcional para color del acompañante
   habitacion?: string; // nuevo campo opcional para habitación
   conNinos: boolean;
+  numeroNinos?: number;
+  comentariosNinos?: string;
   pernoctaSabado: boolean;
 }
