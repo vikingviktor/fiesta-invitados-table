@@ -15,6 +15,12 @@ const consentimientoOptions = [
   { label: "Sólo sin consentimiento", value: "sin" },
 ];
 
+const ninosOptions = [
+  { label: "Todos", value: "todos" },
+  { label: "Con niños", value: "con" },
+  { label: "Sin niños", value: "sin" },
+];
+
 const GuestTable: React.FC<{
   guests: (Guest & { mesa?: number | null })[];
   loading: boolean;
@@ -28,19 +34,25 @@ const GuestTable: React.FC<{
   const [consentimientoFilter, setConsentimientoFilter] = useState("todos");
   const [consentActionLoading, setConsentActionLoading] = useState(false);
   const [consentSavingId, setConsentSavingId] = useState<string | null>(null);
+  const [ninosFilter, setNinosFilter] = useState("todos");
 
   // Usar función utilitaria para los contadores del menú
   const counts = getGuestMenuCounts(guests);
 
   // Filtro de consentimiento
   const filterGuests = (guests: (Guest & { mesa?: number | null })[]) => {
+    let filtered = guests;
     if (consentimientoFilter === "con") {
-      return guests.filter(g => g.consentimientoPublicacion);
+      filtered = filtered.filter(g => g.consentimientoPublicacion);
     } else if (consentimientoFilter === "sin") {
-      return guests.filter(g => !g.consentimientoPublicacion);
-    } else {
-      return guests;
+      filtered = filtered.filter(g => !g.consentimientoPublicacion);
     }
+    if (ninosFilter === "con") {
+      filtered = filtered.filter(g => g.conNinos);
+    } else if (ninosFilter === "sin") {
+      filtered = filtered.filter(g => !g.conNinos);
+    }
+    return filtered;
   };
 
   // Asignar mesa
@@ -227,6 +239,19 @@ const GuestTable: React.FC<{
             {consentActionLoading ? "Actualizando..." : "Consentir todos excepto Peter G"}
           </Button>
         </div>
+        <div className="flex gap-2 items-center">
+          <label className="font-semibold" htmlFor="ninos-filter">Niños:</label>
+          <select
+            id="ninos-filter"
+            value={ninosFilter}
+            onChange={e => setNinosFilter(e.target.value)}
+            className="border px-2 py-1 rounded"
+          >
+            {ninosOptions.map(opt =>
+              <option value={opt.value} key={opt.value}>{opt.label}</option>
+            )}
+          </select>
+        </div>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-background border rounded-lg shadow-md text-left">
@@ -241,6 +266,10 @@ const GuestTable: React.FC<{
               <th className="p-3 border-b">Color acompañante</th> {/* NUEVA COLUMNA */}
               <th className="p-3 border-b">Comentarios</th>
               <th className="p-3 border-b">Canción favorita</th>
+              <th className="p-3 border-b">Niños</th>
+              <th className="p-3 border-b">Nº niños</th>
+              <th className="p-3 border-b">Comentarios niños</th>
+              <th className="p-3 border-b">Pernocta</th>
               <th className="p-3 border-b">Fecha registro</th>
               <th className="p-3 border-b">Mesa</th>
               <th className="p-3 border-b">Consent.</th>
@@ -250,11 +279,11 @@ const GuestTable: React.FC<{
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={13} className="text-center p-5">Cargando...</td>
+                <td colSpan={16} className="text-center p-5">Cargando...</td>
               </tr>
             ) : filterGuests(guests).length === 0 ? (
               <tr>
-                <td colSpan={13} className="text-center p-5">Aún no hay invitados registrados.</td>
+                <td colSpan={16} className="text-center p-5">Aún no hay invitados registrados.</td>
               </tr>
             ) : (
               filterGuests(guests).map(g => (
