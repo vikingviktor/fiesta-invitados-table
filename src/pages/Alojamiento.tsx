@@ -1,28 +1,7 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Home } from "lucide-react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { useLanguage } from "@/contexts/LanguageContext";
-
-const ALOJAMIENTOS = [
-  "El Abejaruco",
-  "Apartamento Acebuche",
-  "Apartamento Acebo",
-  "Casa Rural 1786",
-  "La Casa del Sol",
-  "Los 3 Olivos",
-  "La Era de la Tía Donata",
-  "Las Cabezadas",
-  "La Majada del Rayo",
-  "Casa Rural Beba",
-  "Cerezas y Miel"
-];
-
-// principales que no se muestran en la tabla desplegable
-const MAIN_PROPS = [
-  "Las Cabezadas"
-];
 
 // datos de alojamientos adicionales extraídos del PDF
 const EXTRA_ACOMM = [
@@ -232,30 +211,6 @@ const Alojamiento = () => {
                 {t("accommodation.subtitle")}
               </p>
             </div>
-
-            {/* Cards - hidden on mobile */}
-            <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {ALOJAMIENTOS.map((propiedad) => (
-                <Card key={propiedad} className="bg-white/60 border-gray-200 hover:shadow-md transition-shadow">
-                  <CardHeader>
-                    <div className="flex items-center gap-3">
-                      <Home className="h-5 w-5 text-gray-600" />
-                      <CardTitle className="text-base text-gray-800">{propiedad}</CardTitle>
-                    </div>
-                  </CardHeader>
-                </Card>
-              ))}
-            </div>
-
-            {/* Mobile simple list */}
-            <ul className="md:hidden space-y-2 mb-4">
-              {ALOJAMIENTOS.map((propiedad) => (
-                <li key={propiedad} className="flex items-center gap-2 bg-white/60 rounded-lg px-3 py-2 text-sm text-gray-800">
-                  <Home className="h-4 w-4 text-gray-500 shrink-0" />
-                  {propiedad}
-                </li>
-              ))}
-            </ul>
 
             {/* Accommodation details */}
             {EXTRA_ACOMM.length > 0 && (
