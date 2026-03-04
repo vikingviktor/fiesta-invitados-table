@@ -13,7 +13,7 @@ import CosasQueHacer from "./pages/CosasQueHacer";
 import Horarios from "./pages/Horarios";
 import DressCode from "./pages/DressCode";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient(); // v2
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
