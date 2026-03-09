@@ -11,7 +11,7 @@ const DressCode = () => {
     <div
       className="min-h-screen relative"
       style={{
-        backgroundImage: "url('/rivendell-bg.jpg')",
+        backgroundImage: "url('/couple-bg.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",
