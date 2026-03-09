@@ -40,12 +40,33 @@ const Index = () => {
   useEffect(() => {
     setDoorOpen(false);
     setContentVisible(false);
-    const doorTimer = setTimeout(() => setDoorOpen(true), 1500);
-    const contentTimer = setTimeout(() => setContentVisible(true), 3200);
-    return () => {
-      clearTimeout(doorTimer);
-      clearTimeout(contentTimer);
+
+    // Wait for the door image to load before starting animation
+    const img = new Image();
+    img.src = "/hobbit-door-2.png";
+
+    const startAnimation = () => {
+      const doorTimer = setTimeout(() => setDoorOpen(true), 1500);
+      const contentTimer = setTimeout(() => setContentVisible(true), 3200);
+      return () => {
+        clearTimeout(doorTimer);
+        clearTimeout(contentTimer);
+      };
     };
+
+    let cleanup: (() => void) | undefined;
+
+    if (img.complete) {
+      cleanup = startAnimation();
+    } else {
+      img.onload = () => { cleanup = startAnimation(); };
+      // Fallback: start anyway after 3s if image fails
+      const fallback = setTimeout(() => { cleanup = startAnimation(); }, 3000);
+      img.onerror = () => { clearTimeout(fallback); cleanup = startAnimation(); };
+      return () => { clearTimeout(fallback); cleanup?.(); };
+    }
+
+    return () => { cleanup?.(); };
   }, [animationKey]);
 
   const handleReplay = useCallback(() => {
