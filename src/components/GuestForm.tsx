@@ -83,22 +83,10 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
       setMensaje(t("form.error.submit"));
       return;
     }
-    if (onSubmit && data) {
+    if (onSubmit) {
       onSubmit({
-        id: data.id,
-        nombre: data.nombre,
-        plusOne: data.plus_one,
-        nombreAcompanante: data.nombre_acompanante ?? undefined,
-        menu: data.menu as MenuOption,
-        comentario: data.comentario ?? "",
-        date: data.date,
-        cancionFavorita: data.cancion_favorita ?? undefined,
-        consentimientoPublicacion: !!data.consentimiento_publicacion,
-        menuAcompanante: data.menu_acompanante ?? undefined,
-        conNinos: !!data.con_ninos,
-        numeroNinos: data.numero_ninos ?? 0,
-        comentariosNinos: data.comentarios_ninos ?? undefined,
-        pernoctaSabado: !!data.pernocta_sabado,
+        id: crypto.randomUUID(),
+        ...nuevoInvitado,
       });
     }
     setMensaje(t("form.success"));
