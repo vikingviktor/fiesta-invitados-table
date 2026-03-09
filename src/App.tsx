@@ -12,6 +12,7 @@ import Alojamiento from "./pages/Alojamiento";
 import CosasQueHacer from "./pages/CosasQueHacer";
 import Horarios from "./pages/Horarios";
 import DressCode from "./pages/DressCode";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient(); // v2
 
@@ -22,6 +23,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/alojamiento" element={<Alojamiento />} />
