@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 // datos de alojamientos adicionales extraídos del PDF
@@ -190,7 +191,7 @@ const Alojamiento = () => {
     : EXTRA_ACOMM;
 
   return (
-    <div 
+    <div
       className="min-h-screen relative"
       style={{
         backgroundImage: "url('/rivendell-bg.jpg')",
@@ -297,6 +298,24 @@ const Alojamiento = () => {
                 </Accordion>
               </div>
             )}
+          </div>
+
+          {/* Map section */}
+          <div className="mt-8 relative bg-white/90 rounded-xl shadow-xl p-8 border border-white/40 backdrop-blur-sm">
+            <h2 className="text-2xl font-bold mb-4 font-elvish text-primary text-center">
+              Mapa de la zona
+            </h2>
+            <Dialog>
+              <DialogTrigger asChild>
+                <div className="cursor-pointer overflow-hidden rounded-lg border border-primary/20 hover:border-primary/50 transition-colors shadow-sm bg-white/50">
+                  <img src="/CampillejoMap.png" alt="Mapa de Campillejo y alrededores" className="w-full h-auto object-cover hover:scale-[1.01] transition-transform duration-300 rounded-t-lg" />
+                  <p className="text-center text-sm text-gray-500 py-3 font-medium bg-white">Haz clic en la imagen para ampliar</p>
+                </div>
+              </DialogTrigger>
+              <DialogContent className="max-w-[95vw] md:max-w-5xl w-full p-1 md:p-0 border-none bg-transparent shadow-none">
+                <img src="/CampillejoMap.png" alt="Mapa de Campillejo y alrededores ampliado" className="w-full h-auto rounded-lg shadow-2xl object-contain max-h-[90vh]" />
+              </DialogContent>
+            </Dialog>
           </div>
         </section>
       </div>
