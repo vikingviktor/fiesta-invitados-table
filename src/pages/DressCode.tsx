@@ -11,7 +11,7 @@ const DressCode = () => {
     <div
       className="min-h-screen relative"
       style={{
-        backgroundImage: "url('/rivendell-bg.jpg')",
+        backgroundImage: "url('/couple-bg.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed",
@@ -24,7 +24,7 @@ const DressCode = () => {
       <div className="relative z-10">
         <Navbar />
         <section className="max-w-3xl mx-auto py-12 px-4">
-          <div className="relative bg-white/90 rounded-xl shadow-xl p-8 border border-white/40 backdrop-blur-sm">
+          <div className="relative bg-white/70 rounded-xl shadow-xl p-8 border border-white/40 backdrop-blur-md">
             <div className="mb-8 text-center">
               <h1 className="text-4xl font-bold mb-3 font-elvish text-primary">
                 {t("dresscode.title")}
