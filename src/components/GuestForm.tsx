@@ -60,7 +60,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
       comentariosNinos: conNinos ? comentariosNinos.trim() || undefined : undefined,
       pernoctaSabado,
     };
-    const { data, error } = await supabase.from("guests").insert([
+    const { error } = await supabase.from("guests").insert([
       {
         nombre: nuevoInvitado.nombre,
         plus_one: nuevoInvitado.plusOne,
@@ -76,7 +76,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         comentarios_ninos: nuevoInvitado.comentariosNinos ?? null,
         pernocta_sabado: nuevoInvitado.pernoctaSabado,
       }
-    ]).select().single();
+    ]);
 
     setLoading(false);
     if (error) {
