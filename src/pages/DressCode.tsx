@@ -55,8 +55,8 @@ const DressCode = () => {
               <div className="space-y-6">
                 <Card className="border-primary/20 bg-primary/5">
                   <CardContent className="flex items-start gap-4 pt-6">
-                    <div className="bg-primary/10 p-3 rounded-full shrink-0">
-                      <Gem className="h-6 w-6 text-primary" />
+                    <div className="bg-primary/10 p-2 rounded-full shrink-0 flex justify-center items-center">
+                      <img src="/ring.png" alt="Ring" className="h-8 w-8 object-contain drop-shadow-sm" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-lg text-primary mb-1">
