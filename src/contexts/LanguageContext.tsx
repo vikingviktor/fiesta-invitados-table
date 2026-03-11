@@ -303,6 +303,11 @@ const translations: Record<Language, Record<string, string>> = {
     "form.error.companion": "Please enter your companion's name.",
     "form.error.consent": "You must accept the consent to appear in photos/videos.",
     "form.error.submit": "An error occurred while registering your invitation. Please try again.",
+    "form.error.email": "Please enter your email address.",
+    "form.error.duplicate_email": "An account with this email already exists. If you'd like to make changes, please let us know.",
+    "form.email": "Email address",
+    "form.email.placeholder": "E.g.: ana@email.com",
+    "form.expand_to_review": "Click to review your details",
     "form.success": "Registration sent! Thank you for confirming your attendance.",
   },
   it: {
