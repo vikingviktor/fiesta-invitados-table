@@ -453,6 +453,11 @@ const translations: Record<Language, Record<string, string>> = {
     "form.error.companion": "Inserisci il nome del tuo accompagnatore.",
     "form.error.consent": "Devi accettare il consenso per apparire in foto/video.",
     "form.error.submit": "Si è verificato un errore durante la registrazione dell'invito. Riprova.",
+    "form.error.email": "Inserisci il tuo indirizzo email.",
+    "form.error.duplicate_email": "Esiste già una registrazione con questa email. Se vuoi apportare modifiche, faccelo sapere.",
+    "form.email": "Indirizzo email",
+    "form.email.placeholder": "Es: ana@email.com",
+    "form.expand_to_review": "Clicca per rivedere i tuoi dati",
     "form.success": "Registrazione inviata! Grazie per aver confermato la tua partecipazione.",
   },
   zh: {
