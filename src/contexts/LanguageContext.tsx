@@ -753,6 +753,11 @@ const translations: Record<Language, Record<string, string>> = {
     "form.error.companion": "Bitte gib den Namen deiner Begleitung ein.",
     "form.error.consent": "Du musst der Zustimmung zustimmen, in Fotos/Videos zu erscheinen.",
     "form.error.submit": "Beim Registrieren deiner Einladung ist ein Fehler aufgetreten. Bitte versuche es erneut.",
+    "form.error.email": "Bitte gib deine E-Mail-Adresse ein.",
+    "form.error.duplicate_email": "Es gibt bereits eine Registrierung mit dieser E-Mail. Wenn du Änderungen vornehmen möchtest, lass es uns bitte wissen.",
+    "form.email": "E-Mail-Adresse",
+    "form.email.placeholder": "Z.B.: ana@email.com",
+    "form.expand_to_review": "Klicke, um deine Angaben zu überprüfen",
     "form.success": "Registrierung gesendet! Danke für die Bestätigung deiner Teilnahme.",
   },
 };
