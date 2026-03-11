@@ -14,7 +14,7 @@ import Horarios from "./pages/Horarios";
 import DressCode from "./pages/DressCode";
 import ScrollToTop from "./components/ScrollToTop";
 
-const queryClient = new QueryClient(); // v2
+const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
