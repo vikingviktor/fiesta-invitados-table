@@ -603,6 +603,11 @@ const translations: Record<Language, Record<string, string>> = {
     "form.error.companion": "请输入您同伴的姓名。",
     "form.error.consent": "您必须接受出现在照片/视频中的同意声明。",
     "form.error.submit": "注册邀请时发生错误。请重试。",
+    "form.error.email": "请输入您的电子邮件地址。",
+    "form.error.duplicate_email": "此电子邮件已存在注册记录。如果您想进行更改，请告知我们。",
+    "form.email": "电子邮件",
+    "form.email.placeholder": "例如：ana@email.com",
+    "form.expand_to_review": "点击查看您的信息",
     "form.success": "注册已发送！感谢您确认出席。",
   },
   de: {
