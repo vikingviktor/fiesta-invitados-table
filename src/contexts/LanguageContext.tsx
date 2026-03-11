@@ -153,6 +153,11 @@ const translations: Record<Language, Record<string, string>> = {
     "form.error.companion": "Por favor, introduce el nombre de tu acompañante.",
     "form.error.consent": "Debes aceptar el consentimiento para salir en fotos/vídeos.",
     "form.error.submit": "Ocurrió un error al registrar tu invitación. Por favor intenta de nuevo.",
+    "form.error.email": "Por favor, introduce tu correo electrónico.",
+    "form.error.duplicate_email": "Ya existe un registro con este correo electrónico. Si quieres hacer algún cambio, por favor háznoslo saber.",
+    "form.email": "Correo electrónico",
+    "form.email.placeholder": "Ej: ana@email.com",
+    "form.expand_to_review": "Pulsa para revisar tus datos",
     "form.success": "¡Registro enviado! Gracias por confirmar tu asistencia.",
   },
   en: {
