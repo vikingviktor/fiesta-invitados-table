@@ -93,6 +93,7 @@ export type Database = {
           con_ninos: boolean
           consentimiento_publicacion: boolean
           date: string
+          email: string | null
           habitacion: string | null
           id: string
           menu: string
@@ -113,6 +114,7 @@ export type Database = {
           con_ninos?: boolean
           consentimiento_publicacion?: boolean
           date?: string
+          email?: string | null
           habitacion?: string | null
           id?: string
           menu: string
@@ -133,6 +135,7 @@ export type Database = {
           con_ninos?: boolean
           consentimiento_publicacion?: boolean
           date?: string
+          email?: string | null
           habitacion?: string | null
           id?: string
           menu?: string
