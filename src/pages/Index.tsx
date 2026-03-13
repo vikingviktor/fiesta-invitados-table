@@ -147,12 +147,6 @@ const Index = () => {
                 <br />
                 {t("index.quote2")}
               </p>
-              <p className="text-sm sm:text-base text-amber-900/80 font-antiqua mb-6">
-                {t("index.adventure1")}
-                <br />
-                {t("index.adventure2")}
-              </p>
-
               {/* Countdown */}
               <div className="flex justify-center gap-3 sm:gap-4 mb-6">
                 {[
