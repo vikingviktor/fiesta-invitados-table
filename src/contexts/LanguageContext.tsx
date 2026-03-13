@@ -278,7 +278,7 @@ const translations: Record<Language, Record<string, string>> = {
     "dresscode.tips.tip2": "Suspenders, waistcoats, hats and rustic accessories look great",
     "dresscode.tips.tip3": "Natural fabrics like linen, cotton or wool add a perfect touch",
     "dresscode.tips.tip4": "Search Pinterest for 'Hobbit outfit' or 'Lord of the Rings wedding' for inspiration!",
-    "dresscode.buy.title": "Places to shop for themed attire",
+    "dresscode.buy.title": "Places to shop for themed attire or get inspiration",
     
     // Form
     "form.title": "Confirm Your Attendance",
