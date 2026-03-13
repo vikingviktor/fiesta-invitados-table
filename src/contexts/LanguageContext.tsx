@@ -578,7 +578,7 @@ const translations: Record<Language, Record<string, string>> = {
     "dresscode.tips.tip2": "背带裤、马甲、帽子和乡村风配饰效果很好",
     "dresscode.tips.tip3": "亚麻、棉花或羊毛等天然面料增添完美质感",
     "dresscode.tips.tip4": "在Pinterest上搜索'Hobbit outfit'或'Lord of the Rings wedding'获取灵感！",
-    "dresscode.buy.title": "购买主题服装的商店",
+    "dresscode.buy.title": "购买主题服装或获取灵感的商店",
     
     // Form
     "form.title": "确认您的出席",
