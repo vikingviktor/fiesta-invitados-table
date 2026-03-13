@@ -32,11 +32,11 @@ const translations: Record<Language, Record<string, string>> = {
     "index.ceremony_time": "Ceremonia a las 13:00h.",
     "index.quote1": "\"Una boda para gobernarlos a todos,",
     "index.quote2": "y en la felicidad atarlos.\"",
-    "index.adventure1": "Nos vamos de aventura,",
-    "index.adventure2": "¡y te queremos con nosotros!",
     "index.rsvp.button": "Confirmar asistencia",
     "index.rsvp.confirmed": "¡Gracias por confirmar tu asistencia!",
     "index.rsvp.edit": "Editar respuesta",
+    
+    // Alojamiento page
     
     // Alojamiento page
     "accommodation.title": "Alojamientos en la Zona",
@@ -183,11 +183,11 @@ const translations: Record<Language, Record<string, string>> = {
     "index.ceremony_time": "Ceremony at 1:00 PM.",
     "index.quote1": "\"One wedding to rule them all,",
     "index.quote2": "and in the happiness bind them.\"",
-    "index.adventure1": "We're going on an adventure,",
-    "index.adventure2": "and we want you with us!",
     "index.rsvp.button": "Confirm attendance",
     "index.rsvp.confirmed": "Thank you for confirming your attendance!",
     "index.rsvp.edit": "Edit response",
+    
+    // Alojamiento page
     
     // Alojamiento page
     "accommodation.title": "Accommodations in the Area",
@@ -333,11 +333,11 @@ const translations: Record<Language, Record<string, string>> = {
     "index.ceremony_time": "Cerimonia alle 13:00.",
     "index.quote1": "\"Un matrimonio per dominarli tutti,",
     "index.quote2": "e nella felicità legarli.\"",
-    "index.adventure1": "Stiamo partendo per un'avventura,",
-    "index.adventure2": "e ti vogliamo con noi!",
     "index.rsvp.button": "Conferma partecipazione",
     "index.rsvp.confirmed": "Grazie per aver confermato la tua partecipazione!",
     "index.rsvp.edit": "Modifica risposta",
+    
+    // Alojamiento page
     
     // Alojamiento page
     "accommodation.title": "Alloggi nella Zona",
@@ -483,11 +483,11 @@ const translations: Record<Language, Record<string, string>> = {
     "index.ceremony_time": "仪式于13:00开始。",
     "index.quote1": "\"一场婚礼统领所有，",
     "index.quote2": "在幸福中将他们联结。\"",
-    "index.adventure1": "我们即将踏上冒险之旅，",
-    "index.adventure2": "希望有你同行！",
     "index.rsvp.button": "确认出席",
     "index.rsvp.confirmed": "感谢您确认出席！",
     "index.rsvp.edit": "修改回复",
+    
+    // Alojamiento page
     
     // Alojamiento page
     "accommodation.title": "附近住宿",
@@ -633,11 +633,11 @@ const translations: Record<Language, Record<string, string>> = {
     "index.ceremony_time": "Zeremonie um 13:00 Uhr.",
     "index.quote1": "\"Eine Hochzeit, sie zu knechten,",
     "index.quote2": "sie alle ins Glück zu binden.\"",
-    "index.adventure1": "Wir gehen auf ein Abenteuer,",
-    "index.adventure2": "und wir wollen dich dabei haben!",
     "index.rsvp.button": "Teilnahme bestätigen",
     "index.rsvp.confirmed": "Danke für deine Bestätigung!",
     "index.rsvp.edit": "Antwort bearbeiten",
+    
+    // Alojamiento page
     
     // Alojamiento page
     "accommodation.title": "Unterkünfte in der Umgebung",
