@@ -128,7 +128,7 @@ const translations: Record<Language, Record<string, string>> = {
     "dresscode.tips.tip2": "Tirantes, chalecos, sombreros y accesorios rústicos quedan genial",
     "dresscode.tips.tip3": "Telas naturales como lino, algodón o lana dan un toque muy acertado",
     "dresscode.tips.tip4": "¡Consulta Pinterest buscando 'Hobbit outfit' o 'Lord of the Rings wedding' para inspirarte!",
-    "dresscode.buy.title": "Tiendas donde comprar ropa temática",
+    "dresscode.buy.title": "Tiendas donde comprar ropa temática o tomar inspiración",
     
     // Form
     "form.title": "Confirma tu asistencia",
