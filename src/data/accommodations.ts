@@ -19,6 +19,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Campillo de Ranas",
             zh: "Campillo de Ranas",
             de: "Campillo de Ranas",
+            ml: "Campillo de Ranas",
         },
         details: {
             es: "Alquiler íntegro. Dispone de 5 dormitorios. Capacidad de 10 a 13 personas (tres de ellas en cama supletoria).",
@@ -26,6 +27,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. Dispone di 5 camere da letto. Capacità da 10 a 13 persone (tre di loro in letti supplementari).",
             zh: "整租。有5间卧室。可容纳10至13人（其中三人使用加床）。",
             de: "Komplette Vermietung. Verfügt über 5 Schlafzimmer. Kapazität für 10 bis 13 Personen (drei davon in Zustellbetten).",
+            ml: "പൂർണ്ണ വാടക. 5 കിടപ്പുമുറികൾ ഉണ്ട്. 10 മുതൽ 13 പേർക്ക് ശേഷി (മൂന്ന് പേർക്ക് അധിക കിടക്കകൾ).",
         },
     },
     {
@@ -38,6 +40,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Campillo de Ranas",
             zh: "Campillo de Ranas",
             de: "Campillo de Ranas",
+            ml: "Campillo de Ranas",
         },
         details: {
             es: "Los Refugios constan de 4 apartamentos para dos adultos y hasta dos niños, 1 apartamento familiar con capacidad de 4 a 6 personas y una suite para 2 a 4 personas.",
@@ -45,6 +48,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "I Rifugi sono composti da 4 appartamenti per due adulti e fino a due bambini, 1 appartamento familiare con capacità da 4 a 6 persone e una suite da 2 a 4 persone.",
             zh: "避难所包括4套成人和最多两名儿童的公寓，1套可容纳4至6人的家庭公寓和一套可容纳2至4人的套房。",
             de: "Die Zufluchten bestehen aus 4 Wohnungen für zwei Erwachsene und bis zu zwei Kinder, 1 Familienwohnung für 4 bis 6 Personen und einer Suite für 2 bis 4 Personen.",
+            ml: "2 മുതിർന്നവർക്കും 2 കുട്ടികൾക്കും വേണ്ടിയുള്ള 4 അപ്പാർട്ട്മെന്റുകൾ, 4-6 പേർക്കുള്ള 1 ഫാമിലി അപ്പാർട്ട്മെന്റ്, 2-4 പേർക്കുള്ള 1 സ്യൂട്ട്.",
         },
     },
     {
@@ -57,6 +61,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Campillo de Ranas",
             zh: "Campillo de Ranas",
             de: "Campillo de Ranas",
+            ml: "Campillo de Ranas",
         },
         details: {
             es: "Se alquila por habitaciones. Dispone de 6 habitaciones dobles. Capacidad para 12 personas. Personas de contacto: María y Javier.",
@@ -64,6 +69,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affittato a stanze. Dispone di 6 camere doppie. Capacità per 12 persone. Persone di contatto: María e Javier.",
             zh: "按房间出租。有6间双人房。可容纳12人。联系人：María和Javier。",
             de: "Vermietung nach Zimmern. Verfügt über 6 Doppelzimmer. Kapazität für 12 Personen. Kontaktpersonen: María und Javier.",
+            ml: "മുറികൾ പ്രകാരം വാടകയ്ക്ക്. 6 ഡബിൾ മുറികൾ. 12 പേർക്ക് ശേഷി. ബന്ധപ്പെടുക: María, Javier.",
         },
     },
     {
@@ -76,6 +82,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Campillo de Ranas",
             zh: "Campillo de Ranas",
             de: "Campillo de Ranas",
+            ml: "Campillo de Ranas",
         },
         details: {
             es: "Son dos apartamentos con capacidad para cuatro personas cada uno de ellos. Persona de contacto: Paco",
@@ -83,6 +90,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Ci sono due appartamenti con capacità per quattro persone ciascuno. Persona di contatto: Paco",
             zh: "有两套公寓，每套可容纳四人。联系人：Paco",
             de: "Es gibt zwei Wohnungen mit einer Kapazität für jeweils vier Personen. Kontaktperson: Paco",
+            ml: "ഓരോന്നിലും 4 പേർക്ക് ശേഷിയുള്ള 2 അപ്പാർട്ട്മെന്റുകൾ. ബന്ധപ്പെടുക: Paco",
         },
     },
     {
@@ -95,6 +103,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Campillo de Ranas",
             zh: "Campillo de Ranas",
             de: "Campillo de Ranas",
+            ml: "Campillo de Ranas",
         },
         details: {
             es: "Apartamento para 2 personas. Persona de contacto: Beatriz",
@@ -102,6 +111,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Appartamento per 2 persone. Persona di contatto: Beatriz",
             zh: "2人公寓。联系人：Beatriz",
             de: "Wohnung für 2 Personen. Kontaktperson: Beatriz",
+            ml: "2 പേർക്കുള്ള അപ്പാർട്ട്മെന്റ്. ബന്ധപ്പെടുക: Beatriz",
         },
     },
     {
@@ -114,6 +124,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Campillo de Ranas",
             zh: "Campillo de Ranas",
             de: "Campillo de Ranas",
+            ml: "Campillo de Ranas",
         },
         details: {
             es: "Alquiler íntegro. Dispone de dos habitaciones. Capacidad para máxima seis personas. Persona de contacto: Carmen",
@@ -121,6 +132,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. Dispone di due stanze. Capacità massima per sei persone. Persona di contatto: Carmen",
             zh: "整租。有两个房间。最多可容纳六人。联系人：Carmen",
             de: "Komplette Vermietung. Verfügt über zwei Zimmer. Maximale Kapazität für sechs Personen. Kontaktperson: Carmen",
+            ml: "പൂർണ്ണ വാടക. 2 മുറികൾ. പരമാവധി 6 പേർക്ക് ശേഷി. ബന്ധപ്പെടുക: Carmen",
         },
     },
     {
@@ -133,6 +145,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Campillo de Ranas",
             zh: "Campillo de Ranas",
             de: "Campillo de Ranas",
+            ml: "Campillo de Ranas",
         },
         details: {
             es: "Alquiler íntegro. Dispone de tres habitaciones. Capacidad para seis personas. Persona de contacto: Germán",
@@ -140,6 +153,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. Dispone di tre stanze. Capacità per sei persone. Persona di contatto: Germán",
             zh: "整租。有三个房间。可容纳六人。联系人：Germán",
             de: "Komplette Vermietung. Verfügt über drei Zimmer. Kapazität für sechs Personen. Kontaktperson: Germán",
+            ml: "പൂർണ്ണ വാടക. 3 മുറികൾ. 6 പേർക്ക് ശേഷി. ബന്ധപ്പെടുക: Germán",
         },
     },
     {
@@ -152,6 +166,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Campillo de Ranas",
             zh: "Campillo de Ranas",
             de: "Campillo de Ranas",
+            ml: "Campillo de Ranas",
         },
         details: {
             es: "Se alquila por habitaciones o entera. La casa consta de 3 habitaciones dobles y 1 suite, todas tienen baño privado. Personas de contacto: Carolina o Jorge",
@@ -159,6 +174,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affittato a stanze o intera. La casa è composta da 3 camere doppie e 1 suite, tutte con bagno privato. Persone di contatto: Carolina o Jorge",
             zh: "按房间或整租。房子包括3间双人房和1间套房，均配有私人浴室。联系人：Carolina或Jorge",
             de: "Vermietung nach Zimmern oder ganzes Haus. Das Haus besteht aus 3 Doppelzimmern und 1 Suite, alle mit eigenem Bad. Kontaktpersonen: Carolina oder Jorge",
+            ml: "മുറികൾ അല്ലെങ്കിൽ മുഴുവനായി വാടകയ്ക്ക്. 3 ഡബിൾ മുറികളും 1 സ്യൂട്ടും, എല്ലാം സ്വകാര്യ ബാത്ത്റൂമുകളോടെ. ബന്ധപ്പെടുക: Carolina അല്ലെങ്കിൽ Jorge",
         },
     },
     {
@@ -171,6 +187,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "El Campillejo (a 5 km da Campillo de Ranas)",
             zh: "El Campillejo（距离Campillo de Ranas 5公里）",
             de: "El Campillejo (5 km von Campillo de Ranas entfernt)",
+            ml: "El Campillejo (Campillo de Ranas-ൽ നിന്ന് 5 കി.മീ)",
         },
         details: {
             es: "Alquiler íntegro. Dispone de un total de 16 plazas + 5 extras distribuidas en 8 habitaciones y 10 baños. Persona de contacto: Carolina",
@@ -178,6 +195,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. Ha un totale di 16 posti + 5 extra distribuiti in 8 stanze e 10 bagni. Persona di contatto: Carolina",
             zh: "整租。共有16个铺位+5个加床，分布在8个房间和10个浴室中。联系人：Carolina",
             de: "Komplette Vermietung. Es hat insgesamt 16 Plätze + 5 Extras, verteilt auf 8 Zimmer und 10 Bäder. Kontaktperson: Carolina",
+            ml: "പൂർണ്ണ വാടക. 8 മുറികളിലും 10 ബാത്ത്റൂമുകളിലുമായി 16 + 5 അധിക സ്ഥലങ്ങൾ. ബന്ധപ്പെടുക: Carolina",
         },
     },
     {
@@ -190,6 +208,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "El Campillejo (a 5 km da Campillo de Ranas)",
             zh: "El Campillejo（距离Campillo de Ranas 5公里）",
             de: "El Campillejo (5 km von Campillo de Ranas entfernt)",
+            ml: "El Campillejo (Campillo de Ranas-ൽ നിന്ന് 5 കി.മീ)",
         },
         details: {
             es: "Alquiler íntegro. La Pizarra Negra dispone de un total de 12 plazas + 3 extras distribuidas en 6 habitaciones y 6 baños. Persona de contacto: Rafa",
@@ -197,6 +216,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. La Pizarra Negra ha un totale di 12 posti + 3 extra distribuiti in 6 stanze e 6 bagni. Persona di contatto: Rafa",
             zh: "整租。La Pizarra Negra共有12个铺位+3个加床，分布在6间客房和6个浴室。联系人：Rafa",
             de: "Komplette Vermietung. La Pizarra Negra hat insgesamt 12 Plätze + 3 Extras, verteilt auf 6 Zimmer und 6 Bäder. Kontaktperson: Rafa",
+            ml: "പൂർണ്ണ വാടക. 6 മുറികളിലും 6 ബാത്ത്റൂമുകളിലുമായി 12 + 3 അധിക സ്ഥലങ്ങൾ. ബന്ധപ്പെടുക: Rafa",
         },
     },
     {
@@ -209,6 +229,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "El Campillejo (a 5 km da Campillo de Ranas)",
             zh: "El Campillejo（距离Campillo de Ranas 5公里）",
             de: "El Campillejo (5 km von Campillo de Ranas entfernt)",
+            ml: "El Campillejo (Campillo de Ranas-ൽ നിന്ന് 5 കി.മീ)",
         },
         details: {
             es: "Se alquila por habitaciones. Dispone de 4 habitaciones. Capacidad de 2 a 11 personas. Persona de contacto: Esther",
@@ -216,6 +237,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affittato a stanze. Dispone di 4 camere. Capacità da 2 a 11 persone. Persona di contatto: Esther",
             zh: "按房间出租。有4个房间。可容纳2至11人。联系人：Esther",
             de: "Vermietung nach Zimmern. Verfügt über 4 Zimmer. Kapazität von 2 bis 11 Personen. Kontaktperson: Esther",
+            ml: "മുറികൾ പ്രകാരം വാടകയ്ക്ക്. 4 മുറികൾ. 2-11 പേർക്ക് ശേഷി. ബന്ധപ്പെടുക: Esther",
         },
     },
     {
@@ -228,6 +250,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "El Espinar (a 2,6 km da Campillo de Ranas)",
             zh: "El Espinar（距离Campillo de Ranas 2.6公里）",
             de: "El Espinar (2,6 km von Campillo de Ranas entfernt)",
+            ml: "El Espinar (Campillo de Ranas-ൽ നിന്ന് 2.6 കി.മീ)",
         },
         details: {
             es: "Alquiler íntegro. La casa cuenta con 2 dormitorios y 2 baños. Capacidad para 4 personas. Personas de contacto: Mario o Susana",
@@ -235,6 +258,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. La casa dispone di 2 camere da letto e 2 bagni. Capacità per 4 persone. Persone di contatto: Mario o Susana",
             zh: "整租。房子有2间卧室和2个浴室。可容纳4人。联系人：Mario或Susana",
             de: "Komplette Vermietung. Das Haus verfügt über 2 Schlafzimmer und 2 Bäder. Kapazität für 4 Personen. Kontaktpersonen: Mario oder Susana",
+            ml: "പൂർണ്ണ വാടക. 2 കിടപ്പുമുറികളും 2 ബാത്ത്റൂമുകളും. 4 പേർക്ക് ശേഷി. ബന്ധപ്പെടുക: Mario അല്ലെങ്കിൽ Susana",
         },
     },
     {
@@ -247,6 +271,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "El Espinar (a 2,6 km da Campillo de Ranas)",
             zh: "El Espinar（距离Campillo de Ranas 2.6公里）",
             de: "El Espinar (2,6 km von Campillo de Ranas entfernt)",
+            ml: "El Espinar (Campillo de Ranas-ൽ നിന്ന് 2.6 കി.മീ)",
         },
         details: {
             es: "Alquiler íntegro. Dispone de 6 habitaciones dobles. Capacidad para 12 personas. Persona de contacto: Alicia",
@@ -254,6 +279,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. Dispone di 6 camere doppie. Capacità per 12 persone. Persona di contatto: Alicia",
             zh: "整租。有6个双人房间。可容纳12人。联系人：Alicia",
             de: "Komplette Vermietung. Verfügt über 6 Doppelzimmer. Kapazität für 12 Personen. Kontaktperson: Alicia",
+            ml: "പൂർണ്ണ വാടക. 6 ഡബിൾ മുറികൾ. 12 പേർക്ക് ശേഷി. ബന്ധപ്പെടുക: Alicia",
         },
     },
     {
@@ -266,6 +292,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Robleluengo (a 3,4 km da Campillo de Ranas)",
             zh: "Robleluengo（距离Campillo de Ranas 3.4公里）",
             de: "Robleluengo (3,4 km von Campillo de Ranas entfernt)",
+            ml: "Robleluengo (Campillo de Ranas-ൽ നിന്ന് 3.4 കി.മീ)",
         },
         details: {
             es: "Alquiler íntegro. Dispone de tres habitaciones. Capacidad para siete personas.",
@@ -273,6 +300,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. Dispone di tre stanze. Capacità per sette persone.",
             zh: "整租。有三个房间。可容纳七人。",
             de: "Komplette Vermietung. Verfügt über drei Schlafzimmer. Kapazität für sieben Personen.",
+            ml: "പൂർണ്ണ വാടക. 3 കിടപ്പുമുറികൾ. 7 പേർക്ക് ശേഷി.",
         },
     },
     {
@@ -285,6 +313,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Majaelrayo (a 3,6 km da Campillo de Ranas)",
             zh: "Majaelrayo（距离Campillo de Ranas 3.6公里）",
             de: "Majaelrayo (3,6 km von Campillo de Ranas entfernt)",
+            ml: "Majaelrayo (Campillo de Ranas-ൽ നിന്ന് 3.6 കി.മീ)",
         },
         details: {
             es: "Son 4 apartamentos independientes de 4 personas (y hasta 2 niños más) cada uno. Persona de contacto: Beatriz",
@@ -292,6 +321,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Sono 4 appartamenti indipendenti per 4 persone (e fino a 2 bambini in più) ciascuno. Persona di contatto: Beatriz",
             zh: "有4套独立公寓，每套可容纳4人（最多可加2名儿童）。联系人：Beatriz",
             de: "Es gibt 4 unabhängige Apartments für jeweils 4 Personen (und bis zu 2 weitere Kinder). Kontaktperson: Beatriz",
+            ml: "ഓരോന്നിലും 4 പേർക്കും 2 കുട്ടികൾക്കും വേണ്ടിയുള്ള 4 സ്വതന്ത്ര അപ്പാർട്ട്മെന്റുകൾ. ബന്ധപ്പെടുക: Beatriz",
         },
     },
     {
@@ -304,6 +334,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Majaelrayo (a 3,6 km da Campillo de Ranas)",
             zh: "Majaelrayo（距离Campillo de Ranas 3.6公里）",
             de: "Majaelrayo (3,6 km von Campillo de Ranas entfernt)",
+            ml: "Majaelrayo (Campillo de Ranas-ൽ നിന്ന് 3.6 കി.മീ)",
         },
         details: {
             es: "Alquiler íntegro. Dispone de 5 habitaciones dobles, con una capacidad de diez personas. Persona de contacto: Antonio",
@@ -311,6 +342,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. Dispone di 5 camere doppie, con una capacità di dieci persone. Persona di contatto: Antonio",
             zh: "整租。有5间双人房，可容纳10人。联系人：Antonio",
             de: "Komplette Vermietung. Verfügt über 5 Doppelzimmer mit einer Kapazität von zehn Personen. Kontaktperson: Antonio",
+            ml: "പൂർണ്ണ വാടക. 5 ഡബിൾ മുറികൾ, 10 പേർക്ക് ശേഷി. ബന്ധപ്പെടുക: Antonio",
         },
     },
     {
@@ -323,6 +355,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Majaelrayo (a 3,6 km da Campillo de Ranas)",
             zh: "Majaelrayo（距离Campillo de Ranas 3.6公里）",
             de: "Majaelrayo (3,6 km von Campillo de Ranas entfernt)",
+            ml: "Majaelrayo (Campillo de Ranas-ൽ നിന്ന് 3.6 കി.മീ)",
         },
         details: {
             es: "Alquiler íntegro. Dispone de 5 habitaciones. Capacidad para 2 a 8 personas. Persona de contacto: Miguel",
@@ -330,6 +363,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. Dispone di 5 camere. Capacità da 2 a 8 persone. Persona di contatto: Miguel",
             zh: "整租。有5个房间。可容纳2至8人。联系人：Miguel",
             de: "Komplette Vermietung. Verfügt über 5 Zimmer. Kapazität für 2 bis 8 Personen. Kontaktperson: Miguel",
+            ml: "പൂർണ്ണ വാടക. 5 മുറികൾ. 2-8 പേർക്ക് ശേഷി. ബന്ധപ്പെടുക: Miguel",
         },
     },
     {
@@ -342,6 +376,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Majaelrayo (a 3,6 km da Campillo de Ranas)",
             zh: "Majaelrayo（距离Campillo de Ranas 3.6公里）",
             de: "Majaelrayo (3,6 km von Campillo de Ranas entfernt)",
+            ml: "Majaelrayo (Campillo de Ranas-ൽ നിന്ന് 3.6 കി.മീ)",
         },
         details: {
             es: "Alquiler íntegro. La casa está formada por dos estancias independientes: El Olmo y La Jara, que se pueden alquilar de manera conjunta o individual. El Olmo dispone de tres habitaciones dobles con posibilidad de 1 supletoria en dos de ellas y una habitación infantil con tres literas. La Jara dispone de una habitación doble con cama supletoria.",
@@ -349,6 +384,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. La casa è composta da due stanze indipendenti: El Olmo e La Jara, che possono essere affittate congiuntamente o singolarmente. El Olmo dispone di tre camere doppie con possibilità di 1 letto supplementare in due di esse e una camera per bambini con tre letti a castello. La Jara dispone di una camera doppia con letto supplementare.",
             zh: "整租。房子由两个独立的房间组建：El Olmo和La Jara，可以一起或单独出租。El Olmo有三间双人房，其中两间可加一张床，还有一间带三张双层床的儿童房。La Jara有一间带加床的双人房。",
             de: "Komplette Vermietung. Das Haus besteht aus zwei unabhängigen Einheiten: El Olmo und La Jara, die zusammen oder einzeln gemietet werden können. El Olmo verfügt über drei Doppelzimmer mit der Möglichkeit von 1 Zustellbett in zwei von ihnen und einem Kinderzimmer mit drei Etagenbetten. La Jara verfügt über ein Doppelzimmer mit Zustellbett.",
+            ml: "പൂർണ്ണ വാടക. El Olmo, La Jara എന്നീ രണ്ട് സ്വതന്ത്ര യൂണിറ്റുകൾ, ഒരുമിച്ചോ പ്രത്യേകമായോ വാടകയ്ക്ക് എടുക്കാം. El Olmo-യിൽ 3 ഡബിൾ മുറികളും കുട്ടികളുടെ മുറിയും. La Jara-യിൽ 1 ഡബിൾ മുറി.",
         },
     },
     {
@@ -361,6 +397,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Majaelrayo (a 3,6 km da Campillo de Ranas)",
             zh: "Majaelrayo（距离Campillo de Ranas 3.6公里）",
             de: "Majaelrayo (3,6 km von Campillo de Ranas entfernt)",
+            ml: "Majaelrayo (Campillo de Ranas-ൽ നിന്ന് 3.6 കി.മീ)",
         },
         details: {
             es: "Alquiler íntegro. Dispone de 4 dormitorios. Capacidad de 12/14 personas.",
@@ -368,6 +405,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. Dispone di 4 camere da letto. Capacità di 12/14 persone.",
             zh: "整租。有4间卧室。可容纳12/14人。",
             de: "Komplette Vermietung. Verfügt über 4 Schlafzimmer. Kapazität von 12/14 Personen.",
+            ml: "പൂർണ്ണ വാടക. 4 കിടപ്പുമുറികൾ. 12/14 പേർക്ക് ശേഷി.",
         },
     },
     {
@@ -380,6 +418,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Majaelrayo (a 3,6 km da Campillo de Ranas)",
             zh: "Majaelrayo（距离Campillo de Ranas 3.6公里）",
             de: "Majaelrayo (3,6 km von Campillo de Ranas entfernt)",
+            ml: "Majaelrayo (Campillo de Ranas-ൽ നിന്ന് 3.6 കി.മീ)",
         },
         details: {
             es: "Alquiler íntegro. Dispone de 2 habitaciones. Capacidad para 4 personas.",
@@ -387,6 +426,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. Dispone di 2 camere. Capacità per 4 persone.",
             zh: "整租。有2个房间。可容纳4人。",
             de: "Komplette Vermietung. Verfügt über 2 Zimmer. Kapazität für 4 Personen.",
+            ml: "പൂർണ്ണ വാടക. 2 മുറികൾ. 4 പേർക്ക് ശേഷി.",
         },
     },
     {
@@ -399,6 +439,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Majaelrayo (a 3,6 km da Campillo de Ranas)",
             zh: "Majaelrayo（距离Campillo de Ranas 3.6公里）",
             de: "Majaelrayo (3,6 km von Campillo de Ranas entfernt)",
+            ml: "Majaelrayo (Campillo de Ranas-ൽ നിന്ന് 3.6 കി.മീ)",
         },
         details: {
             es: "Alquiler íntegro. Dispone de 4 habitaciones. Capacidad para 8 plazas y 2 extras.",
@@ -406,6 +447,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. Dispone di 4 camere. Capacità per 8 posti e 2 extra.",
             zh: "整租。有4个房间。可容纳8个铺位和2个加床。",
             de: "Komplette Vermietung. Verfügt über 4 Zimmer. Kapazität für 8 Plätze und 2 Extras.",
+            ml: "പൂർണ്ണ വാടക. 4 മുറികൾ. 8 സ്ഥലങ്ങളും 2 അധികവും.",
         },
     },
     {
@@ -418,6 +460,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Majaelrayo (a 3,6 km da Campillo de Ranas)",
             zh: "Majaelrayo（距离Campillo de Ranas 3.6公里）",
             de: "Majaelrayo (3,6 km von Campillo de Ranas entfernt)",
+            ml: "Majaelrayo (Campillo de Ranas-ൽ നിന്ന് 3.6 കി.മീ)",
         },
         details: {
             es: "Alquiler íntegro. La casa cuenta con dos módulos que pueden alquilarse conjuntamente o de forma independiente. El primer módulo es La Casona (tiene una capacidad de 12-14 personas. En la planta baja hay 2 dormitorios suites dobles y en la planta alta 2 habitaciones y otras 2 habitaciones dobles convertibles en una habitación cuádruple). El segundo módulo es El Apartamento (tiene una capacidad de 6-8 personas. En la planta inferior hay un sofá-cama doble y en la planta superior hay 1 habitación doble y 1 habitación familiar apta para 4 personas).",
@@ -425,6 +468,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. La casa dispone di due moduli che possono essere affittati congiuntamente o indipendentemente. Il primo modulo è La Casona (ha una capacità di 12-14 persone. Al piano terra ci sono 2 camere matrimoniali suite e all'ultimo piano 2 camere e altre 2 camere matrimoniali convertibili in una camera quadrupla). Il secondo modulo è L'Appartamento (ha una capacità di 6-8 persone. Al piano inferiore c'è un divano letto matrimoniale e al piano superiore c'è 1 camera matrimoniale e 1 camera familiare adatta per 4 persone).",
             zh: "整租。这栋房子有两个模块，可以一起或单独出租。第一个模块是La Casona（可容纳12-14人。底层有两间双人套房，顶层有两间卧室和另外两间可改造成四人间双人房）。第二个模块是公寓（可容纳6-8人。下层有一张双人沙发床，上层有一间双人房和一间适合4人的家庭房）。",
             de: "Komplette Vermietung. Das Haus hat zwei Module, die zusammen oder einzeln gemietet werden können. Das erste Modul ist La Casona (hat eine Kapazität von 12-14 Personen. Im Erdgeschoss gibt es 2 Doppel-Suite-Schlafzimmer und im Obergeschoss 2 Zimmer und 2 weitere Doppelzimmer, die in ein Vierbettzimmer umgewandelt werden können). Das zweite Modul ist Das Apartment (hat eine Kapazität von 6-8 Personen. Auf der unteren Etage befindet sich ein Doppelschlafsofa und auf der oberen Etage 1 Doppelzimmer und 1 Familienzimmer, das für 4 Personen geeignet ist).",
+            ml: "പൂർണ്ണ വാടക. La Casona (12-14 പേർ) + El Apartamento (6-8 പേർ) എന്നീ 2 മൊഡ്യൂളുകൾ, ഒരുമിച്ചോ പ്രത്യേകമായോ വാടകയ്ക്ക്.",
         },
     },
     {
@@ -437,6 +481,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Majaelrayo (a 3,6 km da Campillo de Ranas)",
             zh: "Majaelrayo（距离Campillo de Ranas 3.6公里）",
             de: "Majaelrayo (3,6 km von Campillo de Ranas entfernt)",
+            ml: "Majaelrayo (Campillo de Ranas-ൽ നിന്ന് 3.6 കി.മീ)",
         },
         details: {
             es: "Alquiler íntegro. Dispone de 7 habitaciones. Capacidad de 12 plazas + 3 extras. Persona de contacto: Paloma",
@@ -444,6 +489,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. Dispone di 7 camere. Capacità di 12 posti + 3 extra. Persona di contatto: Paloma",
             zh: "整租。有7个房间。可容纳12个铺位+3个加床。联系人：Paloma",
             de: "Komplette Vermietung. Verfügt über 7 Zimmer. Kapazität für 12 Plätze + 3 Extras. Kontaktperson: Paloma",
+            ml: "പൂർണ്ണ വാടക. 7 മുറികൾ. 12 + 3 അധിക സ്ഥലങ്ങൾ. ബന്ധപ്പെടുക: Paloma",
         },
     },
     {
@@ -456,6 +502,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Majaelrayo (a 3,6 km da Campillo de Ranas)",
             zh: "Majaelrayo（距离Campillo de Ranas 3.6公里）",
             de: "Majaelrayo (3,6 km von Campillo de Ranas entfernt)",
+            ml: "Majaelrayo (Campillo de Ranas-ൽ നിന്ന് 3.6 കി.മീ)",
         },
         details: {
             es: "Alquiler íntegro. Dispone de 1 habitación. Capacidad para dos personas. Personas de contacto: Gloria y Santiago",
@@ -463,6 +510,7 @@ export const EXTRA_ACOMM: AccommodationData[] = [
             it: "Affitto intero. Dispone di 1 camera. Capacità per due persone. Persone di contatto: Gloria e Santiago",
             zh: "整租。有1个房间。可容纳两人。联系人：Gloria和Santiago",
             de: "Komplette Vermietung. Verfügt über 1 Zimmer. Kapazität für zwei Personen. Kontaktpersonen: Gloria und Santiago",
+            ml: "പൂർണ്ണ വാടക. 1 മുറി. 2 പേർക്ക് ശേഷി. ബന്ധപ്പെടുക: Gloria, Santiago",
         },
     },
 ];
