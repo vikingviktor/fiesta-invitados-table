@@ -428,7 +428,7 @@ const translations: Record<Language, Record<string, string>> = {
     "dresscode.tips.tip2": "Bretelle, gilet, cappelli e accessori rustici stanno benissimo",
     "dresscode.tips.tip3": "Tessuti naturali come lino, cotone o lana danno un tocco perfetto",
     "dresscode.tips.tip4": "Cerca su Pinterest 'Hobbit outfit' o 'Lord of the Rings wedding' per ispirarti!",
-    "dresscode.buy.title": "Negozi dove acquistare abiti a tema",
+    "dresscode.buy.title": "Negozi dove acquistare abiti a tema o prendere ispirazione",
     
     // Form
     "form.title": "Conferma la Tua Partecipazione",
