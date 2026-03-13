@@ -486,7 +486,8 @@ const translations: Record<Language, Record<string, string>> = {
     "index.rsvp.button": "确认出席",
     "index.rsvp.confirmed": "感谢您确认出席！",
     "index.rsvp.edit": "修改回复",
-    "index.rsvp.edit": "修改回复",
+    
+    // Alojamiento page
     
     // Alojamiento page
     "accommodation.title": "附近住宿",
