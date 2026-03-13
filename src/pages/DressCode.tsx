@@ -69,7 +69,7 @@ const DressCode = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="border-amber-300/40 bg-amber-50/50">
+                <Card className="border-amber-300/60 bg-white/80">
                   <CardContent className="flex items-start gap-4 pt-6">
                     <div className="bg-amber-100 p-3 rounded-full shrink-0">
                       <Sparkles className="h-6 w-6 text-amber-600" />
