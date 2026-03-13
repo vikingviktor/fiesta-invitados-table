@@ -183,7 +183,7 @@ const translations: Record<Language, Record<string, string>> = {
     "index.quote1": "\"One wedding to rule them all,",
     "index.quote2": "and in the happiness bind them.\"",
     "index.rsvp.button": "Confirm attendance",
-    "index.rsvp.button": "Confirm attendance",
+    "index.rsvp.confirmed": "Thank you for confirming your attendance!",
     "index.rsvp.confirmed": "Thank you for confirming your attendance!",
     "index.rsvp.edit": "Edit response",
     
