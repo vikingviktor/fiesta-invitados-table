@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
 
 /**
  * 🔥 Easter Egg del Anillo Único 🔥
@@ -85,8 +86,8 @@ const OneRingEasterEgg: React.FC<{ children: React.ReactNode }> = ({ children })
         {children}
       </div>
 
-      {/* ── Overlay del Ojo de Sauron ── */}
-      {(phase === "eye" || phase === "fade-out") && (
+      {/* ── Overlay del Ojo de Sauron (rendered via Portal to body) ── */}
+      {(phase === "eye" || phase === "fade-out") && createPortal(
         <div className={`sauron-overlay ${phase === "fade-out" ? "sauron-overlay--exit" : ""}`}>
           {/* Ojo de Sauron */}
           <div className="sauron-eye-container">
@@ -130,7 +131,8 @@ const OneRingEasterEgg: React.FC<{ children: React.ReactNode }> = ({ children })
               </textPath>
             </text>
           </svg>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

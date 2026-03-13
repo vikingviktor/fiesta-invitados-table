@@ -57,8 +57,8 @@ const DressCode = () => {
                 <Card className="border-primary/30 bg-white/80">
                   <CardContent className="flex items-start gap-4 pt-6">
                     <OneRingEasterEgg>
-                      <div className="bg-primary/10 p-2 rounded-full shrink-0 flex justify-center items-center hover:ring-2 hover:ring-amber-400/60 transition-all duration-200">
-                        <img src="/ring.png" alt="Ring" className="h-8 w-8 object-contain drop-shadow-sm" />
+                      <div className="bg-primary/10 p-3 sm:p-2 rounded-full shrink-0 flex justify-center items-center hover:ring-2 hover:ring-amber-400/60 transition-all duration-200">
+                        <img src="/ring.png" alt="Ring" className="h-12 w-12 sm:h-10 sm:w-10 object-contain drop-shadow-sm" />
                       </div>
                     </OneRingEasterEgg>
                     <div>
