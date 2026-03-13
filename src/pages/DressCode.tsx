@@ -117,7 +117,7 @@ const DressCode = () => {
                   </CardContent>
                 </Card>
 
-                <div className="mt-8 p-4 bg-primary/5 rounded-lg border border-primary/10">
+                <div className="mt-8 p-4 bg-white/70 rounded-lg border border-primary/20">
                   <h3 className="font-semibold text-primary mb-3">
                     {t("dresscode.tips.title")}
                   </h3>
