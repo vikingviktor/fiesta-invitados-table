@@ -14,6 +14,7 @@ const flags: Record<Language, string> = {
   it: "🇮🇹",
   zh: "🇨🇳",
   de: "🇩🇪",
+  ml: "🇮🇳",
 };
 
 const LanguageSelector: React.FC = () => {
