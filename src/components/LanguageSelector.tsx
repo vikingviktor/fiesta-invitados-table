@@ -58,6 +58,12 @@ const LanguageSelector: React.FC = () => {
             <span>Deutsch</span>
           </span>
         </SelectItem>
+        <SelectItem value="ml">
+          <span className="flex items-center gap-2">
+            <span className="text-xl">🇮🇳</span>
+            <span>മലയാളം</span>
+          </span>
+        </SelectItem>
       </SelectContent>
     </Select>
   );
