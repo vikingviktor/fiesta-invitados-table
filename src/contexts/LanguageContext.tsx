@@ -33,7 +33,7 @@ const translations: Record<Language, Record<string, string>> = {
     "index.quote1": "\"Una boda para gobernarlos a todos,",
     "index.quote2": "y en la felicidad atarlos.\"",
     "index.rsvp.button": "Confirmar asistencia",
-    "index.rsvp.button": "Confirmar asistencia",
+    "index.rsvp.confirmed": "¡Gracias por confirmar tu asistencia!",
     "index.rsvp.confirmed": "¡Gracias por confirmar tu asistencia!",
     "index.rsvp.edit": "Editar respuesta",
     
