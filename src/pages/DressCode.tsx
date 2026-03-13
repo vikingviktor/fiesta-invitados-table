@@ -42,7 +42,7 @@ const DressCode = () => {
           </button>
 
           {!collapsed && (
-            <div className="relative bg-white/50 rounded-xl shadow-xl p-8 border border-white/30 backdrop-blur-sm">
+            <div className="relative bg-white/85 rounded-xl shadow-xl p-8 border border-white/50 backdrop-blur-sm">
               <div className="mb-8 text-center">
                 <h1 className="text-4xl font-bold mb-3 font-elvish text-primary">
                   {t("dresscode.title")}
@@ -53,7 +53,7 @@ const DressCode = () => {
               </div>
 
               <div className="space-y-6">
-                <Card className="border-primary/20 bg-primary/5">
+                <Card className="border-primary/30 bg-white/80">
                   <CardContent className="flex items-start gap-4 pt-6">
                     <div className="bg-primary/10 p-2 rounded-full shrink-0 flex justify-center items-center">
                       <img src="/ring.png" alt="Ring" className="h-8 w-8 object-contain drop-shadow-sm" />
@@ -69,7 +69,7 @@ const DressCode = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="border-amber-300/40 bg-amber-50/50">
+                <Card className="border-amber-300/60 bg-white/80">
                   <CardContent className="flex items-start gap-4 pt-6">
                     <div className="bg-amber-100 p-3 rounded-full shrink-0">
                       <Sparkles className="h-6 w-6 text-amber-600" />
@@ -85,7 +85,7 @@ const DressCode = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="border-emerald-300/40 bg-emerald-50/50">
+                <Card className="border-emerald-300/60 bg-white/80">
                   <CardContent className="flex items-start gap-4 pt-6">
                     <div className="bg-emerald-100 p-3 rounded-full shrink-0">
                       <Shirt className="h-6 w-6 text-emerald-600" />
@@ -101,7 +101,7 @@ const DressCode = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="border-red-400/50 bg-red-50/60 shadow-md">
+                <Card className="border-red-400/60 bg-white/85 shadow-md">
                   <CardContent className="flex items-start gap-4 pt-6">
                     <div className="bg-red-100 p-3 rounded-full shrink-0">
                       <Ban className="h-6 w-6 text-red-600" />
@@ -117,7 +117,7 @@ const DressCode = () => {
                   </CardContent>
                 </Card>
 
-                <div className="mt-8 p-4 bg-primary/5 rounded-lg border border-primary/10">
+                <div className="mt-8 p-4 bg-white/70 rounded-lg border border-primary/20">
                   <h3 className="font-semibold text-primary mb-3">
                     {t("dresscode.tips.title")}
                   </h3>
@@ -141,7 +141,7 @@ const DressCode = () => {
                   </ul>
                 </div>
 
-                <div className="mt-8 p-4 bg-secondary/5 rounded-lg border border-secondary/10">
+                <div className="mt-8 p-4 bg-white/70 rounded-lg border border-secondary/20">
                   <h3 className="font-semibold text-black mb-3">
                     {t("dresscode.buy.title")}
                   </h3>
@@ -159,6 +159,11 @@ const DressCode = () => {
                     <li>
                       <a href="https://epicarmoury.com/collections/clothing" target="_blank" rel="noopener noreferrer">
                         epicarmoury.com – fantasy clothing
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.emp-online.es/fan-merch/el-senor-de-los-anillos/" target="_blank" rel="noopener noreferrer">
+                        emp-online.es – El Señor de los Anillos
                       </a>
                     </li>
                   </ul>
