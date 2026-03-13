@@ -141,7 +141,7 @@ const DressCode = () => {
                   </ul>
                 </div>
 
-                <div className="mt-8 p-4 bg-secondary/5 rounded-lg border border-secondary/10">
+                <div className="mt-8 p-4 bg-white/70 rounded-lg border border-secondary/20">
                   <h3 className="font-semibold text-black mb-3">
                     {t("dresscode.buy.title")}
                   </h3>
@@ -159,6 +159,11 @@ const DressCode = () => {
                     <li>
                       <a href="https://epicarmoury.com/collections/clothing" target="_blank" rel="noopener noreferrer">
                         epicarmoury.com – fantasy clothing
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://www.emp-online.es/fan-merch/el-senor-de-los-anillos/" target="_blank" rel="noopener noreferrer">
+                        emp-online.es – El Señor de los Anillos
                       </a>
                     </li>
                   </ul>
