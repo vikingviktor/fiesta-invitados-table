@@ -630,7 +630,7 @@ const translations: Record<Language, Record<string, string>> = {
     "index.quote1": "\"Eine Hochzeit, sie zu knechten,",
     "index.quote2": "sie alle ins Glück zu binden.\"",
     "index.rsvp.button": "Teilnahme bestätigen",
-    "index.rsvp.button": "Teilnahme bestätigen",
+    "index.rsvp.confirmed": "Danke für deine Bestätigung!",
     "index.rsvp.confirmed": "Danke für deine Bestätigung!",
     "index.rsvp.edit": "Antwort bearbeiten",
     
