@@ -336,7 +336,8 @@ const translations: Record<Language, Record<string, string>> = {
     "index.rsvp.button": "Conferma partecipazione",
     "index.rsvp.confirmed": "Grazie per aver confermato la tua partecipazione!",
     "index.rsvp.edit": "Modifica risposta",
-    "index.rsvp.edit": "Modifica risposta",
+    
+    // Alojamiento page
     
     // Alojamiento page
     "accommodation.title": "Alloggi nella Zona",
