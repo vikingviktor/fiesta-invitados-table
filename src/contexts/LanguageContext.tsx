@@ -482,7 +482,7 @@ const translations: Record<Language, Record<string, string>> = {
     "index.quote2": "在幸福中将他们联结。\"",
     "index.rsvp.button": "确认出席",
     "index.rsvp.confirmed": "感谢您确认出席！",
-    "index.rsvp.confirmed": "感谢您确认出席！",
+    "index.rsvp.edit": "修改回复",
     "index.rsvp.edit": "修改回复",
     
     // Alojamiento page
