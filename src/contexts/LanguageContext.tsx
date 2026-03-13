@@ -34,7 +34,7 @@ const translations: Record<Language, Record<string, string>> = {
     "index.quote2": "y en la felicidad atarlos.\"",
     "index.rsvp.button": "Confirmar asistencia",
     "index.rsvp.confirmed": "¡Gracias por confirmar tu asistencia!",
-    "index.rsvp.confirmed": "¡Gracias por confirmar tu asistencia!",
+    "index.rsvp.edit": "Editar respuesta",
     "index.rsvp.edit": "Editar respuesta",
     
     // Alojamiento page
