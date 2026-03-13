@@ -42,7 +42,7 @@ const DressCode = () => {
           </button>
 
           {!collapsed && (
-            <div className="relative bg-white/50 rounded-xl shadow-xl p-8 border border-white/30 backdrop-blur-sm">
+            <div className="relative bg-white/85 rounded-xl shadow-xl p-8 border border-white/50 backdrop-blur-sm">
               <div className="mb-8 text-center">
                 <h1 className="text-4xl font-bold mb-3 font-elvish text-primary">
                   {t("dresscode.title")}
