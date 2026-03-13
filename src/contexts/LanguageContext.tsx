@@ -631,7 +631,7 @@ const translations: Record<Language, Record<string, string>> = {
     "index.quote2": "sie alle ins Glück zu binden.\"",
     "index.rsvp.button": "Teilnahme bestätigen",
     "index.rsvp.confirmed": "Danke für deine Bestätigung!",
-    "index.rsvp.confirmed": "Danke für deine Bestätigung!",
+    "index.rsvp.edit": "Antwort bearbeiten",
     "index.rsvp.edit": "Antwort bearbeiten",
     
     // Alojamiento page
