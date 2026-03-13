@@ -101,7 +101,7 @@ const DressCode = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="border-red-400/50 bg-red-50/60 shadow-md">
+                <Card className="border-red-400/60 bg-white/85 shadow-md">
                   <CardContent className="flex items-start gap-4 pt-6">
                     <div className="bg-red-100 p-3 rounded-full shrink-0">
                       <Ban className="h-6 w-6 text-red-600" />
