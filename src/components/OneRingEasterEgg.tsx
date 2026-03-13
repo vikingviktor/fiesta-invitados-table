@@ -11,7 +11,7 @@ import { createPortal } from "react-dom";
  *   4. Efecto espectral global (grayscale + blur en body) durante ~2s
  *   5. Reset suave tras 3s
  *
- * La imagen del Ojo de Sauron debe estar en /public/eye-of-sauron.jpg
+ * La imagen del Ojo de Sauron debe estar en /public/eye-of-sauron.png
  * Audio opcional: colocar /public/sauron-whisper.mp3
  */
 
@@ -92,7 +92,7 @@ const OneRingEasterEgg: React.FC<{ children: React.ReactNode }> = ({ children })
           {/* Ojo de Sauron */}
           <div className="sauron-eye-container">
             <img
-              src="/eye-of-sauron.jpg"
+              src="/eye-of-sauron.png"
               alt="Eye of Sauron"
               className="sauron-eye-img"
             />
