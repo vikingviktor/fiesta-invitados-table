@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
+import OneRingEasterEgg from "@/components/OneRingEasterEgg";
 import { Card, CardContent } from "@/components/ui/card";
 import { Shirt, Sparkles, Ban, Gem, ChevronDown, ChevronUp } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -55,9 +56,11 @@ const DressCode = () => {
               <div className="space-y-6">
                 <Card className="border-primary/30 bg-white/80">
                   <CardContent className="flex items-start gap-4 pt-6">
-                    <div className="bg-primary/10 p-2 rounded-full shrink-0 flex justify-center items-center">
-                      <img src="/ring.png" alt="Ring" className="h-8 w-8 object-contain drop-shadow-sm" />
-                    </div>
+                    <OneRingEasterEgg>
+                      <div className="bg-primary/10 p-2 rounded-full shrink-0 flex justify-center items-center hover:ring-2 hover:ring-amber-400/60 transition-all duration-200">
+                        <img src="/ring.png" alt="Ring" className="h-8 w-8 object-contain drop-shadow-sm" />
+                      </div>
+                    </OneRingEasterEgg>
                     <div>
                       <h3 className="font-semibold text-lg text-primary mb-1">
                         {t("dresscode.theme.title")}
