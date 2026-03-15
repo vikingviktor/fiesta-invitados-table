@@ -81,12 +81,24 @@ const Index = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-[#f8f6f1]">
-      {/* Hero background - revealed after door opens with light/blur effect */}
+      {/* Original background - visible initially, fades out */}
+      <div
+        className={`absolute inset-0 z-0 transition-opacity duration-[2s] ease-out ${
+          contentVisible ? "opacity-0" : "opacity-100"
+        }`}
+        style={{
+          backgroundImage: "url('/generic-bg-2.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
+      {/* Hero background - crossfades in with light/blur effect */}
       <div
         className={`absolute inset-0 z-0 transition-all duration-[2.5s] ease-out ${
           contentVisible
-            ? "opacity-100 scale-100 blur-0"
-            : "opacity-0 scale-110 blur-lg"
+            ? "opacity-100 scale-100"
+            : "opacity-0 scale-110"
         }`}
         style={{
           backgroundImage: "url('/hero-bg.jpg')",
@@ -95,14 +107,14 @@ const Index = () => {
           backgroundRepeat: "no-repeat",
         }}
       />
-      {/* White light overlay that fades away on reveal */}
+      {/* White light flash on transition */}
       <div
-        className={`absolute inset-0 z-0 transition-opacity duration-[2s] ease-out ${
-          contentVisible ? "opacity-0" : "opacity-100"
+        className={`absolute inset-0 z-[1] pointer-events-none transition-opacity ${
+          doorOpen && !contentVisible ? "opacity-70 duration-[0.8s]" : "opacity-0 duration-[1.5s]"
         }`}
-        style={{ background: "radial-gradient(circle, rgba(255,255,240,0.95) 0%, rgba(248,246,241,1) 100%)" }}
+        style={{ background: "radial-gradient(circle, rgba(255,255,230,1) 0%, rgba(255,255,240,0.8) 100%)" }}
       />
-      {/* Subtle dark overlay for text readability */}
+      {/* Subtle overlay for text readability */}
       <div
         className={`absolute inset-0 z-0 transition-opacity duration-[2s] ${
           contentVisible ? "opacity-100" : "opacity-0"
@@ -110,10 +122,13 @@ const Index = () => {
         style={{ background: "radial-gradient(ellipse at center, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 100%)" }}
       />
 
-      {/* Removed green glow */}
-
-      {/* Door scene */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen" style={{ perspective: "1200px" }}>
+      {/* Door scene - with "entering" zoom effect, hidden after transition */}
+      <div
+        className={`relative z-10 flex flex-col items-center justify-center min-h-screen transition-all duration-[2s] ease-in ${
+          contentVisible ? "scale-[3] opacity-0" : "scale-100 opacity-100"
+        }`}
+        style={{ perspective: "1200px", display: doorHidden ? "none" : undefined }}
+      >
         {/* Stone/earth frame */}
         <div className="hobbit-frame relative" key={animationKey}>
           {/* Stone arch */}
