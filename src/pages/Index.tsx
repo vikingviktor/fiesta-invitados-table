@@ -51,7 +51,7 @@ const Index = () => {
       const doorTimer = setTimeout(() => setDoorOpen(true), 1500);
       const contentTimer = setTimeout(() => setContentVisible(true), 3200);
       // Hide door completely after transition finishes
-      const hideTimer = setTimeout(() => setDoorHidden(true), 7000);
+      const hideTimer = setTimeout(() => setDoorHidden(true), 9500);
       return () => {
         clearTimeout(doorTimer);
         clearTimeout(contentTimer);
@@ -124,7 +124,7 @@ const Index = () => {
 
       {/* Door scene - with "entering" zoom effect, hidden after transition */}
       <div
-        className={`absolute inset-0 z-10 flex items-center justify-center transition-all duration-[4s] ease-in ${
+        className={`absolute inset-0 z-10 flex items-center justify-center transition-all duration-[6s] ease-in ${
           contentVisible ? "scale-[3] opacity-0 pointer-events-none" : "scale-100 opacity-100"
         }`}
         style={{ perspective: "1200px", display: doorHidden ? "none" : undefined }}
