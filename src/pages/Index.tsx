@@ -76,15 +76,33 @@ const Index = () => {
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-[#f8f6f1]">
-      {/* Shire background behind the door */}
+      {/* Hero background - revealed after door opens with light/blur effect */}
       <div
-        className="absolute inset-0 z-0"
+        className={`absolute inset-0 z-0 transition-all duration-[2.5s] ease-out ${
+          contentVisible
+            ? "opacity-100 scale-100 blur-0"
+            : "opacity-0 scale-110 blur-lg"
+        }`}
         style={{
-          backgroundImage: "url('/generic-bg-2.png')",
+          backgroundImage: "url('/hero-bg.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
+      />
+      {/* White light overlay that fades away on reveal */}
+      <div
+        className={`absolute inset-0 z-0 transition-opacity duration-[2s] ease-out ${
+          contentVisible ? "opacity-0" : "opacity-100"
+        }`}
+        style={{ background: "radial-gradient(circle, rgba(255,255,240,0.95) 0%, rgba(248,246,241,1) 100%)" }}
+      />
+      {/* Subtle dark overlay for text readability */}
+      <div
+        className={`absolute inset-0 z-0 transition-opacity duration-[2s] ${
+          contentVisible ? "opacity-100" : "opacity-0"
+        }`}
+        style={{ background: "radial-gradient(ellipse at center, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 100%)" }}
       />
 
       {/* Removed green glow */}
@@ -206,7 +224,7 @@ const Index = () => {
               : "opacity-0 -translate-y-full"
           }`}
         >
-          <Navbar />
+          <Navbar transparent />
         </div>
       </div>
     </div>

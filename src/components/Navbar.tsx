@@ -1,11 +1,15 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+
+interface NavbarProps {
+  transparent?: boolean;
+}
 import { supabase } from "@/integrations/supabase/client";
 import { Settings, Home, Hotel, MapPin, Clock, Shirt } from "lucide-react";
 import LanguageSelector from "@/components/LanguageSelector";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { t } = useLanguage();
@@ -25,7 +29,7 @@ const Navbar: React.FC = () => {
   }, []);
 
   return (
-    <nav className="w-full flex flex-col items-center bg-background sticky top-0 left-0 z-40 border-b">
+    <nav className={`w-full flex flex-col items-center sticky top-0 left-0 z-40 ${transparent ? 'bg-transparent border-transparent' : 'bg-background border-b'}`}>
       <div className="flex items-center justify-center gap-3 md:gap-6 py-4 md:py-5 w-full px-2">
         <Link
           to="/"
