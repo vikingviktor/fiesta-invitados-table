@@ -9,7 +9,7 @@ import { Settings, Home, Hotel, MapPin, Clock, Shirt } from "lucide-react";
 import LanguageSelector from "@/components/LanguageSelector";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { t } = useLanguage();
