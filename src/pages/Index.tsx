@@ -76,6 +76,7 @@ const Index = () => {
   const handleReplay = useCallback(() => {
     setAnimationKey((k) => k + 1);
     setShowForm(false);
+    setDoorHidden(false);
   }, []);
 
   return (
