@@ -49,9 +49,8 @@ const Index = () => {
 
     const startAnimation = () => {
       const doorTimer = setTimeout(() => setDoorOpen(true), 1500);
-      const contentTimer = setTimeout(() => setContentVisible(true), 3200);
-      // Hide door completely after transition finishes
-      const hideTimer = setTimeout(() => setDoorHidden(true), 9500);
+      const contentTimer = setTimeout(() => setContentVisible(true), 3500);
+      const hideTimer = setTimeout(() => setDoorHidden(true), 10000);
       return () => {
         clearTimeout(doorTimer);
         clearTimeout(contentTimer);
