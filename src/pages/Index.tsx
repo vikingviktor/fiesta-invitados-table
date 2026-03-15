@@ -37,20 +37,25 @@ const Index = () => {
     return () => clearInterval(timer);
   }, []);
 
+  const [doorHidden, setDoorHidden] = useState(false);
+
   useEffect(() => {
     setDoorOpen(false);
     setContentVisible(false);
+    setDoorHidden(false);
 
-    // Wait for the door image to load before starting animation
     const img = new Image();
     img.src = "/hobbit-door-2.png";
 
     const startAnimation = () => {
       const doorTimer = setTimeout(() => setDoorOpen(true), 1500);
       const contentTimer = setTimeout(() => setContentVisible(true), 3200);
+      // Hide door completely after transition finishes
+      const hideTimer = setTimeout(() => setDoorHidden(true), 4500);
       return () => {
         clearTimeout(doorTimer);
         clearTimeout(contentTimer);
+        clearTimeout(hideTimer);
       };
     };
 
@@ -60,7 +65,6 @@ const Index = () => {
       cleanup = startAnimation();
     } else {
       img.onload = () => { cleanup = startAnimation(); };
-      // Fallback: start anyway after 3s if image fails
       const fallback = setTimeout(() => { cleanup = startAnimation(); }, 3000);
       img.onerror = () => { clearTimeout(fallback); cleanup = startAnimation(); };
       return () => { clearTimeout(fallback); cleanup?.(); };
