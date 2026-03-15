@@ -49,9 +49,8 @@ const Index = () => {
 
     const startAnimation = () => {
       const doorTimer = setTimeout(() => setDoorOpen(true), 1500);
-      const contentTimer = setTimeout(() => setContentVisible(true), 3200);
-      // Hide door completely after transition finishes
-      const hideTimer = setTimeout(() => setDoorHidden(true), 9500);
+      const contentTimer = setTimeout(() => setContentVisible(true), 3500);
+      const hideTimer = setTimeout(() => setDoorHidden(true), 10000);
       return () => {
         clearTimeout(doorTimer);
         clearTimeout(contentTimer);
@@ -124,10 +123,18 @@ const Index = () => {
 
       {/* Door scene - with "entering" zoom effect, hidden after transition */}
       <div
-        className={`absolute inset-0 z-10 flex items-center justify-center transition-all duration-[6s] ease-in ${
-          contentVisible ? "scale-[3] opacity-0 pointer-events-none" : "scale-100 opacity-100"
+        className={`absolute inset-0 z-10 flex items-center justify-center ${
+          contentVisible ? "pointer-events-none" : ""
         }`}
-        style={{ perspective: "1200px", display: doorHidden ? "none" : undefined }}
+        style={{
+          perspective: "1200px",
+          display: doorHidden ? "none" : undefined,
+          transform: contentVisible ? "scale(4)" : "scale(1)",
+          opacity: contentVisible ? 0 : 1,
+          transition: contentVisible
+            ? "transform 6s cubic-bezier(0.4, 0, 0.2, 1), opacity 2s ease-in 4s"
+            : "none",
+        }}
       >
         <div className="hobbit-frame relative" key={animationKey}>
           <div className="hobbit-arch">
