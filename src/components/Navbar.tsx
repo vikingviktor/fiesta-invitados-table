@@ -1,5 +1,9 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+
+interface NavbarProps {
+  transparent?: boolean;
+}
 import { supabase } from "@/integrations/supabase/client";
 import { Settings, Home, Hotel, MapPin, Clock, Shirt } from "lucide-react";
 import LanguageSelector from "@/components/LanguageSelector";
