@@ -125,7 +125,7 @@
   }
 }
 
-/* Stone arch around the door */
+/* Stone arch around the door — ring shape with transparent center */
 .hobbit-arch {
   position: absolute;
   inset: -16px;
@@ -142,6 +142,28 @@
     0 0 40px rgba(0, 0, 0, 0.5),
     0 0 80px rgba(0, 0, 0, 0.3);
   z-index: 1;
+  -webkit-mask: radial-gradient(circle, transparent 62%, black 65%);
+  mask: radial-gradient(circle, transparent 62%, black 65%);
+}
+
+/* Blurred backdrop visible through the open door */
+.hobbit-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  z-index: 2;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.1);
+  transition: backdrop-filter 3s ease-out, -webkit-backdrop-filter 3s ease-out, opacity 3s ease-out;
+}
+
+.hobbit-frame--clear::after {
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  background: transparent;
+  opacity: 0;
 }
 
 .hobbit-arch::before {
