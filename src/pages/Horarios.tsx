@@ -1,105 +1,154 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Clock, Wine, UtensilsCrossed, PartyPopper, Coffee, Heart } from "lucide-react";
+import { Clock, Wine, UtensilsCrossed, PartyPopper, Coffee, Heart, Church } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+
+interface EventItem {
+  time: string;
+  titleKey: string;
+  descKey: string;
+  icon: React.ElementType;
+}
 
 const Horarios = () => {
   const { t } = useLanguage();
 
-  const eventos = [
+  const events: EventItem[] = [
     {
-      icon: Heart,
+      time: "13:00",
       titleKey: "schedule.ceremony.title",
-      timeKey: "schedule.ceremony.time",
-      descriptionKey: "schedule.ceremony.description",
+      descKey: "schedule.ceremony.description",
+      icon: Heart,
     },
     {
-      icon: Wine,
+      time: "14:00",
       titleKey: "schedule.cocktail.title",
-      timeKey: "schedule.cocktail.time",
-      descriptionKey: "schedule.cocktail.description",
+      descKey: "schedule.cocktail.description",
+      icon: Wine,
     },
     {
-      icon: UtensilsCrossed,
+      time: "15:00",
       titleKey: "schedule.banquet.title",
-      timeKey: "schedule.banquet.time",
-      descriptionKey: "schedule.banquet.description",
+      descKey: "schedule.banquet.description",
+      icon: UtensilsCrossed,
     },
     {
-      icon: PartyPopper,
+      time: "17:15",
       titleKey: "schedule.openbar.title",
-      timeKey: "schedule.openbar.time",
-      descriptionKey: "schedule.openbar.description",
+      descKey: "schedule.openbar.description",
+      icon: PartyPopper,
     },
     {
-      icon: Coffee,
+      time: "20:30",
       titleKey: "schedule.latesupper.title",
-      timeKey: "schedule.latesupper.time",
-      descriptionKey: "schedule.latesupper.description",
+      descKey: "schedule.latesupper.description",
+      icon: Coffee,
     },
     {
-      icon: Clock,
+      time: "22:00",
       titleKey: "schedule.end.title",
-      timeKey: "schedule.end.time",
-      descriptionKey: "schedule.end.description",
+      descKey: "schedule.end.description",
+      icon: Clock,
     },
   ];
 
   return (
-    <div
-      className="min-h-screen relative"
-      style={{
-        backgroundImage: "url('/rivendell-bg.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
-    >
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-emerald-900/20 to-amber-900/30 backdrop-blur-[2px]" aria-hidden="true" />
+    <div className="min-h-screen relative">
+      {/* Background */}
+      <div
+        className="fixed inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/rivendell-bg.jpg')" }}
+      >
+        <div className="absolute inset-0 bg-black/70" />
+      </div>
+
       <div className="relative z-10">
         <Navbar />
-        <section className="max-w-3xl mx-auto py-12 px-4">
-          <div className="relative bg-white/90 rounded-xl shadow-xl p-8 border border-white/40 backdrop-blur-sm">
-            <div className="mb-8 text-center">
-              <h1 className="text-4xl font-bold mb-3 font-elvish text-primary">
+
+        <section className="py-24 sm:py-32 overflow-hidden">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Section Header */}
+            <div className="text-center mb-16">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <Heart className="w-5 h-5 text-amber-400 fill-amber-400" />
+                <span className="text-amber-400/80 text-sm tracking-[0.3em] uppercase font-semibold">
+                  {t("schedule.subtitle")}
+                </span>
+                <Heart className="w-5 h-5 text-amber-400 fill-amber-400" />
+              </div>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 bg-clip-text text-transparent mb-4 font-elvish">
                 {t("schedule.title")}
               </h1>
-              <p className="text-lg text-gray-700">
-                {t("schedule.subtitle")}
-              </p>
+              <div className="w-24 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mt-6" />
             </div>
 
+            {/* Timeline */}
             <div className="relative">
-              {/* Timeline line */}
-              <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-primary/30 hidden md:block" />
+              {/* Vertical Line */}
+              <div className="absolute left-8 sm:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-amber-400/50 via-amber-400 to-amber-400/50 sm:-translate-x-1/2" />
 
-              <div className="space-y-6">
-                {eventos.map((evento, index) => {
-                  const IconComponent = evento.icon;
-                  return (
-                    <Card key={index} className="bg-white/80 border-gray-200 hover:shadow-lg transition-shadow md:ml-12">
-                      <CardHeader>
-                        <div className="flex items-start gap-4">
-                          <div className="p-3 bg-primary/10 rounded-lg">
-                            <IconComponent className="h-6 w-6 text-primary" />
+              {/* Events */}
+              <div className="space-y-12">
+                {events.map((event, index) => (
+                  <div
+                    key={index}
+                    className={`relative flex items-start gap-8 ${
+                      index % 2 === 0 ? "sm:flex-row" : "sm:flex-row-reverse"
+                    }`}
+                  >
+                    {/* Time Badge - Mobile */}
+                    <div className="sm:hidden absolute left-0 top-0">
+                      <div className="w-16 h-16 rounded-full bg-amber-500 border-4 border-gray-900 flex items-center justify-center z-10 relative">
+                        <span className="text-sm font-bold text-white">{event.time}</span>
+                      </div>
+                    </div>
+
+                    {/* Content Card */}
+                    <div
+                      className={`ml-24 sm:ml-0 sm:w-5/12 ${
+                        index % 2 === 0 ? "sm:text-right sm:pr-12" : "sm:text-left sm:pl-12"
+                      }`}
+                    >
+                      <div className="bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-amber-400/20 hover:border-amber-400/40 transition-all duration-300 group">
+                        <div
+                          className={`flex items-center gap-3 mb-3 ${
+                            index % 2 === 0 ? "sm:flex-row-reverse" : ""
+                          }`}
+                        >
+                          <div className="w-10 h-10 rounded-full bg-amber-400/20 flex items-center justify-center group-hover:bg-amber-400/30 transition-colors">
+                            <event.icon className="w-5 h-5 text-amber-400" />
                           </div>
-                          <div className="flex-1">
-                            <CardTitle className="text-xl mb-1">{t(evento.titleKey)}</CardTitle>
-                            <div className="flex items-center gap-2 text-primary font-semibold">
-                              <Clock className="h-4 w-4" />
-                              <span>{t(evento.timeKey)}</span>
-                            </div>
-                          </div>
+                          <h3 className="text-xl font-semibold text-amber-400">
+                            {t(event.titleKey)}
+                          </h3>
                         </div>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-700">{t(evento.descriptionKey)}</p>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
+                        <p className="text-lg text-amber-100/70 leading-relaxed">
+                          {t(event.descKey)}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Center Node - Desktop */}
+                    <div className="hidden sm:flex absolute left-1/2 -translate-x-1/2 top-0">
+                      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 border-4 border-gray-900 flex items-center justify-center z-10 shadow-lg shadow-amber-400/30">
+                        <span className="text-lg font-bold text-white">{event.time}</span>
+                      </div>
+                    </div>
+
+                    {/* Empty Space for alternating layout */}
+                    <div className="hidden sm:block sm:w-5/12" />
+                  </div>
+                ))}
               </div>
+            </div>
+
+            {/* Bottom Quote */}
+            <div className="text-center mt-16">
+              <p className="italic text-xl text-amber-100/80">
+                "Es peligroso, Frodo, salir por tu puerta. <br />
+                Das un paso y si no cuidas tus pasos, no hay manera de saber a dónde te arrastrarán."
+              </p>
+              <p className="text-sm text-amber-400/70 mt-3">— Bilbo Bolsón</p>
             </div>
           </div>
         </section>
