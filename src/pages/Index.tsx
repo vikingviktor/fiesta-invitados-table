@@ -136,7 +136,7 @@ const Index = () => {
             : "none",
         }}
       >
-        <div className="hobbit-frame relative" key={animationKey}>
+        <div className={`hobbit-frame relative ${contentVisible ? "hobbit-frame--clear" : ""}`} key={animationKey}>
           <div className="hobbit-arch">
             <div className="hobbit-vine hobbit-vine--left" />
             <div className="hobbit-vine hobbit-vine--right" />
