@@ -151,7 +151,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
           <div className="rounded px-4 py-2 text-center bg-green-100 text-green-800">
             {t("form.success")}
           </div>
-          <p className="text-sm text-amber-700 text-center mt-2 font-elvish text-lg">
+          <p className="text-sm text-amber-700 text-center mt-2 font-antiqua text-lg">
             {t("form.expand_to_review")}
           </p>
         </div>
