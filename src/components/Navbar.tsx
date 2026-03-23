@@ -15,6 +15,20 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
   const navigate = useNavigate();
   const { t } = useLanguage();
 
+  // Hide navbar on scroll down, show on scroll up
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = React.useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      setHidden(currentY > 80 && currentY > lastScrollY.current);
+      lastScrollY.current = currentY;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const linkClass = (path: string) => {
     const isActive = pathname === path;
     if (transparent) {
