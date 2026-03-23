@@ -123,8 +123,8 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
           </button>
         )}
       </div>
-      <span className="text-2xl md:text-4xl font-elvish text-primary tracking-widest pb-3 md:pb-4">Sara & Victor</span>
-      <p className="md:hidden text-xs text-muted-foreground text-center px-4 pb-2 -mt-1">{t("nav.mobile_hint")}</p>
+      <span className="text-3xl md:text-4xl font-elvish text-primary tracking-widest pb-3 md:pb-4 font-bold">Sara & Victor</span>
+      <p className="md:hidden text-sm font-semibold text-muted-foreground text-center px-4 pb-2 -mt-1">{t("nav.mobile_hint")}</p>
     </nav>
   );
 };
