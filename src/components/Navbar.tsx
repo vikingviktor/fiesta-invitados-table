@@ -15,6 +15,20 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
   const navigate = useNavigate();
   const { t } = useLanguage();
 
+  // Hide navbar on scroll down, show on scroll up
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = React.useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      setHidden(currentY > 80 && currentY > lastScrollY.current);
+      lastScrollY.current = currentY;
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const linkClass = (path: string) => {
     const isActive = pathname === path;
     if (transparent) {
@@ -58,7 +72,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
   }, []);
 
   return (
-    <nav className={`w-full flex flex-col items-center sticky top-0 left-0 z-40 ${transparent ? 'bg-transparent border-transparent' : 'bg-background border-b'}`}>
+    <nav className={`w-full flex flex-col items-center sticky top-0 left-0 z-40 transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'} ${transparent ? 'bg-transparent border-transparent' : 'bg-background border-b'}`}>
       <div className="flex items-center justify-center gap-3 md:gap-6 py-4 md:py-5 w-full px-2">
         <Link to="/" className={linkClass("/")} title={t("nav.home")}>
           <Home className="h-5 w-5" />
