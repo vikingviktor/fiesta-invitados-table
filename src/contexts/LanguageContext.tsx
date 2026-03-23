@@ -567,6 +567,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Dress Code page
     "dresscode.title": "着装要求",
+    "dresscode.viewimage": "查看图片",
     "dresscode.subtitle": "我们的婚礼将是一场《指环王》/霍比特人主题的庆祝活动！",
     "dresscode.theme.title": "指环王主题婚礼",
     "dresscode.theme.description": "我们的婚礼以托尔金的世界为背景：夏尔、霍比特人、中土世界……我们希望氛围尽可能充满魔法和沉浸感！",
