@@ -48,9 +48,27 @@ const Alojamiento = () => {
               </h1>
             </div>
 
+            {/* Map section */}
+            <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-amber-400/20 mb-8">
+              <h2 className="font-cinzel text-2xl text-amber-300 mb-4 text-center">
+                Mapa de la zona
+              </h2>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <div className="cursor-pointer overflow-hidden rounded-lg border border-amber-400/20 hover:border-amber-400/40 transition-colors shadow-sm">
+                    <img src="/CampillejoMap.png" alt="Mapa de Campillejo y alrededores" className="w-full h-auto object-cover hover:scale-[1.01] transition-transform duration-300" />
+                    <p className="text-center font-cinzel text-sm text-amber-100/60 py-3 bg-black/30">Haz clic en la imagen para ampliar</p>
+                  </div>
+                </DialogTrigger>
+                <DialogContent className="max-w-[95vw] md:max-w-5xl w-full p-1 md:p-0 border-none bg-transparent shadow-none">
+                  <img src="/CampillejoMap.png" alt="Mapa de Campillejo y alrededores ampliado" className="w-full h-auto rounded-lg shadow-2xl object-contain max-h-[90vh]" />
+                </DialogContent>
+              </Dialog>
+            </div>
+
             {/* Accommodation details */}
             {EXTRA_ACOMM.length > 0 && (
-              <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-amber-400/20 mb-8">
+              <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-amber-400/20">
                 <Accordion type="single" collapsible>
                   <AccordionItem value="extras" className="border-amber-400/20">
                     <AccordionTrigger className="font-cinzel text-amber-300 hover:text-amber-200 hover:no-underline">
@@ -133,24 +151,6 @@ const Alojamiento = () => {
                 </Accordion>
               </div>
             )}
-
-            {/* Map section */}
-            <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-amber-400/20">
-              <h2 className="font-cinzel text-2xl text-amber-300 mb-4 text-center">
-                Mapa de la zona
-              </h2>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <div className="cursor-pointer overflow-hidden rounded-lg border border-amber-400/20 hover:border-amber-400/40 transition-colors shadow-sm">
-                    <img src="/CampillejoMap.png" alt="Mapa de Campillejo y alrededores" className="w-full h-auto object-cover hover:scale-[1.01] transition-transform duration-300" />
-                    <p className="text-center font-cinzel text-sm text-amber-100/60 py-3 bg-black/30">Haz clic en la imagen para ampliar</p>
-                  </div>
-                </DialogTrigger>
-                <DialogContent className="max-w-[95vw] md:max-w-5xl w-full p-1 md:p-0 border-none bg-transparent shadow-none">
-                  <img src="/CampillejoMap.png" alt="Mapa de Campillejo y alrededores ampliado" className="w-full h-auto rounded-lg shadow-2xl object-contain max-h-[90vh]" />
-                </DialogContent>
-              </Dialog>
-            </div>
           </div>
         </section>
       </div>
