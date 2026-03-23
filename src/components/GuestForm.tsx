@@ -130,7 +130,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         className={`flex items-center justify-between p-8 pb-4 ${submitted ? "cursor-pointer" : ""}`}
         onClick={submitted ? () => setSubmitted(!submitted) : undefined}
       >
-        <h2 className="text-4xl font-semibold text-center font-antiqua flex-1">{t("form.title")}</h2>
+        <h2 className="text-4xl text-center font-cinzel flex-1">{t("form.title")}</h2>
         {submitted && (
           <button
             type="button"
@@ -151,7 +151,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
           <div className="rounded px-4 py-2 text-center bg-green-100 text-green-800">
             {t("form.success")}
           </div>
-          <p className="text-sm text-amber-700 text-center mt-2 font-antiqua text-lg">
+          <p className="text-sm text-amber-700 text-center mt-2 font-cinzel text-lg">
             {t("form.expand_to_review")}
           </p>
         </div>
@@ -188,7 +188,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
                 onChange={e => handlePlusOneChange(e.target.checked)}
                 disabled={loading}
               />
-              <span className="font-antiqua text-2xl">{t("form.plusone")}</span>
+              <span className="font-cinzel text-xl">{t("form.plusone")}</span>
             </label>
           </div>
           {plusOne && (
@@ -229,12 +229,12 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
                 }}
                 disabled={loading}
               />
-              <span className="font-antiqua text-2xl">{t("form.children")}</span>
+              <span className="font-cinzel text-xl">{t("form.children")}</span>
             </label>
             {conNinos && (
               <div className="mt-3 ml-6 flex flex-col gap-3">
                 <div>
-                  <label className="block font-medium mb-1 font-antiqua text-2xl">{t("form.children.count")}</label>
+                  <label className="block font-medium mb-1 font-cinzel text-xl">{t("form.children.count")}</label>
                   <input
                     type="number"
                     className="w-full border rounded px-3 py-2 focus:outline-primary"
@@ -247,7 +247,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
                   />
                 </div>
                 <div>
-                  <label className="block font-medium mb-1 font-antiqua text-2xl">{t("form.children.names")}</label>
+                  <label className="block font-medium mb-1 font-cinzel text-xl">{t("form.children.names")}</label>
                   <textarea
                     className="w-full border rounded px-3 py-2 min-h-[60px]"
                     value={comentariosNinos}
@@ -269,7 +269,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
                 onChange={e => setPernoctaSabado(e.target.checked)}
                 disabled={loading}
               />
-              <span className="font-antiqua text-2xl">{t("form.overnight")}</span>
+              <span className="font-cinzel text-xl">{t("form.overnight")}</span>
             </label>
           </div>
           <TextareaInput
@@ -289,14 +289,14 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
                 onChange={e => setConsentimientoPublicacion(e.target.checked)}
                 disabled={loading}
               />
-              <span className="font-antiqua text-2xl">
+              <span className="font-cinzel text-xl">
                 {t("form.consent")}
               </span>
             </label>
           </div>
           <button
             type="submit"
-            className="bg-primary text-white font-semibold py-2 rounded shadow hover:bg-primary/80 transition font-antiqua"
+            className="bg-primary text-white font-semibold py-2 rounded shadow hover:bg-primary/80 transition font-cinzel"
             disabled={loading}
           >
             {loading ? "..." : t("form.submit")}

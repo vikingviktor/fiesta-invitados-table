@@ -23,7 +23,7 @@ const MenuSelector: React.FC<MenuSelectorProps> = ({
   disabled = false,
 }) => (
   <div>
-    <label className="block font-medium mb-1 font-antiqua text-2xl">{label}</label>
+    <label className="block font-medium mb-1 font-cinzel text-xl">{label}</label>
     <select
       className="w-full border rounded px-3 py-2"
       value={value}
