@@ -19,7 +19,7 @@ const TextareaInput: React.FC<TextareaInputProps> = ({
   maxLength,
 }) => (
   <div>
-    <label className="block font-medium mb-1 font-elvish text-2xl">{label}</label>
+    <label className="block font-medium mb-1 font-antiqua text-2xl">{label}</label>
     <textarea
       className="w-full border rounded px-3 py-2 min-h-[80px]"
       value={value}
