@@ -14,6 +14,22 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
   const navigate = useNavigate();
   const { t } = useLanguage();
 
+  const linkClass = (path: string) => {
+    const isActive = pathname === path;
+    if (transparent) {
+      return `p-2 md:px-4 md:py-2 rounded transition-colors flex items-center gap-2 ${
+        isActive
+          ? "bg-amber-500/20 text-amber-400 shadow"
+          : "hover:bg-amber-500/10 text-amber-300"
+      }`;
+    }
+    return `p-2 md:px-4 md:py-2 rounded transition-colors flex items-center gap-2 ${
+      isActive
+        ? "bg-primary text-primary-foreground shadow"
+        : "hover:bg-primary/10 text-primary"
+    }`;
+  };
+
   const [session, setSession] = React.useState<any>(null);
 
   React.useEffect(() => {
@@ -31,67 +47,27 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
   return (
     <nav className={`w-full flex flex-col items-center sticky top-0 left-0 z-40 ${transparent ? 'bg-transparent border-transparent' : 'bg-background border-b'}`}>
       <div className="flex items-center justify-center gap-3 md:gap-6 py-4 md:py-5 w-full px-2">
-        <Link
-          to="/"
-          className={`p-2 md:px-4 md:py-2 rounded transition-colors flex items-center gap-2 ${
-            pathname === "/"
-              ? "bg-primary text-primary-foreground shadow"
-              : "hover:bg-primary/10 text-primary"
-          }`}
-          title={t("nav.home")}
-        >
+        <Link to="/" className={linkClass("/")} title={t("nav.home")}>
           <Home className="h-5 w-5" />
           <span className="hidden md:inline font-medium">{t("nav.home")}</span>
         </Link>
 
-        <Link
-          to="/alojamiento"
-          className={`p-2 md:px-4 md:py-2 rounded transition-colors flex items-center gap-2 ${
-            pathname === "/alojamiento"
-              ? "bg-primary text-primary-foreground shadow"
-              : "hover:bg-primary/10 text-primary"
-          }`}
-          title={t("nav.accommodation")}
-        >
+        <Link to="/alojamiento" className={linkClass("/alojamiento")} title={t("nav.accommodation")}>
           <Hotel className="h-5 w-5" />
           <span className="hidden md:inline font-medium">{t("nav.accommodation")}</span>
         </Link>
 
-        <Link
-          to="/cosas-que-hacer"
-          className={`p-2 md:px-4 md:py-2 rounded transition-colors flex items-center gap-2 ${
-            pathname === "/cosas-que-hacer"
-              ? "bg-primary text-primary-foreground shadow"
-              : "hover:bg-primary/10 text-primary"
-          }`}
-          title={t("nav.things_to_do")}
-        >
+        <Link to="/cosas-que-hacer" className={linkClass("/cosas-que-hacer")} title={t("nav.things_to_do")}>
           <MapPin className="h-5 w-5" />
           <span className="hidden md:inline font-medium">{t("nav.things_to_do")}</span>
         </Link>
 
-        <Link
-          to="/horarios"
-          className={`p-2 md:px-4 md:py-2 rounded transition-colors flex items-center gap-2 ${
-            pathname === "/horarios"
-              ? "bg-primary text-primary-foreground shadow"
-              : "hover:bg-primary/10 text-primary"
-          }`}
-          title={t("nav.schedule")}
-        >
+        <Link to="/horarios" className={linkClass("/horarios")} title={t("nav.schedule")}>
           <Clock className="h-5 w-5" />
           <span className="hidden md:inline font-medium">{t("nav.schedule")}</span>
         </Link>
 
-        <Link
-          to="/etiqueta"
-          className={`p-2 md:px-4 md:py-2 rounded transition-colors flex items-center gap-2 ${
-            pathname === "/etiqueta"
-              ? "bg-primary text-primary-foreground shadow"
-              : "hover:bg-primary/10 text-primary"
-          }`}
-          title={t("nav.dress_code")}
-        >
+        <Link to="/etiqueta" className={linkClass("/etiqueta")} title={t("nav.dress_code")}>
           <Shirt className="h-5 w-5" />
           <span className="hidden md:inline font-medium">{t("nav.dress_code")}</span>
         </Link>
@@ -101,9 +77,9 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
         <Link
           to="/admin"
           className={`p-2 rounded transition-colors ${
-            pathname === "/admin"
-              ? "bg-primary text-primary-foreground shadow"
-              : "hover:bg-primary/10 text-primary"
+            transparent
+              ? (pathname === "/admin" ? "bg-amber-500/20 text-amber-400 shadow" : "hover:bg-amber-500/10 text-amber-300")
+              : (pathname === "/admin" ? "bg-primary text-primary-foreground shadow" : "hover:bg-primary/10 text-primary")
           }`}
           title="Administrar invitados"
         >
@@ -123,8 +99,8 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
           </button>
         )}
       </div>
-      <span className="text-3xl md:text-4xl font-elvish text-primary tracking-widest pb-3 md:pb-4 font-bold">Sara & Victor</span>
-      <p className="md:hidden text-sm font-semibold text-muted-foreground text-center px-4 pb-2 -mt-1">{t("nav.mobile_hint")}</p>
+      <span className={`text-3xl md:text-4xl font-elvish tracking-widest pb-3 md:pb-4 font-bold ${transparent ? 'text-amber-400' : 'text-primary'}`}>Sara & Victor</span>
+      <p className={`md:hidden text-sm font-semibold text-center px-4 pb-2 -mt-1 ${transparent ? 'text-amber-300/70' : 'text-muted-foreground'}`}>{t("nav.mobile_hint")}</p>
     </nav>
   );
 };
