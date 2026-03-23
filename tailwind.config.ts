@@ -21,6 +21,7 @@ export default {
 			fontFamily: {
 				'elvish': ['Tangerine', 'cursive'],
 				'antiqua': ['Uncial Antiqua', 'cursive'],
+				'cinzel': ['Cinzel', 'serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
-import { Clock, Wine, UtensilsCrossed, PartyPopper, Coffee, Heart, Church } from "lucide-react";
+import { Clock, Wine, UtensilsCrossed, PartyPopper, Coffee, Heart } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 interface EventItem {
@@ -63,7 +63,7 @@ const Horarios = () => {
       </div>
 
       <div className="relative z-10">
-        <Navbar />
+        <Navbar transparent />
 
         <section className="py-24 sm:py-32 overflow-hidden">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,12 +71,12 @@ const Horarios = () => {
             <div className="text-center mb-16">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <Heart className="w-5 h-5 text-amber-400 fill-amber-400" />
-                <span className="text-amber-400/80 text-sm tracking-[0.3em] uppercase font-semibold">
+                <span className="font-cinzel text-amber-400/80 text-sm tracking-[0.3em] uppercase">
                   {t("schedule.subtitle")}
                 </span>
                 <Heart className="w-5 h-5 text-amber-400 fill-amber-400" />
               </div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 bg-clip-text text-transparent mb-4 font-elvish">
+              <h1 className="font-cinzel text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 bg-clip-text text-transparent mb-4">
                 {t("schedule.title")}
               </h1>
               <div className="w-24 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto mt-6" />
@@ -99,7 +99,7 @@ const Horarios = () => {
                     {/* Time Badge - Mobile */}
                     <div className="sm:hidden absolute left-0 top-0">
                       <div className="w-16 h-16 rounded-full bg-amber-500 border-4 border-gray-900 flex items-center justify-center z-10 relative">
-                        <span className="text-sm font-bold text-white">{event.time}</span>
+                        <span className="font-cinzel text-sm font-bold text-white">{event.time}</span>
                       </div>
                     </div>
 
@@ -118,11 +118,11 @@ const Horarios = () => {
                           <div className="w-10 h-10 rounded-full bg-amber-400/20 flex items-center justify-center group-hover:bg-amber-400/30 transition-colors">
                             <event.icon className="w-5 h-5 text-amber-400" />
                           </div>
-                          <h3 className="text-xl font-semibold text-amber-400">
+                          <h3 className="font-cinzel text-xl text-amber-400">
                             {t(event.titleKey)}
                           </h3>
                         </div>
-                        <p className="text-lg text-amber-100/70 leading-relaxed">
+                        <p className="font-serif text-lg text-amber-100/70 leading-relaxed">
                           {t(event.descKey)}
                         </p>
                       </div>
@@ -131,7 +131,7 @@ const Horarios = () => {
                     {/* Center Node - Desktop */}
                     <div className="hidden sm:flex absolute left-1/2 -translate-x-1/2 top-0">
                       <div className="w-20 h-20 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 border-4 border-gray-900 flex items-center justify-center z-10 shadow-lg shadow-amber-400/30">
-                        <span className="text-lg font-bold text-white">{event.time}</span>
+                        <span className="font-cinzel text-lg font-bold text-white">{event.time}</span>
                       </div>
                     </div>
 
@@ -144,11 +144,11 @@ const Horarios = () => {
 
             {/* Bottom Quote */}
             <div className="text-center mt-16">
-              <p className="italic text-xl text-amber-100/80">
+              <p className="font-serif italic text-xl text-amber-100/80">
                 "Es peligroso, Frodo, salir por tu puerta. <br />
                 Das un paso y si no cuidas tus pasos, no hay manera de saber a dónde te arrastrarán."
               </p>
-              <p className="text-sm text-amber-400/70 mt-3">— Bilbo Bolsón</p>
+              <p className="font-cinzel text-sm text-amber-400/70 mt-3">— Bilbo Bolsón</p>
             </div>
           </div>
         </section>
