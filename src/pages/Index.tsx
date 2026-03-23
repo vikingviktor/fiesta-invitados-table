@@ -44,6 +44,7 @@ const Index = () => {
     setDoorOpen(false);
     setContentVisible(false);
     setDoorHidden(false);
+    setHeroVisible(false);
 
     const img = new Image();
     img.src = "/hobbit-door-2.png";
