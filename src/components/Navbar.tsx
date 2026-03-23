@@ -32,6 +32,18 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
   };
 
   const [session, setSession] = React.useState<any>(null);
+  const [showPhoto, setShowPhoto] = useState(false);
+
+  const handleBrandClick = () => {
+    setShowPhoto(true);
+  };
+
+  useEffect(() => {
+    if (showPhoto) {
+      const timer = setTimeout(() => setShowPhoto(false), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [showPhoto]);
 
   React.useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
