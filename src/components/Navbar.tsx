@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import hobbitonImg from "@/assets/SyVhobbiton.jpeg";
 
 interface NavbarProps {
   transparent?: boolean;
