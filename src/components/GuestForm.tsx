@@ -234,7 +234,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
             {conNinos && (
               <div className="mt-3 ml-6 flex flex-col gap-3">
                 <div>
-                  <label className="block font-medium mb-1 font-elvish text-2xl">{t("form.children.count")}</label>
+                  <label className="block font-medium mb-1 font-antiqua text-2xl">{t("form.children.count")}</label>
                   <input
                     type="number"
                     className="w-full border rounded px-3 py-2 focus:outline-primary"
