@@ -289,7 +289,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
                 onChange={e => setConsentimientoPublicacion(e.target.checked)}
                 disabled={loading}
               />
-              <span className="font-elvish text-2xl">
+              <span className="font-antiqua text-2xl">
                 {t("form.consent")}
               </span>
             </label>
