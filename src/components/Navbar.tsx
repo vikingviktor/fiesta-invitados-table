@@ -14,6 +14,22 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
   const navigate = useNavigate();
   const { t } = useLanguage();
 
+  const linkClass = (path: string) => {
+    const isActive = pathname === path;
+    if (transparent) {
+      return `p-2 md:px-4 md:py-2 rounded transition-colors flex items-center gap-2 ${
+        isActive
+          ? "bg-amber-500/20 text-amber-400 shadow"
+          : "hover:bg-amber-500/10 text-amber-300"
+      }`;
+    }
+    return `p-2 md:px-4 md:py-2 rounded transition-colors flex items-center gap-2 ${
+      isActive
+        ? "bg-primary text-primary-foreground shadow"
+        : "hover:bg-primary/10 text-primary"
+    }`;
+  };
+
   const [session, setSession] = React.useState<any>(null);
 
   React.useEffect(() => {
