@@ -197,7 +197,7 @@ const Index = () => {
 
           <button
             onClick={() => setShowForm(!showForm)}
-            className="bg-amber-700/80 hover:bg-amber-600/90 text-amber-100 font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 border border-amber-500/30 backdrop-blur-sm"
+            className="bg-amber-700/80 hover:bg-amber-600/90 text-amber-100 font-semibold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 border border-amber-500/30 backdrop-blur-sm font-antiqua"
           >
             {showForm ? t("index.rsvp.edit") : t("index.rsvp.button")}
           </button>

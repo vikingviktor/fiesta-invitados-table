@@ -296,7 +296,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
           </div>
           <button
             type="submit"
-            className="bg-primary text-white font-semibold py-2 rounded shadow hover:bg-primary/80 transition"
+            className="bg-primary text-white font-semibold py-2 rounded shadow hover:bg-primary/80 transition font-antiqua"
             disabled={loading}
           >
             {loading ? "..." : t("form.submit")}
