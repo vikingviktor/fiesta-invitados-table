@@ -24,4 +24,5 @@ export interface Guest {
   numeroNinos?: number;
   comentariosNinos?: string;
   pernoctaSabado: boolean;
+  email?: string;
 }

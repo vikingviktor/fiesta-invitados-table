@@ -322,12 +322,11 @@ const GuestTable: React.FC<{
           <thead>
             <tr>
               <th className="p-3 border-b">Nombre</th>
+              <th className="p-3 border-b">Email</th>
               <th className="p-3 border-b">+1</th>
               <th className="p-3 border-b">Nombre de acompañante</th>
-              <th className="p-3 border-b">Menú acompañante</th> {/* NUEVA COLUMNA */}
+              <th className="p-3 border-b">Menú acompañante</th>
               <th className="p-3 border-b">Menú</th>
-              <th className="p-3 border-b">Color</th> {/* NUEVA COLUMNA */}
-              <th className="p-3 border-b">Color acompañante</th> {/* NUEVA COLUMNA */}
               <th className="p-3 border-b">Comentarios</th>
               <th className="p-3 border-b">Canción favorita</th>
               <th className="p-3 border-b">Niños</th>
