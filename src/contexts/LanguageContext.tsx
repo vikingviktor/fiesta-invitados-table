@@ -114,6 +114,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Dress Code page
     "dresscode.title": "Etiqueta",
+    "dresscode.viewimage": "Ver imagen",
     "dresscode.subtitle": "¡Nuestra boda será una celebración temática inspirada en El Señor de los Anillos y el mundo Hobbit!",
     "dresscode.theme.title": "Boda Temática del Señor de los Anillos",
     "dresscode.theme.description": "Nuestra boda está ambientada en el universo de Tolkien: La Comarca, los Hobbits, la Tierra Media... ¡Queremos que el ambiente sea lo más mágico e inmersivo posible!",
