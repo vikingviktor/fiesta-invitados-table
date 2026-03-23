@@ -229,7 +229,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
                 }}
                 disabled={loading}
               />
-              <span className="font-elvish text-2xl">{t("form.children")}</span>
+              <span className="font-antiqua text-2xl">{t("form.children")}</span>
             </label>
             {conNinos && (
               <div className="mt-3 ml-6 flex flex-col gap-3">
