@@ -22,6 +22,7 @@ export function mapDbGuestToGuest(dbGuest: any): Guest & { mesa?: number | null 
     numeroNinos: dbGuest.numero_ninos ?? 0,
     comentariosNinos: dbGuest.comentarios_ninos ?? undefined,
     pernoctaSabado: !!dbGuest.pernocta_sabado,
+    email: dbGuest.email ?? undefined,
   };
 }
 
