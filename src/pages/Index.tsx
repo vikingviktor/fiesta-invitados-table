@@ -38,6 +38,7 @@ const Index = () => {
   }, []);
 
   const [doorHidden, setDoorHidden] = useState(false);
+  const [heroVisible, setHeroVisible] = useState(false);
 
   useEffect(() => {
     setDoorOpen(false);
