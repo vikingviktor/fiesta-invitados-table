@@ -17,12 +17,16 @@ const flags: Record<Language, string> = {
   ml: "🇮🇳",
 };
 
-const LanguageSelector: React.FC = () => {
+interface LanguageSelectorProps {
+  transparent?: boolean;
+}
+
+const LanguageSelector: React.FC<LanguageSelectorProps> = ({ transparent = false }) => {
   const { language, setLanguage } = useLanguage();
 
   return (
     <Select value={language} onValueChange={(value) => setLanguage(value as Language)}>
-      <SelectTrigger className="w-16 h-10 border-none bg-transparent hover:bg-primary/10 focus:ring-0 focus:ring-offset-0">
+      <SelectTrigger className={`w-16 h-10 border-none bg-transparent focus:ring-0 focus:ring-offset-0 ${transparent ? 'text-amber-300 hover:bg-amber-500/10' : 'hover:bg-primary/10'}`}>
         <SelectValue>
           <span className="text-xl">{flags[language]}</span>
         </SelectValue>
