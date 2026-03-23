@@ -99,7 +99,7 @@ const Index = () => {
       {/* Hero background - only visible after door is fully gone */}
       <div
         className={`absolute inset-0 z-0 transition-all duration-[2s] ease-out ${
-          doorHidden
+          heroVisible
             ? "opacity-100 scale-100"
             : "opacity-0 scale-110"
         }`}
