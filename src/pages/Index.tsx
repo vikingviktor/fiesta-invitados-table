@@ -181,7 +181,7 @@ const Index = () => {
                 key={label}
                 className="flex flex-col items-center bg-black/30 border border-amber-400/30 rounded-lg px-3 py-2 sm:px-4 sm:py-3 min-w-[56px] sm:min-w-[70px] backdrop-blur-sm"
               >
-                <span className="text-2xl sm:text-3xl font-bold text-amber-100 drop-shadow-md">
+                <span className="text-2xl sm:text-3xl font-bold text-amber-100 drop-shadow-md font-cinzel">
                   {val}
                 </span>
                 <span className="text-[10px] sm:text-xs text-amber-300 uppercase tracking-wide">
