@@ -72,7 +72,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
           <span className="hidden md:inline font-medium font-antiqua">{t("nav.dress_code")}</span>
         </Link>
 
-        <LanguageSelector />
+        <LanguageSelector transparent={transparent} />
 
         <Link
           to="/admin"
