@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import hobbitonImg from "@/assets/SyVhobbiton.jpeg";
 
 interface NavbarProps {
   transparent?: boolean;
@@ -31,6 +32,18 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
   };
 
   const [session, setSession] = React.useState<any>(null);
+  const [showPhoto, setShowPhoto] = useState(false);
+
+  const handleBrandClick = () => {
+    setShowPhoto(true);
+  };
+
+  useEffect(() => {
+    if (showPhoto) {
+      const timer = setTimeout(() => setShowPhoto(false), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [showPhoto]);
 
   React.useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -99,8 +112,26 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
           </button>
         )}
       </div>
-      <span className={`text-3xl md:text-4xl font-cinzel tracking-widest pb-3 md:pb-4 font-bold ${transparent ? 'text-amber-400' : 'text-primary'}`}>Sara & Victor</span>
+      <span
+        onClick={handleBrandClick}
+        className={`text-3xl md:text-4xl font-cinzel tracking-widest pb-3 md:pb-4 font-bold cursor-pointer select-none ${transparent ? 'text-amber-400' : 'text-primary'}`}
+      >
+        Sara & Victor
+      </span>
       <p className={`md:hidden text-sm font-semibold text-center px-4 pb-2 -mt-1 ${transparent ? 'text-amber-300/70' : 'text-muted-foreground'}`}>{t("nav.mobile_hint")}</p>
+
+      {showPhoto && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 animate-in fade-in duration-300 cursor-pointer"
+          onClick={() => setShowPhoto(false)}
+        >
+          <img
+            src={hobbitonImg}
+            alt="Sara & Victor en Hobbiton"
+            className="max-w-[90vw] max-h-[85vh] rounded-2xl shadow-2xl object-contain animate-in zoom-in-95 duration-500"
+          />
+        </div>
+      )}
     </nav>
   );
 };
