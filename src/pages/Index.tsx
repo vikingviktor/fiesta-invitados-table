@@ -224,7 +224,7 @@ const Index = () => {
             : "opacity-0 -translate-y-full"
         }`}
       >
-        <Navbar transparent />
+        <Navbar />
       </div>
     </div>
   );
