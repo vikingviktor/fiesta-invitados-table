@@ -1,13 +1,9 @@
 
 import React from "react";
 import { MenuOption } from "@/types/guestTypes";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const menuOptions: { label: string; value: MenuOption }[] = [
-  { label: "Normal", value: "normal" },
-  { label: "Vegetariano", value: "vegetariano" },
-  { label: "Vegano", value: "vegano" },
-  { label: "Sin gluten", value: "sin gluten" },
-];
+const menuOptionValues: MenuOption[] = ["normal", "vegetariano", "vegano", "sin gluten", "otro"];
 
 interface MenuSelectorProps {
   label: string;
@@ -21,20 +17,24 @@ const MenuSelector: React.FC<MenuSelectorProps> = ({
   value,
   onChange,
   disabled = false,
-}) => (
-  <div>
-    <label className="block mb-1 font-cinzel text-xl">{label}</label>
-    <select
-      className="w-full border rounded px-3 py-2"
-      value={value}
-      onChange={e => onChange(e.target.value as MenuOption)}
-      disabled={disabled}
-    >
-      {menuOptions.map(opt => (
-        <option value={opt.value} key={opt.value}>{opt.label}</option>
-      ))}
-    </select>
-  </div>
-);
+}) => {
+  const { t } = useLanguage();
+
+  return (
+    <div>
+      <label className="block mb-1 font-cinzel text-xl">{label}</label>
+      <select
+        className="w-full border rounded px-3 py-2"
+        value={value}
+        onChange={e => onChange(e.target.value as MenuOption)}
+        disabled={disabled}
+      >
+        {menuOptionValues.map(val => (
+          <option value={val} key={val}>{t(`form.menu.${val}`)}</option>
+        ))}
+      </select>
+    </div>
+  );
+};
 
 export default MenuSelector;
