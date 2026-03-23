@@ -92,10 +92,10 @@ const Index = () => {
           backgroundRepeat: "no-repeat",
         }}
       />
-      {/* Hero background - crossfades in with light/blur effect */}
+      {/* Hero background - only visible after door is fully gone */}
       <div
-        className={`absolute inset-0 z-0 transition-all duration-[2.5s] ease-out ${
-          contentVisible
+        className={`absolute inset-0 z-0 transition-all duration-[2s] ease-out ${
+          doorHidden
             ? "opacity-100 scale-100"
             : "opacity-0 scale-110"
         }`}
@@ -224,7 +224,7 @@ const Index = () => {
             : "opacity-0 -translate-y-full"
         }`}
       >
-        <Navbar transparent />
+        <Navbar />
       </div>
     </div>
   );
