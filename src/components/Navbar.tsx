@@ -99,7 +99,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
           </button>
         )}
       </div>
-      <span className={`text-3xl md:text-4xl font-antiqua tracking-widest pb-3 md:pb-4 font-bold ${transparent ? 'text-amber-400' : 'text-primary'}`}>Sara & Victor</span>
+      <span className={`text-3xl md:text-4xl font-cinzel tracking-widest pb-3 md:pb-4 font-bold ${transparent ? 'text-amber-400' : 'text-primary'}`}>Sara & Victor</span>
       <p className={`md:hidden text-sm font-semibold text-center px-4 pb-2 -mt-1 ${transparent ? 'text-amber-300/70' : 'text-muted-foreground'}`}>{t("nav.mobile_hint")}</p>
     </nav>
   );
