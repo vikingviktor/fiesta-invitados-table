@@ -121,7 +121,7 @@ const translations: Record<Language, Record<string, string>> = {
     "dresscode.noobligation.description": "Nadie está obligado a disfrazarse ni a vestirse de ninguna manera concreta. Ven como te sientas más cómodo/a. ¡Lo importante es que disfrutes del día! Nadie está obligado tampoco a comprarse nada, si vienes con cualquier cosa que tengas en casa nos parecerá bien!",
     "dresscode.encouraged.title": "¡El Estilo Hobbit Mola!",
     "dresscode.encouraged.description": "Dicho esto... ¡cuanto más te adaptes al estilo Hobbit/Tolkien, mejor! Tirantes, chalecos, faldas largas, tonos tierra, capas, telas naturales... ¡Todo vale para ambientar la fiesta!",
-    "dresscode.rule.title": "⚠️ La Única Regla: ¡NO TRAJE NI VESTIDO DE GALA!",
+    "dresscode.rule.title": "⚠️ La Única Regla: ¡NI TRAJE NI VESTIDO DE GALA!",
     "dresscode.rule.description": "La única norma que ponemos es que NO se puede venir en traje, ni en vestido de gala (chaqueta y corbata clásicos, o vestido elegante formal). Queremos un ambiente relajado y festivo, ¡no una boda convencional!",
     "dresscode.tips.title": "💡 Ideas e Inspiración",
     "dresscode.tips.tip1": "Tonos tierra, verdes, marrones y ocres son perfectos para el estilo Hobbit",
