@@ -188,7 +188,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
                 onChange={e => handlePlusOneChange(e.target.checked)}
                 disabled={loading}
               />
-              <span className="font-elvish text-2xl">{t("form.plusone")}</span>
+              <span className="font-antiqua text-2xl">{t("form.plusone")}</span>
             </label>
           </div>
           {plusOne && (
