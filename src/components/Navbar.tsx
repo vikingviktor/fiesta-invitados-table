@@ -49,27 +49,27 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
       <div className="flex items-center justify-center gap-3 md:gap-6 py-4 md:py-5 w-full px-2">
         <Link to="/" className={linkClass("/")} title={t("nav.home")}>
           <Home className="h-5 w-5" />
-          <span className="hidden md:inline font-medium">{t("nav.home")}</span>
+          <span className="hidden md:inline font-medium font-antiqua">{t("nav.home")}</span>
         </Link>
 
         <Link to="/alojamiento" className={linkClass("/alojamiento")} title={t("nav.accommodation")}>
           <Hotel className="h-5 w-5" />
-          <span className="hidden md:inline font-medium">{t("nav.accommodation")}</span>
+          <span className="hidden md:inline font-medium font-antiqua">{t("nav.accommodation")}</span>
         </Link>
 
         <Link to="/cosas-que-hacer" className={linkClass("/cosas-que-hacer")} title={t("nav.things_to_do")}>
           <MapPin className="h-5 w-5" />
-          <span className="hidden md:inline font-medium">{t("nav.things_to_do")}</span>
+          <span className="hidden md:inline font-medium font-antiqua">{t("nav.things_to_do")}</span>
         </Link>
 
         <Link to="/horarios" className={linkClass("/horarios")} title={t("nav.schedule")}>
           <Clock className="h-5 w-5" />
-          <span className="hidden md:inline font-medium">{t("nav.schedule")}</span>
+          <span className="hidden md:inline font-medium font-antiqua">{t("nav.schedule")}</span>
         </Link>
 
         <Link to="/etiqueta" className={linkClass("/etiqueta")} title={t("nav.dress_code")}>
           <Shirt className="h-5 w-5" />
-          <span className="hidden md:inline font-medium">{t("nav.dress_code")}</span>
+          <span className="hidden md:inline font-medium font-antiqua">{t("nav.dress_code")}</span>
         </Link>
 
         <LanguageSelector />
