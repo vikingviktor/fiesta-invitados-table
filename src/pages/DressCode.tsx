@@ -42,7 +42,7 @@ const DressCode = () => {
                   </>
                 ) : (
                   <>
-                    Ver imagen <ChevronUp className="h-4 w-4" />
+                    {t("dresscode.viewimage")} <ChevronUp className="h-4 w-4" />
                   </>
                 )}
               </button>

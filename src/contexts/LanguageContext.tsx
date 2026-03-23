@@ -114,6 +114,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Dress Code page
     "dresscode.title": "Etiqueta",
+    "dresscode.viewimage": "Ver imagen",
     "dresscode.subtitle": "¡Nuestra boda será una celebración temática inspirada en El Señor de los Anillos y el mundo Hobbit!",
     "dresscode.theme.title": "Boda Temática del Señor de los Anillos",
     "dresscode.theme.description": "Nuestra boda está ambientada en el universo de Tolkien: La Comarca, los Hobbits, la Tierra Media... ¡Queremos que el ambiente sea lo más mágico e inmersivo posible!",
@@ -264,6 +265,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Dress Code page
     "dresscode.title": "Dress Code",
+    "dresscode.viewimage": "View image",
     "dresscode.subtitle": "Our wedding will be a Lord of the Rings / Hobbit themed celebration!",
     "dresscode.theme.title": "Lord of the Rings Themed Wedding",
     "dresscode.theme.description": "Our wedding is set in the world of Tolkien: The Shire, the Hobbits, Middle-earth... We want the atmosphere to be as magical and immersive as possible!",
@@ -414,6 +416,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Dress Code page
     "dresscode.title": "Dress Code",
+    "dresscode.viewimage": "Vedi immagine",
     "dresscode.subtitle": "Il nostro matrimonio sarà una celebrazione a tema Il Signore degli Anelli / Hobbit!",
     "dresscode.theme.title": "Matrimonio a Tema Il Signore degli Anelli",
     "dresscode.theme.description": "Il nostro matrimonio è ambientato nel mondo di Tolkien: La Contea, gli Hobbit, la Terra di Mezzo... Vogliamo che l'atmosfera sia il più magica e coinvolgente possibile!",
@@ -564,6 +567,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Dress Code page
     "dresscode.title": "着装要求",
+    "dresscode.viewimage": "查看图片",
     "dresscode.subtitle": "我们的婚礼将是一场《指环王》/霍比特人主题的庆祝活动！",
     "dresscode.theme.title": "指环王主题婚礼",
     "dresscode.theme.description": "我们的婚礼以托尔金的世界为背景：夏尔、霍比特人、中土世界……我们希望氛围尽可能充满魔法和沉浸感！",
@@ -714,6 +718,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Dress Code page
     "dresscode.title": "Dresscode",
+    "dresscode.viewimage": "Bild ansehen",
     "dresscode.subtitle": "Unsere Hochzeit wird eine Feier im Stil von Der Herr der Ringe / Hobbit!",
     "dresscode.theme.title": "Herr der Ringe Themenhochzeit",
     "dresscode.theme.description": "Unsere Hochzeit spielt in Tolkiens Welt: Das Auenland, die Hobbits, Mittelerde... Wir möchten, dass die Atmosphäre so magisch und immersiv wie möglich ist!",
@@ -862,6 +867,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Dress Code page
     "dresscode.title": "വസ്ത്രധാരണം",
+    "dresscode.viewimage": "ചിത്രം കാണുക",
     "dresscode.subtitle": "ഞങ്ങളുടെ വിവാഹം ലോർഡ് ഓഫ് ദ റിംഗ്സ് / ഹോബിറ്റ് തീമിലുള്ള ആഘോഷമായിരിക്കും!",
     "dresscode.theme.title": "ലോർഡ് ഓഫ് ദ റിംഗ്സ് തീം വിവാഹം",
     "dresscode.theme.description": "ഞങ്ങളുടെ വിവാഹം ടോൾക്കിന്റെ ലോകത്തിലാണ്: ദി ഷയർ, ഹോബിറ്റുകൾ, മിഡിൽ-എർത്ത്... അന്തരീക്ഷം കഴിയുന്നത്ര മാന്ത്രികവും ആകർഷകവുമാക്കാൻ ഞങ്ങൾ ആഗ്രഹിക്കുന്നു!",
