@@ -72,7 +72,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
   }, []);
 
   return (
-    <nav className={`w-full flex flex-col items-center sticky top-0 left-0 z-40 ${transparent ? 'bg-transparent border-transparent' : 'bg-background border-b'}`}>
+    <nav className={`w-full flex flex-col items-center sticky top-0 left-0 z-40 transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'} ${transparent ? 'bg-transparent border-transparent' : 'bg-background border-b'}`}>
       <div className="flex items-center justify-center gap-3 md:gap-6 py-4 md:py-5 w-full px-2">
         <Link to="/" className={linkClass("/")} title={t("nav.home")}>
           <Home className="h-5 w-5" />
