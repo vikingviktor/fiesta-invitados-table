@@ -52,7 +52,7 @@ const Index = () => {
     const startAnimation = () => {
       const doorTimer = setTimeout(() => setDoorOpen(true), 1500);
       const contentTimer = setTimeout(() => setContentVisible(true), 3500);
-      const heroTimer = setTimeout(() => setHeroVisible(true), 8000);
+      const heroTimer = setTimeout(() => setHeroVisible(true), 7000);
       const hideTimer = setTimeout(() => setDoorHidden(true), 10000);
       return () => {
         clearTimeout(doorTimer);
