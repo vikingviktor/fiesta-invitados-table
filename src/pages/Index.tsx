@@ -161,9 +161,13 @@ const Index = () => {
           doorHidden ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
-        <div className="text-center px-4 py-8 max-w-lg mx-auto mt-16">
-          <p className="text-base sm:text-lg md:text-xl text-amber-100 font-antiqua mb-3 leading-relaxed whitespace-pre-line drop-shadow-lg">
-            {t("index.venue")}
+        <div className="text-center px-4 py-8 max-w-lg mx-auto mt-8">
+          <p className="text-lg sm:text-xl md:text-2xl text-amber-200/90 font-antiqua mb-3 leading-relaxed whitespace-pre-line drop-shadow-md">
+            {t("index.venue.date")}
+            {"\n"}
+            <a href="https://maps.app.goo.gl/HshE5Yb55KnPfgMJA" target="_blank" rel="noopener noreferrer" className="underline hover:text-amber-100 transition-colors">
+              {t("index.venue.place")}
+            </a>
           </p>
           <p className="text-sm sm:text-base md:text-lg text-amber-200 italic font-antiqua mb-2 max-w-md mx-auto leading-relaxed drop-shadow-lg">
             {t("index.quote1")}
