@@ -867,6 +867,7 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Dress Code page
     "dresscode.title": "വസ്ത്രധാരണം",
+    "dresscode.viewimage": "ചിത്രം കാണുക",
     "dresscode.subtitle": "ഞങ്ങളുടെ വിവാഹം ലോർഡ് ഓഫ് ദ റിംഗ്സ് / ഹോബിറ്റ് തീമിലുള്ള ആഘോഷമായിരിക്കും!",
     "dresscode.theme.title": "ലോർഡ് ഓഫ് ദ റിംഗ്സ് തീം വിവാഹം",
     "dresscode.theme.description": "ഞങ്ങളുടെ വിവാഹം ടോൾക്കിന്റെ ലോകത്തിലാണ്: ദി ഷയർ, ഹോബിറ്റുകൾ, മിഡിൽ-എർത്ത്... അന്തരീക്ഷം കഴിയുന്നത്ര മാന്ത്രികവും ആകർഷകവുമാക്കാൻ ഞങ്ങൾ ആഗ്രഹിക്കുന്നു!",
