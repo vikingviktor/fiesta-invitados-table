@@ -162,14 +162,14 @@ const Index = () => {
         }`}
       >
         <div className="text-center px-4 py-8 max-w-lg mx-auto -mt-4">
-          <p className="text-lg sm:text-xl md:text-2xl text-amber-600 font-antiqua mb-3 leading-relaxed whitespace-pre-line drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+          <p className="text-lg sm:text-xl md:text-2xl text-amber-400 font-antiqua mb-3 leading-relaxed whitespace-pre-line drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
             {t("index.venue.date")}
             {"\n"}
-            <a href="https://maps.app.goo.gl/HshE5Yb55KnPfgMJA" target="_blank" rel="noopener noreferrer" className="underline hover:text-amber-100 transition-colors">
+            <a href="https://maps.app.goo.gl/HshE5Yb55KnPfgMJA" target="_blank" rel="noopener noreferrer" className="underline hover:text-amber-300 transition-colors">
               {t("index.venue.place")}
             </a>
           </p>
-          <p className="text-sm sm:text-base md:text-lg text-amber-200 italic font-antiqua mb-2 max-w-md mx-auto leading-relaxed drop-shadow-lg">
+          <p className="text-sm sm:text-base md:text-lg text-amber-400 italic font-antiqua mb-2 max-w-md mx-auto leading-relaxed drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
             {t("index.quote1")}
             <br />
             {t("index.quote2")}
