@@ -38,11 +38,13 @@ const Index = () => {
   }, []);
 
   const [doorHidden, setDoorHidden] = useState(false);
+  const [heroVisible, setHeroVisible] = useState(false);
 
   useEffect(() => {
     setDoorOpen(false);
     setContentVisible(false);
     setDoorHidden(false);
+    setHeroVisible(false);
 
     const img = new Image();
     img.src = "/hobbit-door-2.png";
@@ -50,10 +52,12 @@ const Index = () => {
     const startAnimation = () => {
       const doorTimer = setTimeout(() => setDoorOpen(true), 1500);
       const contentTimer = setTimeout(() => setContentVisible(true), 3500);
+      const heroTimer = setTimeout(() => setHeroVisible(true), 8000);
       const hideTimer = setTimeout(() => setDoorHidden(true), 10000);
       return () => {
         clearTimeout(doorTimer);
         clearTimeout(contentTimer);
+        clearTimeout(heroTimer);
         clearTimeout(hideTimer);
       };
     };
@@ -95,7 +99,7 @@ const Index = () => {
       {/* Hero background - only visible after door is fully gone */}
       <div
         className={`absolute inset-0 z-0 transition-all duration-[2s] ease-out ${
-          doorHidden
+          heroVisible
             ? "opacity-100 scale-100"
             : "opacity-0 scale-110"
         }`}
