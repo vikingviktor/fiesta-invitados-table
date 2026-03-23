@@ -269,7 +269,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
                 onChange={e => setPernoctaSabado(e.target.checked)}
                 disabled={loading}
               />
-              <span className="font-elvish text-2xl">{t("form.overnight")}</span>
+              <span className="font-antiqua text-2xl">{t("form.overnight")}</span>
             </label>
           </div>
           <TextareaInput
