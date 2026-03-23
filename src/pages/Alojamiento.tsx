@@ -69,7 +69,7 @@ const Alojamiento = () => {
             {/* Accommodation details */}
             {EXTRA_ACOMM.length > 0 && (
               <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-amber-400/20">
-                <Accordion type="single" collapsible>
+                <Accordion type="single" collapsible defaultValue="extras">
                   <AccordionItem value="extras" className="border-amber-400/20">
                     <AccordionTrigger className="font-cinzel text-amber-300 hover:text-amber-200 hover:no-underline">
                       {t("accommodation.more.title")}
