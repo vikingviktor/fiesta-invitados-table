@@ -130,7 +130,7 @@ const GuestForm: React.FC<GuestFormProps> = ({ onSubmit }) => {
         className={`flex items-center justify-between p-8 pb-4 ${submitted ? "cursor-pointer" : ""}`}
         onClick={submitted ? () => setSubmitted(!submitted) : undefined}
       >
-        <h2 className="text-4xl font-semibold text-center font-elvish flex-1">{t("form.title")}</h2>
+        <h2 className="text-4xl font-semibold text-center font-antiqua flex-1">{t("form.title")}</h2>
         {submitted && (
           <button
             type="button"
