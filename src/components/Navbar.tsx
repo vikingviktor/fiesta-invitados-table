@@ -77,9 +77,9 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
         <Link
           to="/admin"
           className={`p-2 rounded transition-colors ${
-            pathname === "/admin"
-              ? "bg-primary text-primary-foreground shadow"
-              : "hover:bg-primary/10 text-primary"
+            transparent
+              ? (pathname === "/admin" ? "bg-amber-500/20 text-amber-400 shadow" : "hover:bg-amber-500/10 text-amber-300")
+              : (pathname === "/admin" ? "bg-primary text-primary-foreground shadow" : "hover:bg-primary/10 text-primary")
           }`}
           title="Administrar invitados"
         >
