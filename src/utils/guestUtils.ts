@@ -31,9 +31,12 @@ export function getGuestMenuCounts(guests: (Guest & { mesa?: number | null })[])
   return guests.reduce(
     (acc, g) => {
       acc["total"] += 1 + (g.plusOne ? 1 : 0);
-      acc[g.menu] = (acc[g.menu] || 0) + 1 + (g.plusOne ? 1 : 0);
-      if (g.plusOne && g.menuAcompanante) {
-        acc[g.menuAcompanante] = (acc[g.menuAcompanante] || 0) + 1;
+      // Contar el menú del invitado
+      acc[g.menu] = (acc[g.menu] || 0) + 1;
+      // Contar el menú del acompañante (usa su propio menú si existe, si no, el del invitado)
+      if (g.plusOne) {
+        const companionMenu = g.menuAcompanante || g.menu;
+        acc[companionMenu] = (acc[companionMenu] || 0) + 1;
       }
       return acc;
     },
