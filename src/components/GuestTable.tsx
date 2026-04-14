@@ -47,7 +47,6 @@ const GuestTable: React.FC<{
   const [mesaValues, setMesaValues] = useState<Record<string, string>>({});
   const [savingId, setSavingId] = useState<string | null>(null);
   const [consentimientoFilter, setConsentimientoFilter] = useState("todos");
-  const [ninosFilter, setNinosFilter] = useState("todos");
   const [consentSavingId, setConsentSavingId] = useState<string | null>(null);
   const [ninosFilter, setNinosFilter] = useState("todos");
   const [pernoctaFilter, setPernoctaFilter] = useState("todos");
