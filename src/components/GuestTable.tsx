@@ -222,7 +222,7 @@ const GuestTable: React.FC<{
           <div className="bg-secondary px-5 py-3 rounded shadow">
             <b>Total de comensales:</b> {counts.total}
           </div>
-          {["normal", "vegetariano", "vegano", "sin gluten"].map((k) => (
+          {["normal", "vegetariano", "vegano", "sin gluten", "otro"].map((k) => (
             <div className="bg-secondary px-5 py-3 rounded shadow" key={k}>
               <b>{menuTranslation[k]}:</b> {counts[k]}
             </div>

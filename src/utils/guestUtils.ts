@@ -40,7 +40,7 @@ export function getGuestMenuCounts(guests: (Guest & { mesa?: number | null })[])
       }
       return acc;
     },
-    { total: 0, normal: 0, vegetariano: 0, vegano: 0, "sin gluten": 0 } as Record<string, number>
+    { total: 0, normal: 0, vegetariano: 0, vegano: 0, "sin gluten": 0, otro: 0 } as Record<string, number>
   );
 }
 
