@@ -341,6 +341,7 @@ const GuestTable: React.FC<{
                   onDeleteConfirm={handleDelete}
                   onConsentChange={handleConsentimientoChange}
                   consentSavingId={consentSavingId}
+                  onGuestUpdated={fetchGuests}
                 />
               ))
             )}
