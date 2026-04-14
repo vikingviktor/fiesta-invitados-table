@@ -40,14 +40,15 @@ export function getGuestMenuCounts(guests: (Guest & { mesa?: number | null })[])
       }
       return acc;
     },
-    { total: 0, normal: 0, vegetariano: 0, vegano: 0, "sin gluten": 0 } as Record<string, number>
+    { total: 0, normal: 0, vegetariano: 0, vegano: 0, "sin gluten": 0, otro: 0 } as Record<string, number>
   );
 }
 
 // Traducción de menús
-export const menuTranslation: Record<MenuOption, string> = {
+export const menuTranslation: Record<string, string> = {
   normal: "Normal",
   vegetariano: "Vegetariano",
   vegano: "Vegano",
   "sin gluten": "Sin gluten",
+  otro: "Otro",
 };
