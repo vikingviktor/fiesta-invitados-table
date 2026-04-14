@@ -27,6 +27,15 @@ const pernoctaOptions = [
   { label: "No pernoctan", value: "no" },
 ];
 
+const menuFilterOptions = [
+  { label: "Todos", value: "todos" },
+  { label: "Normal", value: "normal" },
+  { label: "Vegetariano", value: "vegetariano" },
+  { label: "Vegano", value: "vegano" },
+  { label: "Sin gluten", value: "sin gluten" },
+  { label: "Otro", value: "otro" },
+];
+
 const GuestTable: React.FC<{
   guests: (Guest & { mesa?: number | null })[];
   loading: boolean;
@@ -42,6 +51,7 @@ const GuestTable: React.FC<{
   const [consentSavingId, setConsentSavingId] = useState<string | null>(null);
   const [ninosFilter, setNinosFilter] = useState("todos");
   const [pernoctaFilter, setPernoctaFilter] = useState("todos");
+  const [menuFilter, setMenuFilter] = useState("todos");
 
   // Refs for dual scrollbar sync
   const topScrollRef = useRef<HTMLDivElement>(null);
@@ -89,6 +99,9 @@ const GuestTable: React.FC<{
       filtered = filtered.filter(g => g.pernoctaSabado);
     } else if (pernoctaFilter === "no") {
       filtered = filtered.filter(g => !g.pernoctaSabado);
+    }
+    if (menuFilter !== "todos") {
+      filtered = filtered.filter(g => g.menu === menuFilter || (g.plusOne && (g.menuAcompanante || g.menu) === menuFilter));
     }
     return filtered;
   };
@@ -151,45 +164,6 @@ const GuestTable: React.FC<{
       await fetchGuests();
     }
     setConsentSavingId(null);
-  };
-
-  // Dar consentimiento a todos menos Peter G
-  const handleConsentAllExceptPeterG = async () => {
-    setConsentActionLoading(true);
-    // Obtén todos los invitados menos los llamados "Peter G"
-    const filteredGuests = guests.filter(
-      (g) =>
-        g.nombre.trim().toLowerCase() !== "peter g".toLowerCase()
-    );
-    if (filteredGuests.length === 0) {
-      toast({
-        title: "No hay invitados elegibles",
-        description: "No se encontraron invitados para actualizar.",
-        variant: "destructive",
-      });
-      setConsentActionLoading(false);
-      return;
-    }
-    // Actualiza en bloque en Supabase
-    const idsToUpdate = filteredGuests.map((g) => g.id);
-    const { error } = await supabase
-      .from("guests")
-      .update({ consentimiento_publicacion: true })
-      .in("id", idsToUpdate);
-    if (error) {
-      toast({
-        title: "Error al actualizar el consentimiento",
-        description: error.message,
-        variant: "destructive",
-      });
-    } else {
-      toast({
-        title: "Consentimiento actualizado",
-        description: "Se ha dado consentimiento a todos excepto a Peter G.",
-      });
-      await fetchGuests();
-    }
-    setConsentActionLoading(false);
   };
 
   // Eliminar invitado: pasa a Supabase (deleted_guests) y borra de guests
