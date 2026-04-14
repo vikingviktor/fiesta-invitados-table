@@ -45,9 +45,10 @@ export function getGuestMenuCounts(guests: (Guest & { mesa?: number | null })[])
 }
 
 // Traducción de menús
-export const menuTranslation: Record<MenuOption, string> = {
+export const menuTranslation: Record<string, string> = {
   normal: "Normal",
   vegetariano: "Vegetariano",
   vegano: "Vegano",
   "sin gluten": "Sin gluten",
+  otro: "Otro",
 };
