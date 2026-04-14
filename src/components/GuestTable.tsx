@@ -47,7 +47,7 @@ const GuestTable: React.FC<{
   const [mesaValues, setMesaValues] = useState<Record<string, string>>({});
   const [savingId, setSavingId] = useState<string | null>(null);
   const [consentimientoFilter, setConsentimientoFilter] = useState("todos");
-  const [consentActionLoading, setConsentActionLoading] = useState(false);
+  const [ninosFilter, setNinosFilter] = useState("todos");
   const [consentSavingId, setConsentSavingId] = useState<string | null>(null);
   const [ninosFilter, setNinosFilter] = useState("todos");
   const [pernoctaFilter, setPernoctaFilter] = useState("todos");
@@ -241,15 +241,19 @@ const GuestTable: React.FC<{
               <option value={opt.value} key={opt.value}>{opt.label}</option>
             )}
           </select>
-          {/* Botón de acción masiva */}
-          <Button
-            onClick={handleConsentAllExceptPeterG}
-            variant="outline"
-            className="ml-2 whitespace-nowrap"
-            disabled={consentActionLoading}
+        </div>
+        <div className="flex gap-2 items-center">
+          <label className="font-semibold" htmlFor="menu-filter">Menú:</label>
+          <select
+            id="menu-filter"
+            value={menuFilter}
+            onChange={e => setMenuFilter(e.target.value)}
+            className="border px-2 py-1 rounded"
           >
-            {consentActionLoading ? "Actualizando..." : "Consentir todos excepto Peter G"}
-          </Button>
+            {menuFilterOptions.map(opt =>
+              <option value={opt.value} key={opt.value}>{opt.label}</option>
+            )}
+          </select>
         </div>
         <div className="flex gap-2 items-center">
           <label className="font-semibold" htmlFor="ninos-filter">Niños:</label>
