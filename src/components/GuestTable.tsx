@@ -82,7 +82,7 @@ const GuestTable: React.FC<{
   const counts = getGuestMenuCounts(guests);
 
   // Filtro de consentimiento
-  const filterGuests = (guests: (Guest & { mesa?: number | null })[]) => {
+  const filterGuests = (guests: (Guest & { mesa?: string | null })[]) => {
     let filtered = guests;
     if (consentimientoFilter === "con") {
       filtered = filtered.filter(g => g.consentimientoPublicacion);
