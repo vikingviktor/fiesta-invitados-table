@@ -1,0 +1,1 @@
+ALTER TABLE public.guests ALTER COLUMN mesa TYPE text USING mesa::text;

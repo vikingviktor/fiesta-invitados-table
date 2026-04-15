@@ -2,7 +2,7 @@
 import { Guest, MenuOption, ColorOption } from "../types/guestTypes";
 
 // Función para transformar de snake_case a camelCase
-export function mapDbGuestToGuest(dbGuest: any): Guest & { mesa?: number | null } {
+export function mapDbGuestToGuest(dbGuest: any): Guest & { mesa?: string | null } {
   return {
     id: dbGuest.id,
     nombre: dbGuest.nombre,
@@ -27,7 +27,7 @@ export function mapDbGuestToGuest(dbGuest: any): Guest & { mesa?: number | null 
 }
 
 // Contador de asistentes y menús
-export function getGuestMenuCounts(guests: (Guest & { mesa?: number | null })[]) {
+export function getGuestMenuCounts(guests: (Guest & { mesa?: string | null })[]) {
   return guests.reduce(
     (acc, g) => {
       acc["total"] += 1 + (g.plusOne ? 1 : 0);

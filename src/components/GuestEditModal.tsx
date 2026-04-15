@@ -24,7 +24,7 @@ const menuOptions: { label: string; value: string }[] = [
 ];
 
 interface GuestEditModalProps {
-  guest: Guest & { mesa?: number | null };
+  guest: Guest & { mesa?: string | null };
   open: boolean;
   onClose: () => void;
   onSaved: () => void;
