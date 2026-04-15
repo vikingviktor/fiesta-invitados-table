@@ -1,16 +1,14 @@
+
 import React, { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/table";
-import { Guest } from "@/types/guestTypes"; // Usar SIEMPRE guestTypes
+import { Guest } from "@/types/guestTypes";
+import GuestMesaSelect from "./GuestMesaSelect";
 
-type GuestWithMesa = Guest & { mesa?: number | null };
+type GuestWithMesa = Guest & { mesa?: string | null };
 
-const mesas = Array.from({ length: 11 }, (_, i) => i + 1);
-
-// Helper to map DB fields into GuestWithMesa (snake_case to camelCase)
 function mapDbGuestToGuestWithMesa(dbGuest: any): GuestWithMesa {
   return {
     id: dbGuest.id,
@@ -21,78 +19,80 @@ function mapDbGuestToGuestWithMesa(dbGuest: any): GuestWithMesa {
     comentario: dbGuest.comentario ?? "",
     date: dbGuest.date,
     mesa: dbGuest.mesa ?? null,
-    consentimientoPublicacion: !!dbGuest.consentimiento_publicacion, // Para coherencia con el modelo actual
+    consentimientoPublicacion: !!dbGuest.consentimiento_publicacion,
     cancionFavorita: dbGuest.cancion_favorita ?? "",
     menuAcompanante: dbGuest.menu_acompanante ?? undefined,
     conNinos: !!dbGuest.con_ninos,
     pernoctaSabado: !!dbGuest.pernocta_sabado,
+    email: dbGuest.email ?? undefined,
   };
 }
 
-// Función para contar personas en la mesa seleccionada
 function countPeopleInMesa(guests: GuestWithMesa[]): number {
-  // Cada Invitado vale 2 si plusOne, 1 si no
   return guests.reduce((total, g) => total + (g.plusOne ? 2 : 1), 0);
 }
 
 const MesaAdminTab: React.FC = () => {
-  const [selectedMesa, setSelectedMesa] = useState<number>(1);
+  const [mesaNames, setMesaNames] = useState<string[]>([]);
+  const [selectedMesa, setSelectedMesa] = useState<string>("");
   const [guests, setGuests] = useState<GuestWithMesa[]>([]);
   const [loading, setLoading] = useState(false);
-  const [savingId, setSavingId] = useState<null|string>(null);
-  const [values, setValues] = useState<Record<string, string>>({});
+  const [savingId, setSavingId] = useState<null | string>(null);
+  const [mesaValues, setMesaValues] = useState<Record<string, string>>({});
 
-  const fetchGuestsByMesa = async (mesa: number) => {
+  // Fetch available mesa names from mesa_positions
+  useEffect(() => {
+    supabase
+      .from("mesa_positions")
+      .select("mesa_name")
+      .order("mesa_name")
+      .then(({ data }) => {
+        const names = (data ?? []).map((d: any) => d.mesa_name);
+        setMesaNames(names);
+        if (names.length > 0 && !selectedMesa) {
+          setSelectedMesa(names[0]);
+        }
+      });
+  }, []);
+
+  const fetchGuestsByMesa = async (mesa: string) => {
+    if (!mesa) return;
     setLoading(true);
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("guests")
       .select("*")
       .eq("mesa", mesa)
       .order("nombre", { ascending: true });
 
-    // Map DB fields to TS types
-    const typedGuests: GuestWithMesa[] = (data ?? []).map(mapDbGuestToGuestWithMesa);
-    setGuests(typedGuests);
+    setGuests((data ?? []).map(mapDbGuestToGuestWithMesa));
     setLoading(false);
   };
 
   useEffect(() => {
-    fetchGuestsByMesa(selectedMesa);
-    // eslint-disable-next-line
+    if (selectedMesa) fetchGuestsByMesa(selectedMesa);
   }, [selectedMesa]);
 
-  const handleMesaChange = (guest: GuestWithMesa, value: string) => {
-    setValues((v) => ({ ...v, [guest.id]: value }));
+  const handleMesaChange = (guestId: string, value: string) => {
+    setMesaValues((v) => ({ ...v, [guestId]: value }));
   };
 
   const handleAssign = async (guest: GuestWithMesa) => {
     setSavingId(guest.id);
-    const mesaValue = Number(values[guest.id] ?? guest.mesa ?? "");
-    if (isNaN(mesaValue) || mesaValue < 1 || mesaValue > 11) {
-      toast({
-        title: "Número de mesa inválido",
-        description: "Por favor, asigna un número de mesa entre 1 y 11.",
-        variant: "destructive",
-      });
+    const mesaName = mesaValues[guest.id] || guest.mesa || "";
+    if (!mesaName) {
+      toast({ title: "Mesa no seleccionada", variant: "destructive" });
       setSavingId(null);
       return;
     }
     const { error } = await supabase
       .from("guests")
-      .update({ mesa: mesaValue })
+      .update({ mesa: mesaName })
       .eq("id", guest.id);
     if (error) {
-      toast({
-        title: "Error al asignar mesa",
-        description: "Ocurrió un error al guardar.",
-        variant: "destructive",
-      });
+      toast({ title: "Error al asignar mesa", variant: "destructive" });
     } else {
-      toast({
-        title: "Mesa asignada",
-        description: "Mesa asignada correctamente.",
-      });
-      setValues((v) => ({ ...v, [guest.id]: "" }));
+      toast({ title: "Mesa asignada", description: "Mesa asignada correctamente." });
+      setMesaValues((v) => ({ ...v, [guest.id]: "" }));
       fetchGuestsByMesa(selectedMesa);
     }
     setSavingId(null);
@@ -107,13 +107,12 @@ const MesaAdminTab: React.FC = () => {
           <select
             className="border rounded px-2 py-1 bg-background text-foreground"
             value={selectedMesa}
-            onChange={e => setSelectedMesa(Number(e.target.value))}
+            onChange={e => setSelectedMesa(e.target.value)}
           >
-            {mesas.map(m => (
-              <option key={m} value={m}>Mesa {m}</option>
+            {mesaNames.map(name => (
+              <option key={name} value={name}>{name}</option>
             ))}
           </select>
-          {/* Contador de personas en la mesa */}
           <span className="ml-2 text-xs bg-accent px-2 py-1 rounded font-mono text-accent-foreground">
             {countPeopleInMesa(guests)} persona{countPeopleInMesa(guests) !== 1 ? "s" : ""}
           </span>
@@ -145,13 +144,13 @@ const MesaAdminTab: React.FC = () => {
                   <TableCell>{g.plusOne ? g.nombreAcompanante || "Sin nombre" : "-"}</TableCell>
                   <TableCell>{g.menu}</TableCell>
                   <TableCell>
-                    <Input
-                      className="w-16"
-                      type="number"
-                      min={1}
-                      max={11}
-                      value={values[g.id] ?? (g.mesa ?? "")}
-                      onChange={e => handleMesaChange(g, e.target.value)}
+                    <GuestMesaSelect
+                      guest={g}
+                      mesaValue={mesaValues[g.id] ?? ""}
+                      savingId={savingId}
+                      onChange={(val) => handleMesaChange(g.id, val)}
+                      onSave={() => handleAssign(g)}
+                      disabled={savingId === g.id}
                     />
                   </TableCell>
                   <TableCell>
