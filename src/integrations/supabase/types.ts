@@ -98,7 +98,7 @@ export type Database = {
           id: string
           menu: string
           menu_acompanante: string | null
-          mesa: number | null
+          mesa: string | null
           nombre: string
           nombre_acompanante: string | null
           numero_ninos: number | null
@@ -119,7 +119,7 @@ export type Database = {
           id?: string
           menu: string
           menu_acompanante?: string | null
-          mesa?: number | null
+          mesa?: string | null
           nombre: string
           nombre_acompanante?: string | null
           numero_ninos?: number | null
@@ -140,7 +140,7 @@ export type Database = {
           id?: string
           menu?: string
           menu_acompanante?: string | null
-          mesa?: number | null
+          mesa?: string | null
           nombre?: string
           nombre_acompanante?: string | null
           numero_ninos?: number | null
