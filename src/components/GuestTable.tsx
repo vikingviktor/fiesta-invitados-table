@@ -7,7 +7,7 @@ import { toast } from "@/hooks/use-toast";
 import GuestTableRow from "./GuestTableRow";
 import { mapDbGuestToGuest, getGuestMenuCounts, menuTranslation } from "@/utils/guestUtils";
 
-const mesas = Array.from({ length: 11 }, (_, i) => i + 1);
+
 
 const consentimientoOptions = [
   { label: "Todos", value: "todos" },
@@ -37,7 +37,7 @@ const menuFilterOptions = [
 ];
 
 const GuestTable: React.FC<{
-  guests: (Guest & { mesa?: number | null })[];
+  guests: (Guest & { mesa?: string | null })[];
   loading: boolean;
   fetchGuests: () => void;
   fetchDeletedGuests: () => void;
@@ -110,12 +110,12 @@ const GuestTable: React.FC<{
     setMesaValues((v) => ({ ...v, [guestId]: value }));
   };
 
-  const handleAssignMesa = async (guest: Guest & { mesa?: number | null }) => {
-    const mesaNumber = Number(mesaValues[guest.id]);
-    if (isNaN(mesaNumber) || mesaNumber < 1 || mesaNumber > 11) {
+  const handleAssignMesa = async (guest: Guest & { mesa?: string | null }) => {
+    const mesaName = mesaValues[guest.id];
+    if (!mesaName) {
       toast({
-        title: "Número de mesa inválido",
-        description: "Por favor, selecciona un número entre 1 y 11.",
+        title: "Mesa no seleccionada",
+        description: "Por favor, selecciona una mesa.",
         variant: "destructive",
       });
       return;
@@ -123,7 +123,7 @@ const GuestTable: React.FC<{
     setSavingId(guest.id);
     const { error } = await supabase
       .from("guests")
-      .update({ mesa: mesaNumber })
+      .update({ mesa: mesaName })
       .eq("id", guest.id);
     if (error) {
       toast({
@@ -134,7 +134,7 @@ const GuestTable: React.FC<{
     } else {
       toast({
         title: "Mesa asignada",
-        description: `Mesa ${mesaNumber} asignada correctamente.`,
+        description: `${mesaName} asignada correctamente.`,
       });
       setMesaValues((v) => ({ ...v, [guest.id]: "" }));
       await fetchGuests();

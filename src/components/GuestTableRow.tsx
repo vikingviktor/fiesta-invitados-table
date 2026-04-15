@@ -8,13 +8,13 @@ import { menuTranslation } from "@/utils/guestUtils";
 import { Switch } from "@/components/ui/switch";
 
 interface GuestTableRowProps {
-  guest: Guest & { mesa?: number | null };
+  guest: Guest & { mesa?: string | null };
   mesaValue: string;
   savingId: string | null;
   deleteId: string | null;
   loadingDelete: boolean;
   onMesaChange: (guestId: string, value: string) => void;
-  onMesaSave: (guest: Guest & { mesa?: number | null }) => void;
+  onMesaSave: (guest: Guest & { mesa?: string | null }) => void;
   onDeleteClick: (guestId: string) => void;
   onDeleteCancel: () => void;
   onDeleteConfirm: (guestId: string) => void;

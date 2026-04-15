@@ -8,38 +8,16 @@ import {
   SelectContent,
   SelectItem
 } from "@/components/ui/select";
-import { toast } from "@/hooks/use-toast";
-import { Guest } from "@/types/guestTypes"; // Usar SIEMPRE guestTypes
+import { Guest } from "@/types/guestTypes";
 import { supabase } from "@/integrations/supabase/client";
 
-const mesas = Array.from({ length: 11 }, (_, i) => i + 1);
-
 interface GuestMesaSelectProps {
-  guest: Guest & { mesa?: number | null };
+  guest: Guest & { mesa?: string | null };
   mesaValue: string;
   savingId: string | null;
   onChange: (value: string) => void;
   onSave: () => void;
   disabled: boolean;
-}
-
-// Cuenta invitados por mesa considerando +1 como 2 personas, sin +1 como 1 persona
-async function fetchMesaCounters(): Promise<Record<number, number>> {
-  // Consulta todos los invitados con campo mesa asignado
-  const { data, error } = await supabase
-    .from("guests")
-    .select("mesa, plus_one")
-    .not("mesa", "is", null);
-
-  const counters: Record<number, number> = {};
-  if (data) {
-    data.forEach((g: { mesa: number; plus_one: boolean }) => {
-      if (g.mesa) {
-        counters[g.mesa] = (counters[g.mesa] || 0) + (g.plus_one ? 2 : 1);
-      }
-    });
-  }
-  return counters;
 }
 
 const GuestMesaSelect: React.FC<GuestMesaSelectProps> = ({
@@ -50,16 +28,37 @@ const GuestMesaSelect: React.FC<GuestMesaSelectProps> = ({
   onSave,
   disabled,
 }) => {
-  // La lógica para mostrar el valor: el value es la mesa asignada o "" si no tiene mesa
-  const value = mesaValue !== undefined && mesaValue !== "" ? mesaValue : guest.mesa ? String(guest.mesa) : "";
+  const value = mesaValue !== undefined && mesaValue !== "" ? mesaValue : guest.mesa ? guest.mesa : "";
 
-  const [mesaCounters, setMesaCounters] = useState<Record<number, number>>({});
+  const [mesaNames, setMesaNames] = useState<string[]>([]);
+  const [mesaCounters, setMesaCounters] = useState<Record<string, number>>({});
 
-  // Actualiza el contador de personas por mesa al cargar o al abrir el selector
   useEffect(() => {
-    fetchMesaCounters().then(setMesaCounters);
-    // Si quieres que esté más actualizado, puedes volver a consultar después de asignar.
-    // eslint-disable-next-line
+    // Fetch mesa names from mesa_positions
+    supabase
+      .from("mesa_positions")
+      .select("mesa_name")
+      .order("mesa_name")
+      .then(({ data }) => {
+        setMesaNames((data ?? []).map((d: any) => d.mesa_name));
+      });
+
+    // Fetch guest counts per mesa
+    supabase
+      .from("guests")
+      .select("mesa, plus_one")
+      .not("mesa", "is", null)
+      .then(({ data }) => {
+        const counters: Record<string, number> = {};
+        if (data) {
+          data.forEach((g: any) => {
+            if (g.mesa) {
+              counters[g.mesa] = (counters[g.mesa] || 0) + (g.plus_one ? 2 : 1);
+            }
+          });
+        }
+        setMesaCounters(counters);
+      });
   }, []);
 
   return (
@@ -68,13 +67,13 @@ const GuestMesaSelect: React.FC<GuestMesaSelectProps> = ({
         value={value}
         onValueChange={onChange}
       >
-        <SelectTrigger className="w-36" aria-label="Mesa">
+        <SelectTrigger className="w-44" aria-label="Mesa">
           <SelectValue placeholder="Sin mesa" />
         </SelectTrigger>
         <SelectContent>
-          {mesas.map((mesaNum) => (
-            <SelectItem value={String(mesaNum)} key={mesaNum}>
-              {`Mesa ${mesaNum} (${mesaCounters[mesaNum] || 0})`}
+          {mesaNames.map((name) => (
+            <SelectItem value={name} key={name}>
+              {`${name} (${mesaCounters[name] || 0})`}
             </SelectItem>
           ))}
         </SelectContent>
@@ -86,7 +85,7 @@ const GuestMesaSelect: React.FC<GuestMesaSelectProps> = ({
         disabled={
           disabled ||
           value === "" ||
-          value === (guest.mesa ? String(guest.mesa) : "")
+          value === (guest.mesa || "")
         }
       >
         {savingId === guest.id ? "Guardando..." : "Asignar"}
