@@ -39,13 +39,13 @@ const Horarios = () => {
       icon: PartyPopper,
     },
     {
-      time: "20:30",
+      time: "19:30",
       titleKey: "schedule.latesupper.title",
       descKey: "schedule.latesupper.description",
       icon: Coffee,
     },
     {
-      time: "22:00",
+      time: "20:30",
       titleKey: "schedule.end.title",
       descKey: "schedule.end.description",
       icon: Clock,
