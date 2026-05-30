@@ -166,6 +166,18 @@ const translations: Record<Language, Record<string, string>> = {
     "form.email.placeholder": "Ej: ana@email.com",
     "form.expand_to_review": "Pulsa para revisar tus datos",
     "form.success": "¡Registro enviado! Gracias por confirmar tu asistencia.",
+    // Viaje page
+    "viaje.title": "Nuestra próxima aventura",
+    "viaje.intro1": "Tras la boda en la Comarca, partimos hacia las Tierras del Este: Japón y China.",
+    "viaje.intro2": "Si te apetece acompañarnos en espíritu y contribuir a este viaje, te dejamos abajo nuestras opciones. Sin presión: tu presencia ya es el mejor regalo.",
+    "viaje.iban.label": "Transferencia bancaria (IBAN)",
+    "viaje.iban.holder": "Titular",
+    "viaje.bizum.label": "Bizum",
+    "viaje.paypal.label": "PayPal",
+    "viaje.copy": "Copiar",
+    "viaje.copied": "¡Copiado!",
+    "viaje.closing": "Arigatō · 谢谢 · Gracias",
+    "viaje.back": "← Volver al inicio",
   },
   en: {
     // Navbar
@@ -323,6 +335,18 @@ const translations: Record<Language, Record<string, string>> = {
     "form.email.placeholder": "E.g.: ana@email.com",
     "form.expand_to_review": "Click to review your details",
     "form.success": "Registration sent! Thank you for confirming your attendance.",
+    // Viaje page
+    "viaje.title": "Our next adventure",
+    "viaje.intro1": "After the wedding in the Shire, we're setting off for the Eastern Lands: Japan and China.",
+    "viaje.intro2": "If you'd like to join us in spirit and contribute to the trip, you'll find our options below. No pressure at all — your presence is already the best gift.",
+    "viaje.iban.label": "Bank transfer (IBAN)",
+    "viaje.iban.holder": "Account holder",
+    "viaje.bizum.label": "Bizum",
+    "viaje.paypal.label": "PayPal",
+    "viaje.copy": "Copy",
+    "viaje.copied": "Copied!",
+    "viaje.closing": "Arigatō · 谢谢 · Thank you",
+    "viaje.back": "← Back to home",
   },
   it: {
     // Navbar
@@ -480,6 +504,18 @@ const translations: Record<Language, Record<string, string>> = {
     "form.email.placeholder": "Es: ana@email.com",
     "form.expand_to_review": "Clicca per rivedere i tuoi dati",
     "form.success": "Registrazione inviata! Grazie per aver confermato la tua partecipazione.",
+    // Viaje page
+    "viaje.title": "La nostra prossima avventura",
+    "viaje.intro1": "Dopo le nozze nella Contea, partiamo verso le Terre dell'Est: Giappone e Cina.",
+    "viaje.intro2": "Se vuoi accompagnarci in spirito e contribuire al viaggio, qui sotto trovi le nostre opzioni. Nessuna pressione: la tua presenza è già il regalo più bello.",
+    "viaje.iban.label": "Bonifico bancario (IBAN)",
+    "viaje.iban.holder": "Intestatario",
+    "viaje.bizum.label": "Bizum",
+    "viaje.paypal.label": "PayPal",
+    "viaje.copy": "Copia",
+    "viaje.copied": "Copiato!",
+    "viaje.closing": "Arigatō · 谢谢 · Grazie",
+    "viaje.back": "← Torna alla home",
   },
   zh: {
     // Navbar
@@ -637,6 +673,18 @@ const translations: Record<Language, Record<string, string>> = {
     "form.email.placeholder": "例如：ana@email.com",
     "form.expand_to_review": "点击查看您的信息",
     "form.success": "注册已发送！感谢您确认出席。",
+    // Viaje page
+    "viaje.title": "我们的下一段旅程",
+    "viaje.intro1": "夏尔的婚礼之后，我们将启程前往东方之地：日本与中国。",
+    "viaje.intro2": "如果你愿意在精神上与我们同行，并为这段旅程献上一份心意，以下是我们的收款方式。没有任何压力——你的到来已是最好的礼物。",
+    "viaje.iban.label": "银行转账 (IBAN)",
+    "viaje.iban.holder": "账户持有人",
+    "viaje.bizum.label": "Bizum",
+    "viaje.paypal.label": "PayPal",
+    "viaje.copy": "复制",
+    "viaje.copied": "已复制！",
+    "viaje.closing": "Arigatō · 谢谢 · Gracias",
+    "viaje.back": "← 返回首页",
   },
   de: {
     // Navbar
@@ -794,6 +842,18 @@ const translations: Record<Language, Record<string, string>> = {
     "form.email.placeholder": "Z.B.: ana@email.com",
     "form.expand_to_review": "Klicke, um deine Angaben zu überprüfen",
     "form.success": "Registrierung gesendet! Danke für die Bestätigung deiner Teilnahme.",
+    // Viaje page
+    "viaje.title": "Unser nächstes Abenteuer",
+    "viaje.intro1": "Nach der Hochzeit im Auenland brechen wir auf in die Länder des Ostens: Japan und China.",
+    "viaje.intro2": "Wenn du uns im Geiste begleiten und zur Reise beitragen möchtest, findest du unten unsere Optionen. Ganz ohne Druck — deine Anwesenheit ist bereits das schönste Geschenk.",
+    "viaje.iban.label": "Banküberweisung (IBAN)",
+    "viaje.iban.holder": "Kontoinhaber",
+    "viaje.bizum.label": "Bizum",
+    "viaje.paypal.label": "PayPal",
+    "viaje.copy": "Kopieren",
+    "viaje.copied": "Kopiert!",
+    "viaje.closing": "Arigatō · 谢谢 · Danke",
+    "viaje.back": "← Zurück zur Startseite",
   },
   ml: {
     // Navbar
@@ -949,6 +1009,18 @@ const translations: Record<Language, Record<string, string>> = {
     "form.email.placeholder": "ഉദാ: ana@email.com",
     "form.expand_to_review": "നിങ്ങളുടെ വിവരങ്ങൾ അവലോകനം ചെയ്യാൻ ക്ലിക്ക് ചെയ്യുക",
     "form.success": "രജിസ്ട്രേഷൻ അയച്ചു! നിങ്ങളുടെ സാന്നിധ്യം സ്ഥിരീകരിച്ചതിന് നന്ദി.",
+    // Viaje page
+    "viaje.title": "ഞങ്ങളുടെ അടുത്ത സാഹസികത",
+    "viaje.intro1": "ഷയറിലെ വിവാഹത്തിന് ശേഷം, ഞങ്ങൾ കിഴക്കൻ ദേശങ്ങളിലേക്ക് — ജപ്പാനിലേക്കും ചൈനയിലേക്കും — യാത്ര തിരിക്കുന്നു.",
+    "viaje.intro2": "നിങ്ങൾക്ക് ആത്മാവിൽ ഞങ്ങളോടൊപ്പം ചേരാനും ഈ യാത്രയ്ക്ക് സംഭാവന നൽകാനും താൽപര്യമുണ്ടെങ്കിൽ, ഞങ്ങളുടെ ഓപ്ഷനുകൾ താഴെ കാണാം. യാതൊരു സമ്മർദ്ദവുമില്ല — നിങ്ങളുടെ സാന്നിധ്യം തന്നെ ഏറ്റവും വലിയ സമ്മാനം.",
+    "viaje.iban.label": "ബാങ്ക് ട്രാൻസ്ഫർ (IBAN)",
+    "viaje.iban.holder": "അക്കൗണ്ട് ഉടമ",
+    "viaje.bizum.label": "Bizum",
+    "viaje.paypal.label": "PayPal",
+    "viaje.copy": "പകർത്തുക",
+    "viaje.copied": "പകർത്തി!",
+    "viaje.closing": "Arigatō · 谢谢 · നന്ദി",
+    "viaje.back": "← ഹോമിലേക്ക് മടങ്ങുക",
   },
 };
 
