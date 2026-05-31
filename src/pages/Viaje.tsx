@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSelector from "@/components/LanguageSelector";
 import PaymentCard from "@/components/viaje/PaymentCard";
+import hobbitsAsiaBg from "@/assets/hobbits-in-asia.png";
 
 // Reemplaza estos valores cuando los tengas listos
 const IBAN = "ES49 0073 0100 5406 3622 2286";
@@ -29,7 +30,13 @@ const Viaje: React.FC = () => {
   }, [t]);
 
   return (
-    <div className="min-h-screen bg-[#f8f6f1] text-amber-950">
+    <div
+      className="min-h-screen text-amber-950 bg-[#f8f6f1] bg-fixed bg-center bg-cover relative"
+      style={{ backgroundImage: `url(${hobbitsAsiaBg})` }}
+    >
+      {/* Cream overlay for readability */}
+      <div className="absolute inset-0 bg-[#f8f6f1]/75 backdrop-blur-[2px] pointer-events-none" />
+      <div className="relative z-10">
       <header className="flex items-center justify-between px-4 md:px-8 py-4">
         <Link
           to="/"
@@ -75,6 +82,7 @@ const Viaje: React.FC = () => {
           {t("viaje.closing")}
         </p>
       </main>
+      </div>
     </div>
   );
 };
