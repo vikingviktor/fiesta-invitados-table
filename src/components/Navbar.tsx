@@ -6,7 +6,7 @@ interface NavbarProps {
   transparent?: boolean;
 }
 import { supabase } from "@/integrations/supabase/client";
-import { Settings, Home, Hotel, MapPin, Clock, Shirt } from "lucide-react";
+import { Settings, Home, Hotel, MapPin, Clock, Shirt, Gift } from "lucide-react";
 import LanguageSelector from "@/components/LanguageSelector";
 import { useLanguage } from "@/contexts/LanguageContext";
 

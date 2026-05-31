@@ -187,6 +187,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.things_to_do": "Things to Do",
     "nav.schedule": "Schedule",
     "nav.dress_code": "Dress Code",
+    "nav.viaje": "Trip",
     "nav.mobile_hint": "Find the One Ring & more in the icons above!",
     
     // Index page
@@ -356,6 +357,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.things_to_do": "Cosa Fare",
     "nav.schedule": "Orari",
     "nav.dress_code": "Dress Code",
+    "nav.viaje": "Viaggio",
     "nav.mobile_hint": "Cerca l'Unico Anello e altro nelle icone sopra!",
     
     // Index page
@@ -525,6 +527,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.things_to_do": "周边活动",
     "nav.schedule": "时间表",
     "nav.dress_code": "着装要求",
+    "nav.viaje": "旅行",
     "nav.mobile_hint": "在上方图标中寻找至尊魔戒和更多内容！",
     
     // Index page
@@ -694,6 +697,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.things_to_do": "Aktivitäten",
     "nav.schedule": "Zeitplan",
     "nav.dress_code": "Dresscode",
+    "nav.viaje": "Reise",
     "nav.mobile_hint": "Finde den Einen Ring & mehr in den Icons oben!",
     
     // Index page
@@ -863,6 +867,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.things_to_do": "ചെയ്യാനുള്ള കാര്യങ്ങൾ",
     "nav.schedule": "സമയക്രമം",
     "nav.dress_code": "വസ്ത്രധാരണം",
+    "nav.viaje": "യാത്ര",
     "nav.mobile_hint": "മുകളിലെ ഐക്കണുകളിൽ ഒരു മോതിരവും മറ്റും കണ്ടെത്തൂ!",
     
     // Index page
