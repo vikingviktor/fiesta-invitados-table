@@ -5,10 +5,10 @@ import LanguageSelector from "@/components/LanguageSelector";
 import PaymentCard from "@/components/viaje/PaymentCard";
 
 // Reemplaza estos valores cuando los tengas listos
-const IBAN = "ES00 0000 0000 0000 0000 0000";
+const IBAN = "ES49 0073 0100 5406 3622 2286";
 const IBAN_HOLDER = "Sara & Victor";
-const BIZUM = "+34 600 000 000";
-const PAYPAL = "paypal.me/saravictor";
+const BIZUM = "+34 6XX XXX XXX";
+const PAYPAL = "https://paypal.me/sarayvictor";
 
 const Viaje: React.FC = () => {
   const { t } = useLanguage();
