@@ -16,6 +16,7 @@ const translations: Record<Language, Record<string, string>> = {
     "nav.things_to_do": "Cosas que hacer",
     "nav.schedule": "Horarios",
     "nav.dress_code": "Etiqueta",
+    "nav.viaje": "Viaje",
     "nav.mobile_hint": "¡Busca el anillo único y más en los iconos de arriba!",
     
     // Index page
