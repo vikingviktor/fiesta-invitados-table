@@ -19,6 +19,26 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
   const [hidden, setHidden] = useState(false);
   const lastScrollY = React.useRef(0);
 
+  // Reveal admin button on mobile by swiping left on the navbar
+  const [adminRevealed, setAdminRevealed] = useState(false);
+  const touchStartX = React.useRef<number | null>(null);
+  const touchStartY = React.useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current == null || touchStartY.current == null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    const dy = e.changedTouches[0].clientY - touchStartY.current;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      setAdminRevealed(dx < 0); // swipe left → reveal, swipe right → hide
+    }
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
@@ -72,7 +92,11 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
   }, []);
 
   return (
-    <nav className={`w-full flex flex-col items-center sticky top-0 left-0 z-40 transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'} ${transparent ? 'bg-transparent border-transparent' : 'bg-background border-b'}`}>
+    <nav
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      className={`w-full flex flex-col items-center sticky top-0 left-0 z-40 transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'} ${transparent ? 'bg-transparent border-transparent' : 'bg-background border-b'}`}
+    >
       <div className="flex items-center justify-center gap-3 md:gap-6 py-4 md:py-5 w-full px-2">
         <Link to="/" className={linkClass("/")} title={t("nav.home")}>
           <Home className="h-5 w-5" />
@@ -119,7 +143,7 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
 
         <Link
           to="/admin"
-          className={`p-2 rounded transition-colors ${
+          className={`p-2 rounded transition-colors ${adminRevealed ? 'flex' : 'hidden md:flex'} ${
             transparent
               ? (pathname === "/admin" ? "bg-amber-500/20 text-amber-400 shadow" : "hover:bg-amber-500/10 text-amber-300")
               : (pathname === "/admin" ? "bg-primary text-primary-foreground shadow" : "hover:bg-primary/10 text-primary")
