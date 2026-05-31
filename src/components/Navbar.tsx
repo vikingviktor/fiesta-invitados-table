@@ -99,6 +99,22 @@ const Navbar: React.FC<NavbarProps> = ({ transparent = false }) => {
           <span className="hidden md:inline font-medium font-antiqua">{t("nav.dress_code")}</span>
         </Link>
 
+        <Link
+          to="/viaje"
+          className={`p-2 md:px-3 md:py-2 rounded transition-colors flex items-center gap-2 ${
+            pathname === "/viaje"
+              ? transparent
+                ? "bg-amber-500/20 text-amber-400"
+                : "bg-primary text-primary-foreground"
+              : transparent
+              ? "text-amber-300/50 hover:text-amber-300 hover:bg-amber-500/10"
+              : "text-primary/40 hover:text-primary hover:bg-primary/10"
+          }`}
+          title={t("nav.viaje")}
+        >
+          <Gift className="h-5 w-5" />
+        </Link>
+
         <LanguageSelector transparent={transparent} />
 
         <Link
