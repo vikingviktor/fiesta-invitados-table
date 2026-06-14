@@ -132,6 +132,10 @@ const translations: Record<Language, Record<string, string>> = {
     "dresscode.tips.tip3": "Telas naturales como lino, algodón o lana dan un toque muy acertado",
     "dresscode.tips.tip4": "¡Consulta Pinterest buscando 'Hobbit outfit' o 'Lord of the Rings wedding' para inspirarte!",
     "dresscode.buy.title": "Tiendas donde comprar ropa temática o tomar inspiración",
+    "dresscode.discount.title": "Código de descuento exclusivo en La Corte del Tejón",
+    "dresscode.discount.code": "VICTORYSARA14N",
+    "dresscode.discount.instagram": "También ofrecen asesoramiento personalizado por Instagram.",
+    "dresscode.discount.instagram_handle": "@lacortedeltejon",
     
     // Form
     "form.title": "Confirma tu asistencia",
@@ -302,6 +306,10 @@ const translations: Record<Language, Record<string, string>> = {
     "dresscode.tips.tip3": "Natural fabrics like linen, cotton or wool add a perfect touch",
     "dresscode.tips.tip4": "Search Pinterest for 'Hobbit outfit' or 'Lord of the Rings wedding' for inspiration!",
     "dresscode.buy.title": "Places to shop for themed attire or get inspiration",
+    "dresscode.discount.title": "Exclusive discount code at La Corte del Tejón",
+    "dresscode.discount.code": "VICTORYSARA14N",
+    "dresscode.discount.instagram": "They also offer personalized advice on Instagram.",
+    "dresscode.discount.instagram_handle": "@lacortedeltejon",
     
     // Form
     "form.title": "Confirm Your Attendance",
@@ -472,6 +480,10 @@ const translations: Record<Language, Record<string, string>> = {
     "dresscode.tips.tip3": "Tessuti naturali come lino, cotone o lana danno un tocco perfetto",
     "dresscode.tips.tip4": "Cerca su Pinterest 'Hobbit outfit' o 'Lord of the Rings wedding' per ispirarti!",
     "dresscode.buy.title": "Negozi dove acquistare abiti a tema o prendere ispirazione",
+    "dresscode.discount.title": "Codice sconto esclusivo su La Corte del Tejón",
+    "dresscode.discount.code": "VICTORYSARA14N",
+    "dresscode.discount.instagram": "Offrono anche consulenza personalizzata su Instagram.",
+    "dresscode.discount.instagram_handle": "@lacortedeltejon",
     
     // Form
     "form.title": "Conferma la Tua Partecipazione",
@@ -642,6 +654,10 @@ const translations: Record<Language, Record<string, string>> = {
     "dresscode.tips.tip3": "亚麻、棉花或羊毛等天然面料增添完美质感",
     "dresscode.tips.tip4": "在Pinterest上搜索'Hobbit outfit'或'Lord of the Rings wedding'获取灵感！",
     "dresscode.buy.title": "购买主题服装或获取灵感的商店",
+    "dresscode.discount.title": "La Corte del Tejón 专属折扣码",
+    "dresscode.discount.code": "VICTORYSARA14N",
+    "dresscode.discount.instagram": "他们还通过Instagram提供个性化咨询服务。",
+    "dresscode.discount.instagram_handle": "@lacortedeltejon",
     
     // Form
     "form.title": "确认您的出席",
@@ -812,6 +828,10 @@ const translations: Record<Language, Record<string, string>> = {
     "dresscode.tips.tip3": "Natürliche Stoffe wie Leinen, Baumwolle oder Wolle geben den perfekten Touch",
     "dresscode.tips.tip4": "Suche auf Pinterest nach 'Hobbit outfit' oder 'Lord of the Rings wedding' für Inspiration!",
     "dresscode.buy.title": "Geschäfte für thematische Kleidung oder Inspiration",
+    "dresscode.discount.title": "Exklusiver Rabattcode bei La Corte del Tejón",
+    "dresscode.discount.code": "VICTORYSARA14N",
+    "dresscode.discount.instagram": "Sie bieten auch persönliche Beratung auf Instagram an.",
+    "dresscode.discount.instagram_handle": "@lacortedeltejon",
     
     // Form
     "form.title": "Bestätige deine Teilnahme",
@@ -980,6 +1000,10 @@ const translations: Record<Language, Record<string, string>> = {
     "dresscode.tips.tip3": "ലിനൻ, കോട്ടൺ, കമ്പിളി തുടങ്ങിയ പ്രകൃതി തുണിത്തരങ്ങൾ മികച്ച ടച്ച് നൽകുന്നു",
     "dresscode.tips.tip4": "പ്രചോദനത്തിനായി Pinterest-ൽ 'Hobbit outfit' അല്ലെങ്കിൽ 'Lord of the Rings wedding' തിരയുക!",
     "dresscode.buy.title": "തീം വസ്ത്രങ്ങൾ വാങ്ങാനോ പ്രചോദനം നേടാനോ ഉള്ള കടകൾ",
+    "dresscode.discount.title": "La Corte del Tejón-ൽ പ്രത്യേക കിഴിവ് കോഡ്",
+    "dresscode.discount.code": "VICTORYSARA14N",
+    "dresscode.discount.instagram": "Instagram-ലൂടെ അവർ വ്യക്തിഗത സം_consultancy നൽകുന്നു.",
+    "dresscode.discount.instagram_handle": "@lacortedeltejon",
     
     // Form
     "form.title": "നിങ്ങളുടെ സാന്നിധ്യം സ്ഥിരീകരിക്കുക",
