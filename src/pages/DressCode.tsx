@@ -172,6 +172,40 @@ const DressCode = () => {
                       </a>
                     ))}
                   </div>
+
+                  {/* Discount Code Section */}
+                  <div className="mt-6 bg-amber-50/90 backdrop-blur-sm rounded-2xl p-8 text-stone-800 border-2 border-amber-400/40">
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-3">
+                          <Tag className="w-6 h-6 text-amber-700" />
+                          <h3 className="font-cinzel text-xl text-stone-700">
+                            {t("dresscode.discount.title")}
+                          </h3>
+                        </div>
+                        <p className="font-cinzel text-base text-stone-600 mb-4">
+                          {t("dresscode.discount.instagram")}
+                        </p>
+                        <a
+                          href="https://instagram.com/lacortedeltejon"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-amber-700 hover:text-amber-800 transition-colors font-cinzel"
+                        >
+                          <Instagram className="w-5 h-5" />
+                          <span>{t("dresscode.discount.instagram_handle")}</span>
+                        </a>
+                      </div>
+                      <div className="shrink-0 bg-stone-800 rounded-xl px-6 py-4 text-center">
+                        <span className="font-cinzel text-xs text-amber-300/70 uppercase tracking-wider block mb-1">
+                          {t("dresscode.discount.code")}
+                        </span>
+                        <span className="font-cinzel text-2xl text-amber-300 tracking-widest">
+                          VICTORYSARA14N
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </>
             )}
