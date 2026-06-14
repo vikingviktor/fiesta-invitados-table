@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import OneRingEasterEgg from "@/components/OneRingEasterEgg";
-import { Shirt, Sparkles, Ban, AlertTriangle, Check, ChevronDown, ChevronUp } from "lucide-react";
+import { Shirt, Sparkles, Ban, AlertTriangle, Check, ChevronDown, ChevronUp, Tag, Instagram } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const outfitIdeas = [
