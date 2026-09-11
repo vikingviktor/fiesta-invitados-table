@@ -81,6 +81,12 @@ const GuestTable: React.FC<{
   // Usar función utilitaria para los contadores del menú
   const counts = getGuestMenuCounts(guests);
 
+  // Contador de niños para menú infantil
+  const totalNinos = guests.reduce(
+    (sum, g) => sum + (g.conNinos ? (g.numeroNinos || 0) : 0),
+    0
+  );
+
   // Filtro de consentimiento
   const filterGuests = (guests: (Guest & { mesa?: string | null })[]) => {
     let filtered = guests;
