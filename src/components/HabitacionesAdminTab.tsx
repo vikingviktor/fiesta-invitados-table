@@ -33,6 +33,7 @@ const PROPIEDADES_PRINCIPALES = [
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AlojamientoFormModal, { AlojamientoFormData } from "./AlojamientoFormModal";
 import AlojamientoDeleteModal from "./AlojamientoDeleteModal";
+import AlojamientoDetalleView from "./AlojamientoDetalleView";
 
 type GuestWithHabitacion = Guest & { habitacion?: string | null };
 
