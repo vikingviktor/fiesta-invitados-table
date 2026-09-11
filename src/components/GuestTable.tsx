@@ -81,6 +81,12 @@ const GuestTable: React.FC<{
   // Usar función utilitaria para los contadores del menú
   const counts = getGuestMenuCounts(guests);
 
+  // Contador de niños para menú infantil
+  const totalNinos = guests.reduce(
+    (sum, g) => sum + (g.conNinos ? (g.numeroNinos || 0) : 0),
+    0
+  );
+
   // Filtro de consentimiento
   const filterGuests = (guests: (Guest & { mesa?: string | null })[]) => {
     let filtered = guests;
@@ -221,6 +227,9 @@ const GuestTable: React.FC<{
         <div className="flex gap-6 flex-wrap">
           <div className="bg-secondary px-5 py-3 rounded shadow">
             <b>Total de comensales:</b> {counts.total}
+          </div>
+          <div className="bg-secondary px-5 py-3 rounded shadow">
+            <b>Total de niños:</b> {totalNinos}
           </div>
           {["normal", "vegetariano", "vegano", "sin gluten", "otro"].map((k) => (
             <div className="bg-secondary px-5 py-3 rounded shadow" key={k}>
