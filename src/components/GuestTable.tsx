@@ -226,10 +226,13 @@ const GuestTable: React.FC<{
       <div className="flex flex-wrap gap-4 justify-between items-end mb-4">
         <div className="flex gap-6 flex-wrap">
           <div className="bg-secondary px-5 py-3 rounded shadow">
-            <b>Total de comensales:</b> {counts.total}
+            <b>Total adultos:</b> {counts.total}
           </div>
           <div className="bg-secondary px-5 py-3 rounded shadow">
             <b>Total de niños:</b> {totalNinos}
+          </div>
+          <div className="bg-secondary px-5 py-3 rounded shadow">
+            <b>Total de comensales:</b> {counts.total + totalNinos}
           </div>
           {["normal", "vegetariano", "vegano", "sin gluten", "otro"].map((k) => (
             <div className="bg-secondary px-5 py-3 rounded shadow" key={k}>
