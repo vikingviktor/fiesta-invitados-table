@@ -33,6 +33,7 @@ const PROPIEDADES_PRINCIPALES = [
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AlojamientoFormModal, { AlojamientoFormData } from "./AlojamientoFormModal";
 import AlojamientoDeleteModal from "./AlojamientoDeleteModal";
+import AlojamientoDetalleView from "./AlojamientoDetalleView";
 
 type GuestWithHabitacion = Guest & { habitacion?: string | null };
 
@@ -327,8 +328,19 @@ const HabitacionesAdminTab: React.FC = () => {
       <Tabs defaultValue="asignar" className="w-full">
         <TabsList className="mb-4">
           <TabsTrigger value="asignar">Asignar Invitados</TabsTrigger>
+          <TabsTrigger value="vista">Vista por Alojamiento</TabsTrigger>
           <TabsTrigger value="alojamientos">Gestionar Alojamientos</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="vista">
+          <AlojamientoDetalleView
+            alojamientos={alojamientosFiltrados}
+            guests={guests}
+            propiedades={propiedadesOrdenadas}
+            loading={loading}
+            onChanged={fetchAllGuests}
+          />
+        </TabsContent>
 
         <TabsContent value="asignar">
           <p className="text-sm text-muted-foreground mb-4">
