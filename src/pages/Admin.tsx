@@ -33,7 +33,10 @@ const Admin = () => {
         setCheckingAuth(false);
       }
     });
-    return () => { ignore = true; };
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      if (!session) navigate("/auth", { replace: true });
+    });
+    return () => { ignore = true; sub.subscription.unsubscribe(); };
   }, [navigate]);
 
   // --- FUNCIONES DE REFRESCO ---

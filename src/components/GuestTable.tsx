@@ -175,6 +175,17 @@ const GuestTable: React.FC<{
   async function handleDelete(id: string) {
     setLoadingDelete(true);
     try {
+      // Asegurar sesión válida (en móvil puede haber caducado)
+      const { data: sessData } = await supabase.auth.getSession();
+      if (!sessData.session) {
+        const { data: refreshed } = await supabase.auth.refreshSession();
+        if (!refreshed.session) {
+          alert("Tu sesión ha caducado. Vuelve a iniciar sesión.");
+          window.location.href = "/auth";
+          setLoadingDelete(false);
+          return;
+        }
+      }
       const guest = guests.find(g => g.id === id);
       if (!guest) {
         alert("Invitado no encontrado.");
