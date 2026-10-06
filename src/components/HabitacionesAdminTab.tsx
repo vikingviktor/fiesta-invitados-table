@@ -523,7 +523,8 @@ const HabitacionesAdminTab: React.FC = () => {
                         </Button>
                       </TableCell>
                     </TableRow>
-                  ))}
+                  ))
+                  )}
                 </TableBody>
               </Table>
             </div>
