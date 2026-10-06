@@ -415,19 +415,32 @@ const HabitacionesAdminTab: React.FC = () => {
           {loading ? (
             <div className="text-center py-8">Cargando invitados...</div>
           ) : (
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Nombre</TableHead>
-                    <TableHead>Plus One</TableHead>
-                    <TableHead>Habitación Actual</TableHead>
-                    <TableHead className="min-w-[300px]">Asignar Habitación</TableHead>
-                    <TableHead>Acción</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {guests.map((guest) => (
+            <>
+              {busquedaInvitado.trim() && (
+                <p className="text-sm text-muted-foreground mb-2">
+                  {guestsFiltrados.length} de {guests.length} invitados
+                </p>
+              )}
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Nombre</TableHead>
+                      <TableHead>Plus One</TableHead>
+                      <TableHead>Habitación Actual</TableHead>
+                      <TableHead className="min-w-[300px]">Asignar Habitación</TableHead>
+                      <TableHead>Acción</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {guestsFiltrados.length === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={5} className="text-center text-muted-foreground italic py-6">
+                          No se encontraron invitados para "{busquedaInvitado}"
+                        </TableCell>
+                      </TableRow>
+                    ) : (
+                      guestsFiltrados.map((guest) => (
                     <TableRow key={guest.id}>
                       <TableCell className="font-medium">{guest.nombre}</TableCell>
                       <TableCell>
