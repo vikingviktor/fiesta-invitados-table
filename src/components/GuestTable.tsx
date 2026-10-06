@@ -235,7 +235,10 @@ const GuestTable: React.FC<{
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-2">
-      <h2 className="text-2xl font-bold mb-4">Invitados registrados</h2>
+      <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+        <h2 className="text-2xl font-bold">Invitados registrados</h2>
+        <Button onClick={() => setAddModalOpen(true)}>+ Añadir invitado</Button>
+      </div>
       <div className="flex flex-wrap gap-4 justify-between items-end mb-4">
         <div className="flex gap-6 flex-wrap">
           <div className="bg-secondary px-5 py-3 rounded shadow">
@@ -373,6 +376,11 @@ const GuestTable: React.FC<{
           </tbody>
         </table>
       </div>
+      <GuestAddModal
+        open={addModalOpen}
+        onClose={() => setAddModalOpen(false)}
+        onAdded={fetchGuests}
+      />
     </div>
   );
 };
