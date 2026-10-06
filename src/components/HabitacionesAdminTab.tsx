@@ -19,8 +19,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Home, Users, Bed, Plus, Pencil, Trash2, Filter } from "lucide-react";
-import { Switch } from "@/components/ui/switch";
+import { Home, Users, Bed, Plus, Pencil, Trash2, Filter, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 // Propiedades principales para el filtro
