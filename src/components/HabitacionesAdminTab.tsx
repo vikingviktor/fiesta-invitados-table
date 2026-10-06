@@ -19,8 +19,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Home, Users, Bed, Plus, Pencil, Trash2, Filter } from "lucide-react";
-import { Switch } from "@/components/ui/switch";
+import { Home, Users, Bed, Plus, Pencil, Trash2, Filter, Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 // Propiedades principales para el filtro
@@ -79,8 +79,10 @@ const HabitacionesAdminTab: React.FC = () => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deletingAlojamiento, setDeletingAlojamiento] = useState<Alojamiento | null>(null);
 
-  // Filter state
-  const [soloPrincipales, setSoloPrincipales] = useState(false);
+  // Filter state: "todas" | "principales" | "otras"
+  const [filtroPropiedad, setFiltroPropiedad] = useState<"todas" | "principales" | "otras">("todas");
+  // Guest name search
+  const [busquedaInvitado, setBusquedaInvitado] = useState("");
 
   // Helper to check if a property is "principal"
   const esPropiedadPrincipal = (propiedad: string) => {
@@ -90,9 +92,11 @@ const HabitacionesAdminTab: React.FC = () => {
   };
 
   // Filtered alojamientos based on filter
-  const alojamientosFiltrados = soloPrincipales
-    ? alojamientos.filter((a) => esPropiedadPrincipal(a.propiedad))
-    : alojamientos;
+  const alojamientosFiltrados = alojamientos.filter((a) => {
+    if (filtroPropiedad === "todas") return true;
+    const principal = esPropiedadPrincipal(a.propiedad);
+    return filtroPropiedad === "principales" ? principal : !principal;
+  });
 
   const fetchAlojamientos = async () => {
     const { data, error } = await supabase
@@ -167,6 +171,16 @@ const HabitacionesAdminTab: React.FC = () => {
     acc[aloj.propiedad].push(aloj);
     return acc;
   }, {} as Record<string, Alojamiento[]>);
+
+  // Agrupación completa (sin filtro) para el desplegable de asignación
+  const propiedadesTodasAgrupadas = alojamientos.reduce((acc, aloj) => {
+    if (!acc[aloj.propiedad]) {
+      acc[aloj.propiedad] = [];
+    }
+    acc[aloj.propiedad].push(aloj);
+    return acc;
+  }, {} as Record<string, Alojamiento[]>);
+  const propiedadesTodasOrdenadas = Object.keys(propiedadesTodasAgrupadas).sort();
 
   // Contar ocupación por habitación
   const getOcupacionHabitacion = (habitacionKey: string) => {
@@ -303,26 +317,50 @@ const HabitacionesAdminTab: React.FC = () => {
     return getOcupacionHabitacion(key);
   };
 
+  // Guests filtered by name search (name or plus one)
+  const guestsFiltrados = busquedaInvitado.trim()
+    ? guests.filter((g) => {
+        const q = busquedaInvitado.trim().toLowerCase();
+        return (
+          g.nombre.toLowerCase().includes(q) ||
+          (g.nombreAcompanante || "").toLowerCase().includes(q)
+        );
+      })
+    : guests;
+
   return (
     <div className="px-4">
       <div className="mb-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
-          <h2 className="text-2xl font-bold flex items-center gap-2">
-            <Home className="w-6 h-6" />
-            Gestión de Habitaciones
-          </h2>
-          <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-lg">
-            <Filter className="w-4 h-4 text-muted-foreground" />
-            <Switch
-              id="filtro-principales"
-              checked={soloPrincipales}
-              onCheckedChange={setSoloPrincipales}
-            />
-            <Label htmlFor="filtro-principales" className="text-sm cursor-pointer">
-              Solo principales
-            </Label>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+            <h2 className="text-2xl font-bold flex items-center gap-2">
+              <Home className="w-6 h-6" />
+              Gestión de Habitaciones
+            </h2>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  value={busquedaInvitado}
+                  onChange={(e) => setBusquedaInvitado(e.target.value)}
+                  placeholder="Buscar invitado..."
+                  className="pl-8 w-full sm:w-56"
+                />
+              </div>
+              <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-lg">
+                <Filter className="w-4 h-4 text-muted-foreground" />
+                <Select value={filtroPropiedad} onValueChange={(v) => setFiltroPropiedad(v as "todas" | "principales" | "otras")}>
+                  <SelectTrigger className="w-44 h-8 text-sm">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="todas">Todas las propiedades</SelectItem>
+                    <SelectItem value="principales">Solo principales</SelectItem>
+                    <SelectItem value="otras">Solo no principales</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
           </div>
-        </div>
       </div>
 
       <Tabs defaultValue="asignar" className="w-full">
@@ -387,19 +425,32 @@ const HabitacionesAdminTab: React.FC = () => {
           {loading ? (
             <div className="text-center py-8">Cargando invitados...</div>
           ) : (
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Nombre</TableHead>
-                    <TableHead>Plus One</TableHead>
-                    <TableHead>Habitación Actual</TableHead>
-                    <TableHead className="min-w-[300px]">Asignar Habitación</TableHead>
-                    <TableHead>Acción</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {guests.map((guest) => (
+            <>
+              {busquedaInvitado.trim() && (
+                <p className="text-sm text-muted-foreground mb-2">
+                  {guestsFiltrados.length} de {guests.length} invitados
+                </p>
+              )}
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Nombre</TableHead>
+                      <TableHead>Plus One</TableHead>
+                      <TableHead>Habitación Actual</TableHead>
+                      <TableHead className="min-w-[300px]">Asignar Habitación</TableHead>
+                      <TableHead>Acción</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {guestsFiltrados.length === 0 ? (
+                      <TableRow>
+                        <TableCell colSpan={5} className="text-center text-muted-foreground italic py-6">
+                          No se encontraron invitados para "{busquedaInvitado}"
+                        </TableCell>
+                      </TableRow>
+                    ) : (
+                      guestsFiltrados.map((guest) => (
                     <TableRow key={guest.id}>
                       <TableCell className="font-medium">{guest.nombre}</TableCell>
                       <TableCell>
@@ -432,12 +483,12 @@ const HabitacionesAdminTab: React.FC = () => {
                             <SelectItem value="none">
                               <span className="text-muted-foreground">Sin asignar</span>
                             </SelectItem>
-                            {propiedadesOrdenadas.map((propiedad) => (
+                            {propiedadesTodasOrdenadas.map((propiedad) => (
                               <React.Fragment key={propiedad}>
                                 <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground bg-muted sticky top-0">
                                   {propiedad}
                                 </div>
-                                {propiedadesAgrupadas[propiedad].map((aloj) => {
+                                {propiedadesTodasAgrupadas[propiedad].map((aloj) => {
                                   const key = `${aloj.propiedad} - ${aloj.habitacion}`;
                                   const ocupacion = getOcupacionHabitacion(key);
                                   const disponible = aloj.plazas - ocupacion;
@@ -472,10 +523,12 @@ const HabitacionesAdminTab: React.FC = () => {
                         </Button>
                       </TableCell>
                     </TableRow>
-                  ))}
+                  ))
+                  )}
                 </TableBody>
               </Table>
             </div>
+            </>
           )}
         </TabsContent>
 
@@ -507,8 +560,10 @@ const HabitacionesAdminTab: React.FC = () => {
                 {alojamientosFiltrados.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
-                      {soloPrincipales 
-                        ? "No hay alojamientos principales. Desactiva el filtro para ver todos."
+                      {filtroPropiedad === "principales"
+                        ? "No hay alojamientos principales con este filtro."
+                        : filtroPropiedad === "otras"
+                        ? "No hay alojamientos no principales con este filtro."
                         : "No hay alojamientos. Añade uno para empezar."}
                     </TableCell>
                   </TableRow>
