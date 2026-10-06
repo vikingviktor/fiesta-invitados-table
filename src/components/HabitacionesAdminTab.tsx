@@ -79,8 +79,10 @@ const HabitacionesAdminTab: React.FC = () => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deletingAlojamiento, setDeletingAlojamiento] = useState<Alojamiento | null>(null);
 
-  // Filter state
-  const [soloPrincipales, setSoloPrincipales] = useState(false);
+  // Filter state: "todas" | "principales" | "otras"
+  const [filtroPropiedad, setFiltroPropiedad] = useState<"todas" | "principales" | "otras">("todas");
+  // Guest name search
+  const [busquedaInvitado, setBusquedaInvitado] = useState("");
 
   // Helper to check if a property is "principal"
   const esPropiedadPrincipal = (propiedad: string) => {
@@ -90,9 +92,11 @@ const HabitacionesAdminTab: React.FC = () => {
   };
 
   // Filtered alojamientos based on filter
-  const alojamientosFiltrados = soloPrincipales
-    ? alojamientos.filter((a) => esPropiedadPrincipal(a.propiedad))
-    : alojamientos;
+  const alojamientosFiltrados = alojamientos.filter((a) => {
+    if (filtroPropiedad === "todas") return true;
+    const principal = esPropiedadPrincipal(a.propiedad);
+    return filtroPropiedad === "principales" ? principal : !principal;
+  });
 
   const fetchAlojamientos = async () => {
     const { data, error } = await supabase
@@ -303,26 +307,50 @@ const HabitacionesAdminTab: React.FC = () => {
     return getOcupacionHabitacion(key);
   };
 
+  // Guests filtered by name search (name or plus one)
+  const guestsFiltrados = busquedaInvitado.trim()
+    ? guests.filter((g) => {
+        const q = busquedaInvitado.trim().toLowerCase();
+        return (
+          g.nombre.toLowerCase().includes(q) ||
+          (g.nombreAcompanante || "").toLowerCase().includes(q)
+        );
+      })
+    : guests;
+
   return (
     <div className="px-4">
       <div className="mb-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
-          <h2 className="text-2xl font-bold flex items-center gap-2">
-            <Home className="w-6 h-6" />
-            Gestión de Habitaciones
-          </h2>
-          <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-lg">
-            <Filter className="w-4 h-4 text-muted-foreground" />
-            <Switch
-              id="filtro-principales"
-              checked={soloPrincipales}
-              onCheckedChange={setSoloPrincipales}
-            />
-            <Label htmlFor="filtro-principales" className="text-sm cursor-pointer">
-              Solo principales
-            </Label>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+            <h2 className="text-2xl font-bold flex items-center gap-2">
+              <Home className="w-6 h-6" />
+              Gestión de Habitaciones
+            </h2>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  value={busquedaInvitado}
+                  onChange={(e) => setBusquedaInvitado(e.target.value)}
+                  placeholder="Buscar invitado..."
+                  className="pl-8 w-full sm:w-56"
+                />
+              </div>
+              <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-lg">
+                <Filter className="w-4 h-4 text-muted-foreground" />
+                <Select value={filtroPropiedad} onValueChange={(v) => setFiltroPropiedad(v as "todas" | "principales" | "otras")}>
+                  <SelectTrigger className="w-44 h-8 text-sm">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="todas">Todas las propiedades</SelectItem>
+                    <SelectItem value="principales">Solo principales</SelectItem>
+                    <SelectItem value="otras">Solo no principales</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
           </div>
-        </div>
       </div>
 
       <Tabs defaultValue="asignar" className="w-full">
