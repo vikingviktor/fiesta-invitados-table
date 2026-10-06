@@ -483,12 +483,12 @@ const HabitacionesAdminTab: React.FC = () => {
                             <SelectItem value="none">
                               <span className="text-muted-foreground">Sin asignar</span>
                             </SelectItem>
-                            {propiedadesOrdenadas.map((propiedad) => (
+                            {propiedadesTodasOrdenadas.map((propiedad) => (
                               <React.Fragment key={propiedad}>
                                 <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground bg-muted sticky top-0">
                                   {propiedad}
                                 </div>
-                                {propiedadesAgrupadas[propiedad].map((aloj) => {
+                                {propiedadesTodasAgrupadas[propiedad].map((aloj) => {
                                   const key = `${aloj.propiedad} - ${aloj.habitacion}`;
                                   const ocupacion = getOcupacionHabitacion(key);
                                   const disponible = aloj.plazas - ocupacion;
