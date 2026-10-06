@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import GuestTableRow from "./GuestTableRow";
+import GuestAddModal from "./GuestAddModal";
 import { mapDbGuestToGuest, getGuestMenuCounts, menuTranslation } from "@/utils/guestUtils";
 
 
@@ -51,6 +52,7 @@ const GuestTable: React.FC<{
   const [ninosFilter, setNinosFilter] = useState("todos");
   const [pernoctaFilter, setPernoctaFilter] = useState("todos");
   const [menuFilter, setMenuFilter] = useState("todos");
+  const [addModalOpen, setAddModalOpen] = useState(false);
 
   // Refs for dual scrollbar sync
   const topScrollRef = useRef<HTMLDivElement>(null);
