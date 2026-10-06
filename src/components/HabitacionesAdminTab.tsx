@@ -560,8 +560,10 @@ const HabitacionesAdminTab: React.FC = () => {
                 {alojamientosFiltrados.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
-                      {soloPrincipales 
-                        ? "No hay alojamientos principales. Desactiva el filtro para ver todos."
+                      {filtroPropiedad === "principales"
+                        ? "No hay alojamientos principales con este filtro."
+                        : filtroPropiedad === "otras"
+                        ? "No hay alojamientos no principales con este filtro."
                         : "No hay alojamientos. Añade uno para empezar."}
                     </TableCell>
                   </TableRow>
