@@ -172,6 +172,16 @@ const HabitacionesAdminTab: React.FC = () => {
     return acc;
   }, {} as Record<string, Alojamiento[]>);
 
+  // Agrupación completa (sin filtro) para el desplegable de asignación
+  const propiedadesTodasAgrupadas = alojamientos.reduce((acc, aloj) => {
+    if (!acc[aloj.propiedad]) {
+      acc[aloj.propiedad] = [];
+    }
+    acc[aloj.propiedad].push(aloj);
+    return acc;
+  }, {} as Record<string, Alojamiento[]>);
+  const propiedadesTodasOrdenadas = Object.keys(propiedadesTodasAgrupadas).sort();
+
   // Contar ocupación por habitación
   const getOcupacionHabitacion = (habitacionKey: string) => {
     return guests.filter((g) => {
@@ -517,6 +527,7 @@ const HabitacionesAdminTab: React.FC = () => {
                 </TableBody>
               </Table>
             </div>
+            </>
           )}
         </TabsContent>
 
