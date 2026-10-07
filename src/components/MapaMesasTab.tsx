@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
-import { Plus, Trash2, Settings2, GripVertical } from "lucide-react";
+import { Plus, Trash2, Settings2, GripVertical, Pencil } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -19,7 +19,27 @@ interface Mesa {
   y: number;
   width: number;
   height: number;
+  color?: string | null;
 }
+
+const PALETTE = ["#bfdbfe","#bbf7d0","#fde68a","#fecdd3","#e9d5ff","#a5f3fc","#fed7aa","#99f6e4","#fbcfe8","#c7d2fe","#d6c7a8","#e5e7eb"];
+const darken = (hex: string) => {
+  const n = parseInt(hex.slice(1), 16);
+  const f = (v: number) => Math.max(0, Math.round(v * 0.7)).toString(16).padStart(2, "0");
+  return `#${f(n >> 16)}${f((n >> 8) & 255)}${f(n & 255)}`;
+};
+const mesaColor = (m: Mesa, i: number) => m.color || PALETTE[i % PALETTE.length];
+
+const ColorPicker: React.FC<{ value: string; onChange: (c: string) => void }> = ({ value, onChange }) => (
+  <div className="flex flex-wrap gap-2 items-center">
+    {PALETTE.map((c) => (
+      <button key={c} type="button" onClick={() => onChange(c)} title={c}
+        className={`w-7 h-7 rounded-full border-2 ${value === c ? "ring-2 ring-offset-1 ring-foreground" : ""}`}
+        style={{ backgroundColor: c, borderColor: darken(c) }} />
+    ))}
+    <input type="color" value={value} onChange={(e) => onChange(e.target.value)} className="w-8 h-8 cursor-pointer" title="Color personalizado" />
+  </div>
+);
 
 interface LayoutConfig {
   id: string;
@@ -41,6 +61,10 @@ const MapaMesasTab: React.FC = () => {
   const [newName, setNewName] = useState("");
   const [newWidth, setNewWidth] = useState(2);
   const [newHeight, setNewHeight] = useState(1);
+  const [newColor, setNewColor] = useState(PALETTE[0]);
+
+  // Edit mesa dialog
+  const [editMesa, setEditMesa] = useState<Mesa | null>(null);
 
   // Config dialog
   const [configOpen, setConfigOpen] = useState(false);
@@ -110,7 +134,8 @@ const MapaMesasTab: React.FC = () => {
       y: 0,
       width: newWidth,
       height: newHeight,
-    });
+      color: newColor,
+    } as any);
 
     if (error) {
       toast({ title: "Error al añadir mesa", variant: "destructive" });
@@ -122,6 +147,27 @@ const MapaMesasTab: React.FC = () => {
       setAddOpen(false);
       fetchData();
     }
+  };
+
+  const saveEditMesa = async () => {
+    if (!editMesa) return;
+    const { id, mesa_name, width, height, color } = editMesa;
+    if (!mesa_name.trim() || width < 1 || height < 1 || width > 20 || height > 20) {
+      toast({ title: "Datos inválidos", description: "Nombre requerido, tamaño 1-20.", variant: "destructive" });
+      return;
+    }
+    const old = mesas.find((m) => m.id === id);
+    const x = Math.max(0, Math.min(editMesa.x, spaceWidth - width));
+    const y = Math.max(0, Math.min(editMesa.y, spaceHeight - height));
+    const { error } = await supabase.from("mesa_positions")
+      .update({ mesa_name: mesa_name.trim(), width, height, color, x, y } as any).eq("id", id);
+    if (error) { toast({ title: "Error al guardar", variant: "destructive" }); return; }
+    if (old && old.mesa_name !== mesa_name.trim()) {
+      await supabase.from("guests").update({ mesa: mesa_name.trim() }).eq("mesa", old.mesa_name);
+    }
+    toast({ title: "Mesa actualizada" });
+    setEditMesa(null);
+    fetchData();
   };
 
   const deleteMesa = async (id: string) => {
@@ -184,19 +230,6 @@ const MapaMesasTab: React.FC = () => {
   const gridWidthPx = spaceWidth * CELL_SIZE;
   const gridHeightPx = spaceHeight * CELL_SIZE;
 
-  // Colors for mesas
-  const mesaColors = [
-    "bg-blue-200 border-blue-400",
-    "bg-green-200 border-green-400",
-    "bg-amber-200 border-amber-400",
-    "bg-rose-200 border-rose-400",
-    "bg-purple-200 border-purple-400",
-    "bg-cyan-200 border-cyan-400",
-    "bg-orange-200 border-orange-400",
-    "bg-teal-200 border-teal-400",
-    "bg-pink-200 border-pink-400",
-    "bg-indigo-200 border-indigo-400",
-  ];
 
   return (
     <div className="w-full max-w-5xl mx-auto py-8 px-4">
@@ -282,6 +315,10 @@ const MapaMesasTab: React.FC = () => {
                     className="w-24"
                   />
                 </div>
+                <div className="flex gap-4 items-start">
+                  <label className="w-20 text-sm font-medium pt-1">Color:</label>
+                  <ColorPicker value={newColor} onChange={setNewColor} />
+                </div>
                 <p className="text-xs text-muted-foreground">
                   Cada unidad = 1 cuadrado en la cuadrícula. Ej: 7×2 = mesa de 7 cuadrados de ancho por 2 de alto.
                 </p>
@@ -297,9 +334,16 @@ const MapaMesasTab: React.FC = () => {
         <div className="flex flex-wrap gap-3 mb-4">
           {mesas.map((mesa, i) => (
             <div key={mesa.id} className="flex items-center gap-2 text-sm">
-              <div className={`w-4 h-4 rounded border ${mesaColors[i % mesaColors.length]}`} />
+              <div className="w-4 h-4 rounded border" style={{ backgroundColor: mesaColor(mesa, i), borderColor: darken(mesaColor(mesa, i)) }} />
               <span>{mesa.mesa_name}</span>
               <span className="text-muted-foreground text-xs">({mesa.width}×{mesa.height})</span>
+              <button
+                onClick={() => setEditMesa({ ...mesa, color: mesaColor(mesa, i) })}
+                className="text-muted-foreground hover:text-foreground ml-1"
+                title="Editar mesa"
+              >
+                <Pencil className="w-3.5 h-3.5" />
+              </button>
               <button
                 onClick={() => deleteMesa(mesa.id)}
                 className="text-destructive hover:text-destructive/80 ml-1"
@@ -332,13 +376,16 @@ const MapaMesasTab: React.FC = () => {
           {mesas.map((mesa, i) => (
             <div
               key={mesa.id}
-              className={`absolute rounded border-2 flex items-center justify-center cursor-grab active:cursor-grabbing shadow-sm transition-shadow hover:shadow-md ${mesaColors[i % mesaColors.length]} ${dragging === mesa.id ? "opacity-80 shadow-lg z-10" : "z-0"}`}
+              className={`absolute rounded border-2 flex items-center justify-center cursor-grab active:cursor-grabbing shadow-sm transition-shadow hover:shadow-md ${dragging === mesa.id ? "opacity-80 shadow-lg z-10" : "z-0"}`}
               style={{
                 left: mesa.x * CELL_SIZE,
                 top: mesa.y * CELL_SIZE,
                 width: mesa.width * CELL_SIZE,
                 height: mesa.height * CELL_SIZE,
+                backgroundColor: mesaColor(mesa, i),
+                borderColor: darken(mesaColor(mesa, i)),
               }}
+              onDoubleClick={() => setEditMesa({ ...mesa, color: mesaColor(mesa, i) })}
               onMouseDown={(e) => handleMouseDown(e, mesa)}
             >
               <div className="flex items-center gap-1 pointer-events-none">
@@ -351,6 +398,38 @@ const MapaMesasTab: React.FC = () => {
           ))}
         </div>
       </div>
+
+      <Dialog open={!!editMesa} onOpenChange={(o) => !o && setEditMesa(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Editar mesa</DialogTitle>
+          </DialogHeader>
+          {editMesa && (
+            <div className="flex flex-col gap-4 mt-2">
+              <div className="flex gap-4 items-center">
+                <label className="w-20 text-sm font-medium">Nombre:</label>
+                <Input value={editMesa.mesa_name} onChange={(e) => setEditMesa({ ...editMesa, mesa_name: e.target.value })} />
+              </div>
+              <div className="flex gap-4 items-center">
+                <label className="w-20 text-sm font-medium">Ancho:</label>
+                <Input type="number" min={1} max={20} className="w-24" value={editMesa.width}
+                  onChange={(e) => setEditMesa({ ...editMesa, width: Number(e.target.value) })} />
+              </div>
+              <div className="flex gap-4 items-center">
+                <label className="w-20 text-sm font-medium">Alto:</label>
+                <Input type="number" min={1} max={20} className="w-24" value={editMesa.height}
+                  onChange={(e) => setEditMesa({ ...editMesa, height: Number(e.target.value) })} />
+              </div>
+              <div className="flex gap-4 items-start">
+                <label className="w-20 text-sm font-medium pt-1">Color:</label>
+                <ColorPicker value={editMesa.color || PALETTE[0]} onChange={(c) => setEditMesa({ ...editMesa, color: c })} />
+              </div>
+              <p className="text-xs text-muted-foreground">Si cambias el nombre, los invitados asignados se actualizan automáticamente.</p>
+              <Button onClick={saveEditMesa}>Guardar cambios</Button>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
 
       {mesas.length === 0 && (
         <p className="text-center text-muted-foreground mt-4 text-sm">

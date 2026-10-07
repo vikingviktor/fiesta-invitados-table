@@ -1,0 +1,1 @@
+ALTER TABLE public.mesa_positions ADD COLUMN IF NOT EXISTS color text;
