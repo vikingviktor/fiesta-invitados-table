@@ -172,6 +172,7 @@ export type Database = {
       }
       mesa_positions: {
         Row: {
+          color: string | null
           created_at: string
           height: number
           id: string
@@ -181,6 +182,7 @@ export type Database = {
           y: number
         }
         Insert: {
+          color?: string | null
           created_at?: string
           height?: number
           id?: string
@@ -190,6 +192,7 @@ export type Database = {
           y?: number
         }
         Update: {
+          color?: string | null
           created_at?: string
           height?: number
           id?: string
