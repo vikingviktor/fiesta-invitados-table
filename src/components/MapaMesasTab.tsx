@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
-import { Plus, Trash2, Settings2, GripVertical, Pencil } from "lucide-react";
+import { Plus, Trash2, Settings2, GripVertical, Pencil, User, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -41,6 +41,23 @@ const ColorPicker: React.FC<{ value: string; onChange: (c: string) => void }> = 
   </div>
 );
 
+interface Seat {
+  id: string;
+  x: number;
+  y: number;
+  guest_id: string | null;
+  is_plus_one: boolean;
+  nombre: string;
+}
+
+interface GuestLite {
+  id: string;
+  nombre: string;
+  plus_one: boolean;
+  nombre_acompanante: string | null;
+  mesa: string | null;
+}
+
 interface LayoutConfig {
   id: string;
   space_width: number;
@@ -63,6 +80,13 @@ const MapaMesasTab: React.FC = () => {
   const [newHeight, setNewHeight] = useState(1);
   const [newColor, setNewColor] = useState(PALETTE[0]);
 
+  // Seats
+  const [seats, setSeats] = useState<Seat[]>([]);
+  const [guestList, setGuestList] = useState<GuestLite[]>([]);
+  const [seatCell, setSeatCell] = useState<{ x: number; y: number } | null>(null);
+  const [seatSearch, setSeatSearch] = useState("");
+  const [viewSeat, setViewSeat] = useState<Seat | null>(null);
+
   // Edit mesa dialog
   const [editMesa, setEditMesa] = useState<Mesa | null>(null);
 
@@ -78,10 +102,14 @@ const MapaMesasTab: React.FC = () => {
 
   const fetchData = useCallback(async () => {
     setLoading(true);
-    const [mesasRes, configRes] = await Promise.all([
+    const [mesasRes, configRes, seatsRes, guestsRes] = await Promise.all([
       supabase.from("mesa_positions").select("*").order("created_at"),
       supabase.from("mesa_layout_config").select("*").limit(1).single(),
+      (supabase as any).from("mesa_seats").select("*"),
+      supabase.from("guests").select("id,nombre,plus_one,nombre_acompanante,mesa").order("nombre"),
     ]);
+    setSeats((seatsRes.data as Seat[]) ?? []);
+    setGuestList((guestsRes.data as GuestLite[]) ?? []);
 
     setMesas((mesasRes.data as Mesa[]) ?? []);
 
@@ -169,6 +197,45 @@ const MapaMesasTab: React.FC = () => {
     setEditMesa(null);
     fetchData();
   };
+
+  const handleGridClick = (e: React.MouseEvent) => {
+    if (e.target !== gridRef.current || !gridRef.current) return;
+    const rect = gridRef.current.getBoundingClientRect();
+    const x = Math.floor((e.clientX - rect.left) / CELL_SIZE);
+    const y = Math.floor((e.clientY - rect.top) / CELL_SIZE);
+    if (seats.some((s) => s.x === x && s.y === y)) return;
+    setSeatSearch("");
+    setSeatCell({ x, y });
+  };
+
+  const addSeat = async (nombre: string, guest_id: string | null, is_plus_one: boolean) => {
+    if (!seatCell || !nombre.trim()) return;
+    const { error } = await (supabase as any).from("mesa_seats").insert({
+      x: seatCell.x, y: seatCell.y, nombre: nombre.trim().slice(0, 100), guest_id, is_plus_one,
+    });
+    if (error) { toast({ title: "Error al colocar persona", description: error.message, variant: "destructive" }); return; }
+    setSeatCell(null);
+    fetchData();
+  };
+
+  const removeSeat = async (id: string) => {
+    await (supabase as any).from("mesa_seats").delete().eq("id", id);
+    setViewSeat(null);
+    fetchData();
+  };
+
+  const seatOptions = (() => {
+    const q = seatSearch.trim().toLowerCase();
+    const opts: { label: string; sub: string; guest_id: string; plus: boolean }[] = [];
+    guestList.forEach((g) => {
+      opts.push({ label: g.nombre, sub: "Invitado", guest_id: g.id, plus: false });
+      if (g.plus_one) opts.push({ label: g.nombre_acompanante || `+1 de ${g.nombre}`, sub: `+1 de ${g.nombre}`, guest_id: g.id, plus: true });
+    });
+    return opts
+      .filter((o) => !seats.some((s) => s.guest_id === o.guest_id && s.is_plus_one === o.plus))
+      .filter((o) => !q || o.label.toLowerCase().includes(q) || o.sub.toLowerCase().includes(q))
+      .slice(0, 50);
+  })();
 
   const deleteMesa = async (id: string) => {
     await supabase.from("mesa_positions").delete().eq("id", id);
@@ -372,6 +439,7 @@ const MapaMesasTab: React.FC = () => {
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseUp}
+          onClick={handleGridClick}
         >
           {mesas.map((mesa, i) => (
             <div
@@ -396,8 +464,70 @@ const MapaMesasTab: React.FC = () => {
               </div>
             </div>
           ))}
+          {seats.map((seat) => (
+            <button
+              key={seat.id}
+              type="button"
+              onClick={() => setViewSeat(seat)}
+              title={seat.nombre}
+              className="absolute z-20 flex items-center justify-center"
+              style={{ left: seat.x * CELL_SIZE, top: seat.y * CELL_SIZE, width: CELL_SIZE, height: CELL_SIZE }}
+            >
+              <span className={`flex items-center justify-center rounded-full border-2 shadow w-7 h-7 ${seat.guest_id ? "bg-primary text-primary-foreground border-primary" : "bg-secondary text-secondary-foreground border-muted-foreground"}`}>
+                <User className="w-4 h-4" />
+              </span>
+            </button>
+          ))}
         </div>
       </div>
+      <p className="text-xs text-muted-foreground mt-2">
+        Haz clic en una casilla vacía para sentar a alguien. Haz clic en una persona para ver quién es.
+      </p>
+
+      <Dialog open={!!seatCell} onOpenChange={(o) => !o && setSeatCell(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Colocar persona</DialogTitle>
+          </DialogHeader>
+          <Input autoFocus placeholder="Buscar invitado o escribir un nombre..." value={seatSearch}
+            onChange={(e) => setSeatSearch(e.target.value)} maxLength={100} />
+          <div className="max-h-72 overflow-y-auto flex flex-col gap-1">
+            {seatOptions.map((o) => (
+              <button key={o.guest_id + o.plus} type="button" onClick={() => addSeat(o.label, o.guest_id, o.plus)}
+                className="text-left px-3 py-2 rounded hover:bg-muted flex justify-between gap-2">
+                <span>{o.label}</span>
+                <span className="text-xs text-muted-foreground">{o.sub}</span>
+              </button>
+            ))}
+            {seatOptions.length === 0 && <p className="text-sm text-muted-foreground px-3 py-2">Sin coincidencias.</p>}
+          </div>
+          {seatSearch.trim() && (
+            <Button variant="outline" onClick={() => addSeat(seatSearch, null, false)}>
+              <Plus className="w-4 h-4 mr-1" /> Añadir "{seatSearch.trim()}" (fuera de la lista)
+            </Button>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!!viewSeat} onOpenChange={(o) => !o && setViewSeat(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{viewSeat?.nombre}</DialogTitle>
+          </DialogHeader>
+          {viewSeat && (() => {
+            const g = guestList.find((x) => x.id === viewSeat.guest_id);
+            return (
+              <div className="flex flex-col gap-2 text-sm">
+                <p>{!g ? "Persona fuera de la lista de invitados" : viewSeat.is_plus_one ? `Acompañante (+1) de ${g.nombre}` : "Invitado"}</p>
+                {g?.mesa && <p className="text-muted-foreground">Mesa asignada: {g.mesa}</p>}
+                <Button variant="destructive" className="mt-2" onClick={() => removeSeat(viewSeat.id)}>
+                  <X className="w-4 h-4 mr-1" /> Quitar de este sitio
+                </Button>
+              </div>
+            );
+          })()}
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={!!editMesa} onOpenChange={(o) => !o && setEditMesa(null)}>
         <DialogContent>

@@ -203,6 +203,44 @@ export type Database = {
         }
         Relationships: []
       }
+      mesa_seats: {
+        Row: {
+          created_at: string
+          guest_id: string | null
+          id: string
+          is_plus_one: boolean
+          nombre: string
+          x: number
+          y: number
+        }
+        Insert: {
+          created_at?: string
+          guest_id?: string | null
+          id?: string
+          is_plus_one?: boolean
+          nombre: string
+          x: number
+          y: number
+        }
+        Update: {
+          created_at?: string
+          guest_id?: string | null
+          id?: string
+          is_plus_one?: boolean
+          nombre?: string
+          x?: number
+          y?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mesa_seats_guest_id_fkey"
+            columns: ["guest_id"]
+            isOneToOne: false
+            referencedRelation: "guests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
