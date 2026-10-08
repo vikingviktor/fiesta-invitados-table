@@ -83,6 +83,41 @@ export type Database = {
         }
         Relationships: []
       }
+      guest_payments: {
+        Row: {
+          created_at: string
+          guest_id: string
+          id: string
+          importe: number
+          nota: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          guest_id: string
+          id?: string
+          importe?: number
+          nota?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          guest_id?: string
+          id?: string
+          importe?: number
+          nota?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "guest_payments_guest_id_fkey"
+            columns: ["guest_id"]
+            isOneToOne: true
+            referencedRelation: "guests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       guests: {
         Row: {
           cancion_favorita: string | null

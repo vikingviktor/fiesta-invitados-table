@@ -11,6 +11,7 @@ import { mapDbGuestToGuest } from "@/utils/guestUtils";
 import CancionesTab from "@/components/CancionesTab";
 import HabitacionesAdminTab from "@/components/HabitacionesAdminTab";
 import MapaMesasTab from "@/components/MapaMesasTab";
+import PagosTab from "@/components/PagosTab";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -95,6 +96,7 @@ const Admin = () => {
             <TabsTrigger value="eliminados">Eliminados</TabsTrigger>
             <TabsTrigger value="canciones">Canciones</TabsTrigger>
             <TabsTrigger value="mapa">Mapa Mesas</TabsTrigger>
+            <TabsTrigger value="pagos">Pagos</TabsTrigger>
           </TabsList>
 
           <TabsContent value="invitados">
@@ -129,6 +131,10 @@ const Admin = () => {
 
           <TabsContent value="mapa">
             <MapaMesasTab />
+          </TabsContent>
+
+          <TabsContent value="pagos">
+            <PagosTab />
           </TabsContent>
         </Tabs>
       </section>
