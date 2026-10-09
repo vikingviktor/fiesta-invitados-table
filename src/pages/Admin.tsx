@@ -16,6 +16,7 @@ import PagosTab from "@/components/PagosTab";
 const Admin = () => {
   const navigate = useNavigate();
   const [checkingAuth, setCheckingAuth] = useState(true);
+  const [isViewer, setIsViewer] = useState(false);
 
   // Estado compartido
   const [guests, setGuests] = useState([]);
@@ -30,8 +31,18 @@ const Admin = () => {
       if (!ignore) {
         if (!session) {
           navigate("/auth", { replace: true });
+          setCheckingAuth(false);
+          return;
         }
-        setCheckingAuth(false);
+        supabase
+          .from("user_roles" as any)
+          .select("role")
+          .eq("user_id", session.user.id)
+          .then(({ data }) => {
+            if (ignore) return;
+            setIsViewer(((data as any[]) ?? []).some((r) => r.role === "viewer"));
+            setCheckingAuth(false);
+          });
       }
     });
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
@@ -88,6 +99,9 @@ const Admin = () => {
             Cerrar sesión
           </Button>
         </div>
+        {isViewer && (
+          <p className="text-center mb-4 text-muted-foreground">Modo solo lectura</p>
+        )}
         <Tabs defaultValue="invitados" className="w-full">
           <TabsList className="mb-6">
             <TabsTrigger value="invitados">Invitados</TabsTrigger>
@@ -96,8 +110,9 @@ const Admin = () => {
             <TabsTrigger value="eliminados">Eliminados</TabsTrigger>
             <TabsTrigger value="canciones">Canciones</TabsTrigger>
             <TabsTrigger value="mapa">Mapa Mesas</TabsTrigger>
-            <TabsTrigger value="pagos">Pagos</TabsTrigger>
+            {!isViewer && <TabsTrigger value="pagos">Pagos</TabsTrigger>}
           </TabsList>
+        <fieldset disabled={isViewer} className={isViewer ? "[&_[draggable]]:pointer-events-none" : ""}>
 
           <TabsContent value="invitados">
             <GuestTable
@@ -133,9 +148,12 @@ const Admin = () => {
             <MapaMesasTab />
           </TabsContent>
 
-          <TabsContent value="pagos">
-            <PagosTab />
-          </TabsContent>
+          {!isViewer && (
+            <TabsContent value="pagos">
+              <PagosTab />
+            </TabsContent>
+          )}
+        </fieldset>
         </Tabs>
       </section>
     </div>
