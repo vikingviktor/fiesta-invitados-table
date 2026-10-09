@@ -1,0 +1,1 @@
+ALTER TABLE public.guest_payments ADD COLUMN tag text;
