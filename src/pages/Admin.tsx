@@ -102,7 +102,6 @@ const Admin = () => {
         {isViewer && (
           <p className="text-center mb-4 text-muted-foreground">Modo solo lectura</p>
         )}
-        <fieldset disabled={isViewer} className={isViewer ? "[&_[draggable]]:pointer-events-none" : ""}>
         <Tabs defaultValue="invitados" className="w-full">
           <TabsList className="mb-6">
             <TabsTrigger value="invitados">Invitados</TabsTrigger>
@@ -113,6 +112,7 @@ const Admin = () => {
             <TabsTrigger value="mapa">Mapa Mesas</TabsTrigger>
             {!isViewer && <TabsTrigger value="pagos">Pagos</TabsTrigger>}
           </TabsList>
+        <fieldset disabled={isViewer} className={isViewer ? "[&_[draggable]]:pointer-events-none" : ""}>
 
           <TabsContent value="invitados">
             <GuestTable
@@ -153,8 +153,8 @@ const Admin = () => {
               <PagosTab />
             </TabsContent>
           )}
-        </Tabs>
         </fieldset>
+        </Tabs>
       </section>
     </div>
   );
