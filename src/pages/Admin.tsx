@@ -12,6 +12,7 @@ import CancionesTab from "@/components/CancionesTab";
 import HabitacionesAdminTab from "@/components/HabitacionesAdminTab";
 import MapaMesasTab from "@/components/MapaMesasTab";
 import PagosTab from "@/components/PagosTab";
+import MenusTab from "@/components/MenusTab";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -110,6 +111,7 @@ const Admin = () => {
             <TabsTrigger value="eliminados">Eliminados</TabsTrigger>
             <TabsTrigger value="canciones">Canciones</TabsTrigger>
             <TabsTrigger value="mapa">Mapa Mesas</TabsTrigger>
+            <TabsTrigger value="menus">Menús</TabsTrigger>
             {!isViewer && <TabsTrigger value="pagos">Pagos</TabsTrigger>}
           </TabsList>
         <fieldset disabled={isViewer} className={isViewer ? "[&_[draggable]]:pointer-events-none" : ""}>
@@ -146,6 +148,10 @@ const Admin = () => {
 
           <TabsContent value="mapa">
             <MapaMesasTab />
+          </TabsContent>
+
+          <TabsContent value="menus">
+            <MenusTab />
           </TabsContent>
 
           {!isViewer && (
