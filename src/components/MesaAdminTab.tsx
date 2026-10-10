@@ -166,6 +166,59 @@ const MesaAdminTab: React.FC = () => {
         </div>
       </div>
 
+      {/* Buscador para asignar a la mesa seleccionada */}
+      {selectedMesa && (
+        <div className="mb-6 border rounded-lg p-4 bg-muted/30">
+          <label className="text-sm font-medium mb-2 block">
+            Añadir a «{selectedMesa}» — busca por nombre:
+          </label>
+          <Input
+            placeholder="Escribe el nombre del invitado o de su acompañante..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          {search.trim() && (
+            <div className="mt-2 flex flex-col gap-1 max-h-64 overflow-y-auto">
+              {searchResults.length === 0 ? (
+                <p className="text-sm text-muted-foreground px-1 py-2">
+                  Sin coincidencias (o ya están en esta mesa).
+                </p>
+              ) : (
+                searchResults.map((g) => (
+                  <div
+                    key={g.id}
+                    className="flex items-center justify-between gap-2 px-2 py-1.5 rounded hover:bg-muted"
+                  >
+                    <div className="text-sm">
+                      <span>{g.nombre}</span>
+                      {g.plusOne && (
+                        <span className="text-muted-foreground">
+                          {" "}+ {g.nombreAcompanante || "acompañante"}
+                        </span>
+                      )}
+                      {g.mesa && (
+                        <span className="text-xs text-muted-foreground ml-2">
+                          (ahora en {g.mesa})
+                        </span>
+                      )}
+                    </div>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      disabled={savingId === g.id}
+                      onClick={() => handleAssignToSelected(g)}
+                    >
+                      <UserPlus className="w-4 h-4 mr-1" />
+                      {savingId === g.id ? "Asignando..." : "Asignar"}
+                    </Button>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
       {loading ? (
         <div className="p-4 text-center">Cargando invitados...</div>
       ) : guests.length === 0 ? (
