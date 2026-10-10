@@ -83,6 +83,47 @@ export type Database = {
         }
         Relationships: []
       }
+      guest_menus: {
+        Row: {
+          con_jamon: boolean
+          created_at: string
+          guest_id: string
+          id: string
+          is_plus_one: boolean
+          otro: string | null
+          tags: string[]
+          updated_at: string
+        }
+        Insert: {
+          con_jamon?: boolean
+          created_at?: string
+          guest_id: string
+          id?: string
+          is_plus_one?: boolean
+          otro?: string | null
+          tags?: string[]
+          updated_at?: string
+        }
+        Update: {
+          con_jamon?: boolean
+          created_at?: string
+          guest_id?: string
+          id?: string
+          is_plus_one?: boolean
+          otro?: string | null
+          tags?: string[]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "guest_menus_guest_id_fkey"
+            columns: ["guest_id"]
+            isOneToOne: false
+            referencedRelation: "guests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       guest_payments: {
         Row: {
           created_at: string
@@ -184,6 +225,30 @@ export type Database = {
           numero_ninos?: number | null
           pernocta_sabado?: boolean
           plus_one?: boolean
+        }
+        Relationships: []
+      }
+      menu_platos: {
+        Row: {
+          curso: string
+          orden: number
+          plato: string
+          plato_vegetariano: string | null
+          updated_at: string
+        }
+        Insert: {
+          curso: string
+          orden?: number
+          plato?: string
+          plato_vegetariano?: string | null
+          updated_at?: string
+        }
+        Update: {
+          curso?: string
+          orden?: number
+          plato?: string
+          plato_vegetariano?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
