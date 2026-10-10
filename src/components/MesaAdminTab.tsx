@@ -6,6 +6,8 @@ import { toast } from "@/hooks/use-toast";
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/table";
 import { Guest } from "@/types/guestTypes";
 import GuestMesaSelect from "./GuestMesaSelect";
+import { Input } from "@/components/ui/input";
+import { UserPlus } from "lucide-react";
 
 type GuestWithMesa = Guest & { mesa?: string | null };
 
@@ -39,6 +41,51 @@ const MesaAdminTab: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [savingId, setSavingId] = useState<null | string>(null);
   const [mesaValues, setMesaValues] = useState<Record<string, string>>({});
+  const [search, setSearch] = useState("");
+  const [allGuests, setAllGuests] = useState<GuestWithMesa[]>([]);
+
+  const fetchAllGuests = async () => {
+    const { data } = await supabase
+      .from("guests")
+      .select("*")
+      .order("nombre", { ascending: true });
+    setAllGuests((data ?? []).map(mapDbGuestToGuestWithMesa));
+  };
+
+  useEffect(() => {
+    fetchAllGuests();
+  }, []);
+
+  const searchResults = (() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return [];
+    return allGuests
+      .filter((g) => g.mesa !== selectedMesa)
+      .filter(
+        (g) =>
+          g.nombre.toLowerCase().includes(q) ||
+          (g.plusOne && (g.nombreAcompanante || "").toLowerCase().includes(q))
+      )
+      .slice(0, 20);
+  })();
+
+  const handleAssignToSelected = async (guest: GuestWithMesa) => {
+    if (!selectedMesa) return;
+    setSavingId(guest.id);
+    const { error } = await supabase
+      .from("guests")
+      .update({ mesa: selectedMesa })
+      .eq("id", guest.id);
+    if (error) {
+      toast({ title: "Error al asignar mesa", variant: "destructive" });
+    } else {
+      toast({ title: "Mesa asignada", description: `${guest.nombre} → ${selectedMesa}` });
+      setSearch("");
+      fetchGuestsByMesa(selectedMesa);
+      fetchAllGuests();
+    }
+    setSavingId(null);
+  };
 
   // Fetch available mesa names from mesa_positions
   useEffect(() => {
@@ -118,6 +165,59 @@ const MesaAdminTab: React.FC = () => {
           </span>
         </div>
       </div>
+
+      {/* Buscador para asignar a la mesa seleccionada */}
+      {selectedMesa && (
+        <div className="mb-6 border rounded-lg p-4 bg-muted/30">
+          <label className="text-sm font-medium mb-2 block">
+            Añadir a «{selectedMesa}» — busca por nombre:
+          </label>
+          <Input
+            placeholder="Escribe el nombre del invitado o de su acompañante..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          {search.trim() && (
+            <div className="mt-2 flex flex-col gap-1 max-h-64 overflow-y-auto">
+              {searchResults.length === 0 ? (
+                <p className="text-sm text-muted-foreground px-1 py-2">
+                  Sin coincidencias (o ya están en esta mesa).
+                </p>
+              ) : (
+                searchResults.map((g) => (
+                  <div
+                    key={g.id}
+                    className="flex items-center justify-between gap-2 px-2 py-1.5 rounded hover:bg-muted"
+                  >
+                    <div className="text-sm">
+                      <span>{g.nombre}</span>
+                      {g.plusOne && (
+                        <span className="text-muted-foreground">
+                          {" "}+ {g.nombreAcompanante || "acompañante"}
+                        </span>
+                      )}
+                      {g.mesa && (
+                        <span className="text-xs text-muted-foreground ml-2">
+                          (ahora en {g.mesa})
+                        </span>
+                      )}
+                    </div>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      disabled={savingId === g.id}
+                      onClick={() => handleAssignToSelected(g)}
+                    >
+                      <UserPlus className="w-4 h-4 mr-1" />
+                      {savingId === g.id ? "Asignando..." : "Asignar"}
+                    </Button>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
+        </div>
+      )}
 
       {loading ? (
         <div className="p-4 text-center">Cargando invitados...</div>
