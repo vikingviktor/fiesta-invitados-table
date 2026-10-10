@@ -6,6 +6,8 @@ import { toast } from "@/hooks/use-toast";
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from "@/components/ui/table";
 import { Guest } from "@/types/guestTypes";
 import GuestMesaSelect from "./GuestMesaSelect";
+import { Input } from "@/components/ui/input";
+import { UserPlus } from "lucide-react";
 
 type GuestWithMesa = Guest & { mesa?: string | null };
 
@@ -39,6 +41,51 @@ const MesaAdminTab: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [savingId, setSavingId] = useState<null | string>(null);
   const [mesaValues, setMesaValues] = useState<Record<string, string>>({});
+  const [search, setSearch] = useState("");
+  const [allGuests, setAllGuests] = useState<GuestWithMesa[]>([]);
+
+  const fetchAllGuests = async () => {
+    const { data } = await supabase
+      .from("guests")
+      .select("*")
+      .order("nombre", { ascending: true });
+    setAllGuests((data ?? []).map(mapDbGuestToGuestWithMesa));
+  };
+
+  useEffect(() => {
+    fetchAllGuests();
+  }, []);
+
+  const searchResults = (() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return [];
+    return allGuests
+      .filter((g) => g.mesa !== selectedMesa)
+      .filter(
+        (g) =>
+          g.nombre.toLowerCase().includes(q) ||
+          (g.plusOne && (g.nombreAcompanante || "").toLowerCase().includes(q))
+      )
+      .slice(0, 20);
+  })();
+
+  const handleAssignToSelected = async (guest: GuestWithMesa) => {
+    if (!selectedMesa) return;
+    setSavingId(guest.id);
+    const { error } = await supabase
+      .from("guests")
+      .update({ mesa: selectedMesa })
+      .eq("id", guest.id);
+    if (error) {
+      toast({ title: "Error al asignar mesa", variant: "destructive" });
+    } else {
+      toast({ title: "Mesa asignada", description: `${guest.nombre} → ${selectedMesa}` });
+      setSearch("");
+      fetchGuestsByMesa(selectedMesa);
+      fetchAllGuests();
+    }
+    setSavingId(null);
+  };
 
   // Fetch available mesa names from mesa_positions
   useEffect(() => {
