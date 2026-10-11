@@ -360,12 +360,12 @@ const GuestTable: React.FC<{
               <tr>
                 <td colSpan={16} className="text-center p-5">Cargando...</td>
               </tr>
-            ) : filterGuests(guests).length === 0 ? (
+            ) : visibleGuests.length === 0 ? (
               <tr>
                 <td colSpan={16} className="text-center p-5">Aún no hay invitados registrados.</td>
               </tr>
             ) : (
-              filterGuests(guests).map(g => (
+              visibleGuests.map(g => (
                 <GuestTableRow
                   key={g.id}
                   guest={g}
