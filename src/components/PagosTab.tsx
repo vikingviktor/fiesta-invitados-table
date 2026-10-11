@@ -88,6 +88,27 @@ const PagosTab: React.FC = () => {
     });
   }, [guests, pagos, search, filtro, filtroTag]);
 
+  const sorted = useMemo(() => {
+    const arr = [...filtered];
+    arr.sort((a, b) => {
+      const cmp =
+        sort.key === "nombre"
+          ? a.nombre.localeCompare(b.nombre, "es", { sensitivity: "base" })
+          : (pagos[a.id]?.importe ?? 0) - (pagos[b.id]?.importe ?? 0);
+      return sort.dir === "asc" ? cmp : -cmp;
+    });
+    return arr;
+  }, [filtered, pagos, sort]);
+
+  const sortIcon = (key: SortKey) =>
+    sort.key !== key ? (
+      <ArrowUpDown className="h-3.5 w-3.5 opacity-40" />
+    ) : sort.dir === "asc" ? (
+      <ArrowUp className="h-3.5 w-3.5" />
+    ) : (
+      <ArrowDown className="h-3.5 w-3.5" />
+    );
+
   const total = Object.values(pagos).reduce((s, p) => s + p.importe, 0);
   const totalFiltrado = filtered.reduce((s, g) => s + (pagos[g.id]?.importe ?? 0), 0);
   const numPagados = guests.filter((g) => (pagos[g.id]?.importe ?? 0) > 0).length;
