@@ -39,7 +39,7 @@ const MenusTab: React.FC = () => {
   const [menus, setMenus] = useState<Record<string, GMenu>>({});
   const [search, setSearch] = useState("");
   const [filtro, setFiltro] = useState("todos");
-  const [platosAbiertos, setPlatosAbiertos] = useState(true);
+  const [platosAbiertos, setPlatosAbiertos] = useState(false);
 
   const fetchAll = useCallback(async () => {
     const [p, g, m] = await Promise.all([
