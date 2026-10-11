@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import { Play } from "lucide-react";
 
 const db = supabase as any;
 
@@ -38,6 +39,7 @@ const MenusTab: React.FC = () => {
   const [menus, setMenus] = useState<Record<string, GMenu>>({});
   const [search, setSearch] = useState("");
   const [filtro, setFiltro] = useState("todos");
+  const [platosAbiertos, setPlatosAbiertos] = useState(true);
 
   const fetchAll = useCallback(async () => {
     const [p, g, m] = await Promise.all([
@@ -126,26 +128,49 @@ const MenusTab: React.FC = () => {
   return (
     <div className="space-y-6">
       <section className="rounded-lg border bg-card p-4">
-        <h3 className="text-lg mb-3">Platos del menú</h3>
-        <div className="grid gap-3 md:grid-cols-2">
-          {platos.map((pl) => {
-            const d = platoDraft[pl.curso] ?? { plato: pl.plato, veg: pl.plato_vegetariano ?? "" };
-            const set = (patch: Partial<typeof d>) => setPlatoDraft((s) => ({ ...s, [pl.curso]: { ...d, ...patch } }));
-            return (
-              <div key={pl.curso} className="rounded border p-3 space-y-2">
-                <div className="text-sm text-muted-foreground">{CURSO_LABEL[pl.curso] ?? pl.curso}</div>
-                <Input value={d.plato} onChange={(e) => set({ plato: e.target.value })} placeholder="Plato" />
-                <Input value={d.veg} onChange={(e) => set({ veg: e.target.value })} placeholder="Alternativa vegetariana/vegana (opcional)" />
-                {platoDraft[pl.curso] && <Button size="sm" onClick={() => savePlato(pl)}>Guardar</Button>}
-                <div className="flex flex-wrap gap-2 pt-1 text-xs">
-                  {Object.entries(resumen.platoCount[pl.curso] ?? {}).map(([n, c]) => (
-                    <span key={n} className="rounded-full bg-muted px-2 py-0.5">{n}: {c}</span>
-                  ))}
-                  {pl.curso === "primero" && <span className="rounded-full bg-muted px-2 py-0.5">Veg. con jamón: {resumen.jamon}</span>}
-                </div>
-              </div>
-            );
-          })}
+        <button
+          type="button"
+          onClick={() => setPlatosAbiertos((v) => !v)}
+          aria-expanded={platosAbiertos}
+          className="flex w-full items-center gap-2 text-left"
+        >
+          <span
+            className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border bg-muted/40 text-muted-foreground transition-transform duration-300 ease-in-out ${
+              platosAbiertos ? "rotate-90" : "rotate-0"
+            }`}
+          >
+            <Play className="h-3 w-3 fill-current" />
+          </span>
+          <h3 className="text-lg">Platos del menú</h3>
+          <span className="ml-auto text-xs text-muted-foreground">{platosAbiertos ? "Ocultar" : "Ver"}</span>
+        </button>
+        <div
+          className={`grid transition-all duration-300 ease-in-out ${
+            platosAbiertos ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+          }`}
+        >
+          <div className="overflow-hidden">
+            <div className="grid gap-3 pt-3 md:grid-cols-2">
+              {platos.map((pl) => {
+                const d = platoDraft[pl.curso] ?? { plato: pl.plato, veg: pl.plato_vegetariano ?? "" };
+                const set = (patch: Partial<typeof d>) => setPlatoDraft((s) => ({ ...s, [pl.curso]: { ...d, ...patch } }));
+                return (
+                  <div key={pl.curso} className="rounded border p-3 space-y-2">
+                    <div className="text-sm text-muted-foreground">{CURSO_LABEL[pl.curso] ?? pl.curso}</div>
+                    <Input value={d.plato} onChange={(e) => set({ plato: e.target.value })} placeholder="Plato" />
+                    <Input value={d.veg} onChange={(e) => set({ veg: e.target.value })} placeholder="Alternativa vegetariana/vegana (opcional)" />
+                    {platoDraft[pl.curso] && <Button size="sm" onClick={() => savePlato(pl)}>Guardar</Button>}
+                    <div className="flex flex-wrap gap-2 pt-1 text-xs">
+                      {Object.entries(resumen.platoCount[pl.curso] ?? {}).map(([n, c]) => (
+                        <span key={n} className="rounded-full bg-muted px-2 py-0.5">{n}: {c}</span>
+                      ))}
+                      {pl.curso === "primero" && <span className="rounded-full bg-muted px-2 py-0.5">Veg. con jamón: {resumen.jamon}</span>}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </section>
 
