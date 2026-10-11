@@ -1,11 +1,12 @@
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { Guest, MenuOption } from "@/types/guestTypes";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import GuestTableRow from "./GuestTableRow";
 import GuestAddModal from "./GuestAddModal";
+import GuestExportButton from "./GuestExportButton";
 import { mapDbGuestToGuest, getGuestMenuCounts, menuTranslation } from "@/utils/guestUtils";
 
 
@@ -112,6 +113,13 @@ const GuestTable: React.FC<{
     }
     return filtered;
   };
+
+  // Lista visible: se usa tanto para la tabla como para la descarga
+  const visibleGuests = useMemo(
+    () => filterGuests(guests),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [guests, consentimientoFilter, ninosFilter, pernoctaFilter, menuFilter]
+  );
 
   // Asignar mesa
   const handleMesaSelect = (guestId: string, value: string) => {
@@ -237,7 +245,10 @@ const GuestTable: React.FC<{
     <div className="w-full max-w-5xl mx-auto mt-8 px-2">
       <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
         <h2 className="text-2xl font-bold">Invitados registrados</h2>
-        <Button onClick={() => setAddModalOpen(true)}>+ Añadir invitado</Button>
+        <div className="flex items-center gap-2 flex-wrap">
+          <GuestExportButton guests={visibleGuests} />
+          <Button onClick={() => setAddModalOpen(true)}>+ Añadir invitado</Button>
+        </div>
       </div>
       <div className="flex flex-wrap gap-4 justify-between items-end mb-4">
         <div className="flex gap-6 flex-wrap">
@@ -349,12 +360,12 @@ const GuestTable: React.FC<{
               <tr>
                 <td colSpan={16} className="text-center p-5">Cargando...</td>
               </tr>
-            ) : filterGuests(guests).length === 0 ? (
+            ) : visibleGuests.length === 0 ? (
               <tr>
                 <td colSpan={16} className="text-center p-5">Aún no hay invitados registrados.</td>
               </tr>
             ) : (
-              filterGuests(guests).map(g => (
+              visibleGuests.map(g => (
                 <GuestTableRow
                   key={g.id}
                   guest={g}
