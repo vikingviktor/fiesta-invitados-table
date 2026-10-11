@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import { ArrowUp, ArrowDown, ArrowUpDown } from "lucide-react";
 
 interface Row {
   id: string;
@@ -13,6 +14,9 @@ interface Row {
 interface Pago { guest_id: string; importe: number; nota: string | null; tag: string | null }
 
 const TAGS = ["Familia V", "Familia S", "Amigos", "Otros"] as const;
+
+type SortKey = "nombre" | "importe";
+type SortState = { key: SortKey; dir: "asc" | "desc" };
 
 const fmt = (n: number) => n.toLocaleString("es-ES", { style: "currency", currency: "EUR" });
 
@@ -25,6 +29,10 @@ const PagosTab: React.FC = () => {
   const [filtroTag, setFiltroTag] = useState("todos");
   const [saving, setSaving] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [sort, setSort] = useState<SortState>({ key: "nombre", dir: "asc" });
+
+  const toggleSort = (key: SortKey) =>
+    setSort((s) => (s.key === key ? { key, dir: s.dir === "asc" ? "desc" : "asc" } : { key, dir: "asc" }));
 
   const fetchAll = useCallback(async () => {
     setLoading(true);
