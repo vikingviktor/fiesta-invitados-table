@@ -6,8 +6,8 @@ import PaymentCard from "@/components/viaje/PaymentCard";
 import hobbitsAsiaBg from "@/assets/hobbits-in-asia.png";
 
 // Reemplaza estos valores cuando los tengas listos
-const IBAN = "ES49 0073 0100 5406 3622 2286";
-const IBAN_HOLDER = "Sara & Victor";
+const IBAN = "ES82 0073 0100 5105 0395 0699";
+const IBAN_HOLDER = "Víctor Rubio Alonso";
 const BIZUM = "+34 6XX XXX XXX";
 const PAYPAL = "https://paypal.me/sarayvictor";
 
