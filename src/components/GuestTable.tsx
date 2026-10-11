@@ -114,6 +114,13 @@ const GuestTable: React.FC<{
     return filtered;
   };
 
+  // Lista visible: se usa tanto para la tabla como para la descarga
+  const visibleGuests = useMemo(
+    () => filterGuests(guests),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [guests, consentimientoFilter, ninosFilter, pernoctaFilter, menuFilter]
+  );
+
   // Asignar mesa
   const handleMesaSelect = (guestId: string, value: string) => {
     setMesaValues((v) => ({ ...v, [guestId]: value }));
@@ -238,7 +245,10 @@ const GuestTable: React.FC<{
     <div className="w-full max-w-5xl mx-auto mt-8 px-2">
       <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
         <h2 className="text-2xl font-bold">Invitados registrados</h2>
-        <Button onClick={() => setAddModalOpen(true)}>+ Añadir invitado</Button>
+        <div className="flex items-center gap-2 flex-wrap">
+          <GuestExportButton guests={visibleGuests} />
+          <Button onClick={() => setAddModalOpen(true)}>+ Añadir invitado</Button>
+        </div>
       </div>
       <div className="flex flex-wrap gap-4 justify-between items-end mb-4">
         <div className="flex gap-6 flex-wrap">
