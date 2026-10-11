@@ -183,7 +183,7 @@ const PagosTab: React.FC = () => {
               <tr><td colSpan={6} className="p-5 text-center">Cargando...</td></tr>
             ) : filtered.length === 0 ? (
               <tr><td colSpan={6} className="p-5 text-center">Sin resultados.</td></tr>
-            ) : filtered.map((g) => {
+            ) : sorted.map((g) => {
               const d = draftOf(g.id);
               const dirty = !!drafts[g.id];
               return (
