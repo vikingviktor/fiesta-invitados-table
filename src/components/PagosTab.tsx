@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import { ArrowUp, ArrowDown, ArrowUpDown } from "lucide-react";
 
 interface Row {
   id: string;
@@ -13,6 +14,9 @@ interface Row {
 interface Pago { guest_id: string; importe: number; nota: string | null; tag: string | null }
 
 const TAGS = ["Familia V", "Familia S", "Amigos", "Otros"] as const;
+
+type SortKey = "nombre" | "importe";
+type SortState = { key: SortKey; dir: "asc" | "desc" };
 
 const fmt = (n: number) => n.toLocaleString("es-ES", { style: "currency", currency: "EUR" });
 
@@ -25,6 +29,10 @@ const PagosTab: React.FC = () => {
   const [filtroTag, setFiltroTag] = useState("todos");
   const [saving, setSaving] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [sort, setSort] = useState<SortState>({ key: "nombre", dir: "asc" });
+
+  const toggleSort = (key: SortKey) =>
+    setSort((s) => (s.key === key ? { key, dir: s.dir === "asc" ? "desc" : "asc" } : { key, dir: "asc" }));
 
   const fetchAll = useCallback(async () => {
     setLoading(true);
@@ -80,6 +88,27 @@ const PagosTab: React.FC = () => {
     });
   }, [guests, pagos, search, filtro, filtroTag]);
 
+  const sorted = useMemo(() => {
+    const arr = [...filtered];
+    arr.sort((a, b) => {
+      const cmp =
+        sort.key === "nombre"
+          ? a.nombre.localeCompare(b.nombre, "es", { sensitivity: "base" })
+          : (pagos[a.id]?.importe ?? 0) - (pagos[b.id]?.importe ?? 0);
+      return sort.dir === "asc" ? cmp : -cmp;
+    });
+    return arr;
+  }, [filtered, pagos, sort]);
+
+  const sortIcon = (key: SortKey) =>
+    sort.key !== key ? (
+      <ArrowUpDown className="h-3.5 w-3.5 opacity-40" />
+    ) : sort.dir === "asc" ? (
+      <ArrowUp className="h-3.5 w-3.5" />
+    ) : (
+      <ArrowDown className="h-3.5 w-3.5" />
+    );
+
   const total = Object.values(pagos).reduce((s, p) => s + p.importe, 0);
   const totalFiltrado = filtered.reduce((s, g) => s + (pagos[g.id]?.importe ?? 0), 0);
   const numPagados = guests.filter((g) => (pagos[g.id]?.importe ?? 0) > 0).length;
@@ -117,16 +146,34 @@ const PagosTab: React.FC = () => {
           {TAGS.map((tag) => <option key={tag} value={tag}>{tag}</option>)}
           <option value="sin_tag">Sin etiqueta</option>
         </select>
-        <span className="text-sm text-muted-foreground">{filtered.length} de {guests.length} invitados</span>
+        <span className="text-sm text-muted-foreground">{filtered.length} de {guests.length} invitados · pulsa «Nombre» o «Importe pagado» para ordenar</span>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-background border rounded-lg shadow-md text-left">
           <thead>
             <tr>
-              <th className="p-3 border-b">Nombre</th>
+              <th
+                className="p-3 border-b cursor-pointer select-none hover:opacity-70"
+                aria-sort={sort.key === "nombre" ? (sort.dir === "asc" ? "ascending" : "descending") : "none"}
+                onClick={() => toggleSort("nombre")}
+                onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && toggleSort("nombre")}
+                tabIndex={0}
+                title="Ordenar por nombre"
+              >
+                <span className="inline-flex items-center gap-1">Nombre {sortIcon("nombre")}</span>
+              </th>
               <th className="p-3 border-b">+1</th>
               <th className="p-3 border-b">Etiqueta</th>
-              <th className="p-3 border-b">Importe pagado (€)</th>
+              <th
+                className="p-3 border-b cursor-pointer select-none hover:opacity-70"
+                aria-sort={sort.key === "importe" ? (sort.dir === "asc" ? "ascending" : "descending") : "none"}
+                onClick={() => toggleSort("importe")}
+                onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && toggleSort("importe")}
+                tabIndex={0}
+                title="Ordenar por importe pagado"
+              >
+                <span className="inline-flex items-center gap-1">Importe pagado (€) {sortIcon("importe")}</span>
+              </th>
               <th className="p-3 border-b">Nota</th>
               <th className="p-3 border-b"></th>
             </tr>
@@ -136,7 +183,7 @@ const PagosTab: React.FC = () => {
               <tr><td colSpan={6} className="p-5 text-center">Cargando...</td></tr>
             ) : filtered.length === 0 ? (
               <tr><td colSpan={6} className="p-5 text-center">Sin resultados.</td></tr>
-            ) : filtered.map((g) => {
+            ) : sorted.map((g) => {
               const d = draftOf(g.id);
               const dirty = !!drafts[g.id];
               return (
