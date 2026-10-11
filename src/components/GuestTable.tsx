@@ -1,11 +1,12 @@
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { Guest, MenuOption } from "@/types/guestTypes";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import GuestTableRow from "./GuestTableRow";
 import GuestAddModal from "./GuestAddModal";
+import GuestExportButton from "./GuestExportButton";
 import { mapDbGuestToGuest, getGuestMenuCounts, menuTranslation } from "@/utils/guestUtils";
 
 
