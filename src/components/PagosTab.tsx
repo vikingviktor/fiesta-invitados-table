@@ -146,16 +146,34 @@ const PagosTab: React.FC = () => {
           {TAGS.map((tag) => <option key={tag} value={tag}>{tag}</option>)}
           <option value="sin_tag">Sin etiqueta</option>
         </select>
-        <span className="text-sm text-muted-foreground">{filtered.length} de {guests.length} invitados</span>
+        <span className="text-sm text-muted-foreground">{filtered.length} de {guests.length} invitados · pulsa «Nombre» o «Importe pagado» para ordenar</span>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-background border rounded-lg shadow-md text-left">
           <thead>
             <tr>
-              <th className="p-3 border-b">Nombre</th>
+              <th
+                className="p-3 border-b cursor-pointer select-none hover:opacity-70"
+                aria-sort={sort.key === "nombre" ? (sort.dir === "asc" ? "ascending" : "descending") : "none"}
+                onClick={() => toggleSort("nombre")}
+                onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && toggleSort("nombre")}
+                tabIndex={0}
+                title="Ordenar por nombre"
+              >
+                <span className="inline-flex items-center gap-1">Nombre {sortIcon("nombre")}</span>
+              </th>
               <th className="p-3 border-b">+1</th>
               <th className="p-3 border-b">Etiqueta</th>
-              <th className="p-3 border-b">Importe pagado (€)</th>
+              <th
+                className="p-3 border-b cursor-pointer select-none hover:opacity-70"
+                aria-sort={sort.key === "importe" ? (sort.dir === "asc" ? "ascending" : "descending") : "none"}
+                onClick={() => toggleSort("importe")}
+                onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && toggleSort("importe")}
+                tabIndex={0}
+                title="Ordenar por importe pagado"
+              >
+                <span className="inline-flex items-center gap-1">Importe pagado (€) {sortIcon("importe")}</span>
+              </th>
               <th className="p-3 border-b">Nota</th>
               <th className="p-3 border-b"></th>
             </tr>
