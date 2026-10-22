@@ -1,0 +1,677 @@
+[
+  {
+    "id": "proposal4-1",
+    "name": "Mesa 1 · Novios y amigos Rivendel",
+    "modules": 2,
+    "seats": [
+      {
+        "name": "Jose Quintana",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Álvaro Clemente",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Beatriz Rubio Alonso",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Ester de la Cruz",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Diana Navarro Sabalza",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Manuel Toro Vargas",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Julio Gómez García de Madariaga",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Pablo Lozano",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Sara De Angelis",
+        "type": "Novios",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Alfonso Redondo Rodríguez",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Víctor Rubio",
+        "type": "Novios",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "María Oliván Pedraza",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Ramón Lozano",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Cristina Navarro",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      }
+    ]
+  },
+  {
+    "id": "proposal4-2",
+    "name": "Mesa 2 · Familia S Hobbiton",
+    "modules": 3,
+    "seats": [
+      {
+        "name": "Simone Blando",
+        "type": "Familia S",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Donatella De Angelis",
+        "type": "Familia S",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Marta De Angelis",
+        "type": "Familia S",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Matteo Bella",
+        "type": "Familia S",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Sofía De Angelis",
+        "type": "Familia S",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Sonia Royo Bueno",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Francisco Gimenez Andreis",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Gonzalo Ruiz Rocco",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Veronica Ruiz",
+        "type": "Familia S",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Maria Isabel Sharma",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Estelle",
+        "type": "Familia S",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Francisca Sanz",
+        "type": "Familia S",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Charles Del Porto",
+        "type": "Familia S",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "José Luis Rey Badía",
+        "type": "Familia S",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Fabio De Angelis",
+        "type": "Familia S",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Carlo De Angelis",
+        "type": "Familia S",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Beatriz Galván Gómez",
+        "type": "Familia S",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Claudio Della Giovanna",
+        "type": "Familia S",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Antonio Bella",
+        "type": "Familia S",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Sara Ciano",
+        "type": "Familia S",
+        "guestId": null,
+        "plusOne": false
+      }
+    ]
+  },
+  {
+    "id": "proposal4-3",
+    "name": "Mesa 3 · Familia de Víctor y niños Gondor",
+    "modules": 3,
+    "seats": [
+      {
+        "name": "Martin",
+        "type": "Niños",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Carla",
+        "type": "Niños",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "David Rubio Ventura",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Mateo",
+        "type": "Niños",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Silvia Clemente Ibañez",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Atreya",
+        "type": "Niños",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Nieves Ventura",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Diego Rubio Ventura",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Pedro Luis Rubio",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Marta Salvá",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Miguel Angel Rubio de la Plaza",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Luis Alonso Rodriguez",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Beatriz Alonso Rodriguez",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Marta Rodríguez Mesanza",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Leo",
+        "type": "Niños",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Bebé",
+        "type": "Niños",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Laura Alonso",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Pablo Cabrero",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Daniel Alonso Alfonso",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Miriam",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      }
+    ]
+  },
+  {
+    "id": "proposal4-4",
+    "name": "Mesa 4 · Familia V Rohan",
+    "modules": 3,
+    "seats": [
+      {
+        "name": "Cloe",
+        "type": "Niños",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Carlos Alonso",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Ana",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Juanma",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Sonia",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Isabel Alonso",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Celsa",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Daniel Alonso Rodrigue",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Luis Merlo",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Andrea Simón",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Eva Alonso",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Raúl Alonso",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Gloria Alonso",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Marta Alonso",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Kike García",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Alberto Calvo",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Estela de la Plaza Conde",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Consuelo Alonso",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Javi",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Nuria Conde Alonso",
+        "type": "Familia V",
+        "guestId": null,
+        "plusOne": false
+      }
+    ]
+  },
+  {
+    "id": "proposal4-5",
+    "name": "Mesa 5 · Amigos 1 Erebor",
+    "modules": 2,
+    "seats": [
+      null,
+      null,
+      {
+        "name": "Elena Martínez Gutiérrez",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Virginia lopez",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Aitor Martínez Garzón",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Brian colgan",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Daniela Mutis",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Agatha",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Juan Carlos Pascual",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Jorge Aguado Sanchez",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Aitor Calleja",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Victoria Muñoz Embuena",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Alfonso Robles Arenillas",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Gabriel García Fortea",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      }
+    ]
+  },
+  {
+    "id": "proposal4-6",
+    "name": "Mesa 6 · Amigos 2 y 3 Mordor",
+    "modules": 3,
+    "seats": [
+      {
+        "name": "Álvaro Santana Sola",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      null,
+      {
+        "name": "Lucía Gómez Romero",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Jorge Pizarro de la peña",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Estrella Barrio",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Elena Alcaide",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Jesús Sabroso",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Rebeca Serrano",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Rocío Chinchilla",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Javier Serrano",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Víctor Hernán",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Paula Hernán Morote",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Mario Pueyo Lucas",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Kevin Alonso Cuenca",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Laura Canabal",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Roberta d'Amore Domenech",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Rafael d'Amore Domenech",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "YI CHAO WANG",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "Yuma Aktar",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      },
+      {
+        "name": "YI CHANG",
+        "type": "Amigos",
+        "guestId": null,
+        "plusOne": false
+      }
+    ]
+  }
+]
