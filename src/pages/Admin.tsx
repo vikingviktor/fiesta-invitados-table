@@ -147,7 +147,7 @@ const Admin = () => {
           </TabsContent>
 
           <TabsContent value="mapa">
-            <MapaMesasTab />
+            <MapaMesasTab readOnly={isViewer} />
           </TabsContent>
 
           <TabsContent value="menus">

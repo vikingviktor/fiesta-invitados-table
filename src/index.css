@@ -2,6 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Shared seating plan: category colors match the supplied proposal. */
+:root {
+  --seat-newlyweds: 47 80% 75%;
+  --seat-family-v: 210 68% 89%;
+  --seat-family-s: 340 68% 90%;
+  --seat-friends: 112 43% 87%;
+  --seat-children: 36 88% 82%;
+  --seat-other: 40 15% 93%;
+  --seat-ink: 30 20% 20%;
+  --seat-wood: 40 28% 77%;
+  --seat-outline: 35 20% 65%;
+  --seat-match: 330 80% 42%;
+}
+.dark {
+  --seat-newlyweds: 47 45% 29%;
+  --seat-family-v: 210 35% 27%;
+  --seat-family-s: 340 35% 29%;
+  --seat-friends: 112 25% 27%;
+  --seat-children: 36 50% 28%;
+  --seat-other: 40 10% 25%;
+  --seat-ink: 40 20% 94%;
+  --seat-wood: 40 22% 32%;
+}
+.seating-plan { font-family: 'Cinzel', serif; font-weight: 400; }
+.seating-plan button, .seating-plan h2, .seating-plan h3 { font-weight: 400; letter-spacing: 0; }
+.seat-newlyweds { --seat-fill: var(--seat-newlyweds); }
+.seat-family-v { --seat-fill: var(--seat-family-v); }
+.seat-family-s { --seat-fill: var(--seat-family-s); }
+.seat-friends { --seat-fill: var(--seat-friends); }
+.seat-children { --seat-fill: var(--seat-children); }
+.seat-other { --seat-fill: var(--seat-other); }
+.seat-swatch { width: 12px; height: 12px; border-radius: 2px; background: hsl(var(--seat-fill)); border: 1px solid hsl(var(--seat-outline)); }
+.long-table-scroll { overflow-x: auto; max-width: 100%; padding: 4px 3px 8px; }
+.long-table-layout { display: flex; align-items: center; gap: 5px; width: max-content; }
+.long-table-middle { display: flex; flex-direction: column; gap: 5px; }
+.long-table-row { display: flex; gap: 5px; }
+.long-seat { width: 100px; height: 70px; flex-shrink: 0; padding: 4px; white-space: normal; border-radius: 5px; font-size: 10px; line-height: 1.25; color: hsl(var(--seat-ink)); background: hsl(var(--seat-fill)); border-color: hsl(var(--seat-outline)); }
+.long-seat:hover { color: hsl(var(--seat-ink)); background: hsl(var(--seat-fill)); filter: brightness(.96); }
+.long-seat span { overflow-wrap: anywhere; }
+.seat-empty, .seat-empty:hover { background: transparent; color: hsl(var(--muted-foreground)); border-style: dashed; }
+.seat-match { outline: 3px solid hsl(var(--seat-match)); outline-offset: 1px; }
+.seat-selected { outline: 3px solid hsl(var(--ring)); outline-offset: 1px; }
+.long-table-surface { display: flex; height: 26px; gap: 0; border: 1px solid hsl(var(--seat-outline)); border-radius: 5px; overflow: hidden; background: hsl(var(--seat-wood)); }
+.long-table-module { flex: 1; border-right: 2px solid hsl(var(--seat-outline)); }
+.long-table-module:last-child { border: 0; }
+.seating-select { display: block; width: 100%; padding: 8px; border: 1px solid hsl(var(--input)); border-radius: 6px; background: hsl(var(--background)); color: hsl(var(--foreground)); }
+@media print {
+  body:has(.seating-plan) * { visibility: hidden; }
+  body:has(.seating-plan) .seating-plan, body:has(.seating-plan) .seating-plan * { visibility: visible; }
+  .seating-plan { position: absolute; inset: 0; max-width: none; padding: 0; }
+  .seating-plan .seating-toolbar { display: none; }
+  .long-table-section { break-inside: avoid; }
+  .long-table-scroll { overflow: visible; }
+  .long-seat { width: 70px; height: 58px; font-size: 8px; print-color-adjust: exact; }
+  .long-table-surface, .seat-swatch { print-color-adjust: exact; }
+  @page { size: A4 landscape; margin: 12mm; }
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
 
 @layer base {
