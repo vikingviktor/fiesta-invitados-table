@@ -5,14 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from '@/hooks/use-toast';
-import LegacyMapaMesasTab from './LegacyMapaMesasTab';
 import { capacity, initialPlan, normalizeName, PERSON_TYPES, planSchema, resizeTable, seatLabel, seatingCsv, swapSeats, type SeatingPerson, type SeatingTable, type SeatPosition } from '@/utils/seatingPlan';
 import type { Json } from '@/integrations/supabase/types';
 
 const typeClass: Record<string, string> = { Novios: 'seat-newlyweds', 'Familia V': 'seat-family-v', 'Familia S': 'seat-family-s', Amigos: 'seat-friends', Niños: 'seat-children', Otros: 'seat-other' };
 type PersonOption = SeatingPerson & { detail: string };
 
-export default function MapaMesasTab({ readOnly = false }: { readOnly?: boolean }) {
+export default function DistribucionMesasTab({ readOnly = false }: { readOnly?: boolean }) {
   const [plan, setPlan] = useState<SeatingTable[]>([]);
   const [revision, setRevision] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -26,7 +25,6 @@ export default function MapaMesasTab({ readOnly = false }: { readOnly?: boolean 
   const [personType, setPersonType] = useState<SeatingPerson['type']>('Otros');
   const [edit, setEdit] = useState<SeatingTable | null>(null);
   const [history, setHistory] = useState<SeatingTable[][]>([]);
-  const [legacy, setLegacy] = useState(false);
   const drag = useRef<SeatPosition | null>(null);
   const busy = useRef(false);
 
@@ -108,7 +106,7 @@ export default function MapaMesasTab({ readOnly = false }: { readOnly?: boolean 
     const isMoving = moving?.table === table.id && moving.seat === index;
     return <Button key={index} variant="outline" className={`long-seat ${p ? typeClass[p.type] : 'seat-empty'} ${q && p && normalizeName(p.name).includes(q) ? 'seat-match' : ''} ${isMoving ? 'seat-selected' : ''}`} title={`${seatLabel(index)} · ${p?.name ?? 'Libre'}`} aria-label={`${table.name}, ${seatLabel(index)}: ${p?.name ?? 'Libre'}`} disabled={saving}
       draggable={!readOnly && !saving && !!p}
-      onDragStart={() => { drag.current = pos; }} onDragEnd={() => { drag.current = null; }}
+      onDragStart={e => { drag.current = pos; e.dataTransfer.setData('text/plain', JSON.stringify(pos)); e.dataTransfer.effectAllowed = 'move'; }} onDragEnd={() => { drag.current = null; }}
       onDragOver={e => { if (!readOnly && drag.current) e.preventDefault(); }}
       onDrop={e => { e.preventDefault(); if (!readOnly && drag.current) void exchange(drag.current, pos); drag.current = null; }}
       onClick={() => { if (moving && !readOnly) void exchange(moving, pos); else { setSelected(pos); setPersonSearch(''); setPersonType(p?.type ?? 'Otros'); } }}>
@@ -116,13 +114,12 @@ export default function MapaMesasTab({ readOnly = false }: { readOnly?: boolean 
     </Button>;
   };
 
-  if (legacy) return <div className="px-4"><Button variant="outline" className="mb-4" onClick={() => setLegacy(false)}>Volver a mesas largas</Button><LegacyMapaMesasTab /></div>;
   if (loading) return <p className="p-8 text-center">Cargando distribución...</p>;
   if (error) return <div className="p-8 text-center space-y-4"><p role="alert">{error}</p><Button onClick={load}>Reintentar</Button></div>;
 
   return <div className="seating-plan mx-auto w-full max-w-[1500px] px-4 py-6">
     <header className="seating-toolbar flex flex-wrap items-center gap-3 mb-5">
-      <div className="mr-auto"><h2 className="text-xl font-normal">Mesas largas · Propuesta 4</h2><p className="text-sm text-muted-foreground" aria-live="polite">{occupied.length} personas · {plan.reduce((n, t) => n + t.seats.length, 0) - occupied.length} plazas libres · {saving ? 'Guardando…' : 'Guardado'}</p></div>
+      <div className="mr-auto"><h2 className="text-xl font-normal">Distribucion mesas</h2><p className="text-sm text-muted-foreground" aria-live="polite">{occupied.length} personas · {plan.reduce((n, t) => n + t.seats.length, 0) - occupied.length} plazas libres · {saving ? 'Guardando…' : 'Guardado'}</p></div>
       <label className="relative"><Search className="absolute left-3 top-3 size-4 text-muted-foreground" /><Input aria-label="Buscar persona en las mesas" placeholder="Buscar persona…" className="pl-9 w-60" value={search} onChange={e => setSearch(e.target.value)} /></label>
       <Button variant="outline" size="icon" title="Descargar CSV" aria-label="Descargar CSV" onClick={download}><Download /></Button>
       <Button variant="outline" size="icon" title="Imprimir" aria-label="Imprimir" onClick={() => window.print()}><Printer /></Button>
@@ -139,7 +136,6 @@ export default function MapaMesasTab({ readOnly = false }: { readOnly?: boolean 
         <div className="long-table-scroll"><div className="long-table-layout">{seat(table, 0)}<div className="long-table-middle"><div className="long-table-row">{Array.from({ length: table.modules * 3 }, (_, i) => seat(table, 2 + i * 2))}</div><div className="long-table-surface">{Array.from({ length: table.modules }, (_, i) => <span key={i} className="long-table-module" />)}</div><div className="long-table-row">{Array.from({ length: table.modules * 3 }, (_, i) => seat(table, 3 + i * 2))}</div></div>{seat(table, 1)}</div></div>
       </section>;
     })}</main>
-    <div className="seating-toolbar mt-6"><Button variant="link" onClick={() => setLegacy(true)}>Mapa anterior</Button></div>
 
     <Dialog open={!!selected} onOpenChange={open => { if (!open) setSelected(null); }}><DialogContent><DialogHeader><DialogTitle>{selectedPerson?.name ?? 'Asignar persona'}</DialogTitle></DialogHeader>
       <p className="text-xs text-muted-foreground">{selectedTable?.name} · {selected ? seatLabel(selected.seat) : ''}</p>

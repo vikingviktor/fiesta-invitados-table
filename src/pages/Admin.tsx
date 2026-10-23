@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import DeletedGuestTable from "@/components/DeletedGuestTable";
-import MesaAdminTab from "@/components/MesaAdminTab";
+import DistribucionMesasTab from "@/components/DistribucionMesasTab";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { mapDbGuestToGuest } from "@/utils/guestUtils";
 import CancionesTab from "@/components/CancionesTab";
@@ -125,9 +125,6 @@ const Admin = () => {
             />
           </TabsContent>
 
-          <TabsContent value="mesas">
-            <MesaAdminTab />
-          </TabsContent>
 
           <TabsContent value="habitaciones">
             <HabitacionesAdminTab />
@@ -146,9 +143,6 @@ const Admin = () => {
             <CancionesTab />
           </TabsContent>
 
-          <TabsContent value="mapa">
-            <MapaMesasTab readOnly={isViewer} />
-          </TabsContent>
 
           <TabsContent value="menus">
             <MenusTab />
@@ -160,6 +154,8 @@ const Admin = () => {
             </TabsContent>
           )}
         </fieldset>
+          <TabsContent value="mesas"><DistribucionMesasTab readOnly={isViewer} /></TabsContent>
+          <TabsContent value="mapa"><MapaMesasTab readOnly={isViewer} /></TabsContent>
         </Tabs>
       </section>
     </div>
