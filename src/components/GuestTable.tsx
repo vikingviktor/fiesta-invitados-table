@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import GuestTableRow from "./GuestTableRow";
+import { planSchema, type SeatingTable } from "@/utils/seatingPlan";
 import GuestAddModal from "./GuestAddModal";
 import GuestExportButton from "./GuestExportButton";
 import { mapDbGuestToGuest, getGuestMenuCounts, menuTranslation } from "@/utils/guestUtils";
@@ -46,8 +47,16 @@ const GuestTable: React.FC<{
 }> = ({ guests, loading, fetchGuests, fetchDeletedGuests }) => {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [loadingDelete, setLoadingDelete] = useState(false);
-  const [mesaValues, setMesaValues] = useState<Record<string, string>>({});
-  const [savingId, setSavingId] = useState<string | null>(null);
+  const [seating, setSeating] = useState<SeatingTable[] | null>(null);
+  useEffect(() => {
+    let active = true;
+    supabase.from('wedding_seating_plan').select('layout').eq('id', 'official').maybeSingle().then(({ data }) => {
+      const parsed = planSchema.safeParse(data?.layout);
+      if (active) setSeating(parsed.success ? parsed.data : null);
+    });
+    return () => { active = false; };
+  }, []);
+  const assignment = (id: string, plusOne: boolean) => seating === null ? 'No disponible' : seating.find(t => t.seats.some(p => p?.guestId === id && p.plusOne === plusOne))?.name ?? 'Sin mesa';
   const [consentimientoFilter, setConsentimientoFilter] = useState("todos");
   const [consentSavingId, setConsentSavingId] = useState<string | null>(null);
   const [ninosFilter, setNinosFilter] = useState("todos");
@@ -120,43 +129,6 @@ const GuestTable: React.FC<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [guests, consentimientoFilter, ninosFilter, pernoctaFilter, menuFilter]
   );
-
-  // Asignar mesa
-  const handleMesaSelect = (guestId: string, value: string) => {
-    setMesaValues((v) => ({ ...v, [guestId]: value }));
-  };
-
-  const handleAssignMesa = async (guest: Guest & { mesa?: string | null }) => {
-    const mesaName = mesaValues[guest.id];
-    if (!mesaName) {
-      toast({
-        title: "Mesa no seleccionada",
-        description: "Por favor, selecciona una mesa.",
-        variant: "destructive",
-      });
-      return;
-    }
-    setSavingId(guest.id);
-    const { error } = await supabase
-      .from("guests")
-      .update({ mesa: mesaName })
-      .eq("id", guest.id);
-    if (error) {
-      toast({
-        title: "Error al asignar mesa",
-        description: "No se pudo actualizar la mesa para el invitado.",
-        variant: "destructive",
-      });
-    } else {
-      toast({
-        title: "Mesa asignada",
-        description: `${mesaName} asignada correctamente.`,
-      });
-      setMesaValues((v) => ({ ...v, [guest.id]: "" }));
-      await fetchGuests();
-    }
-    setSavingId(null);
-  };
 
   // CAMBIO: Manejar cambio de consentimiento en línea
   const handleConsentimientoChange = async (guestId: string, value: boolean) => {
@@ -369,12 +341,10 @@ const GuestTable: React.FC<{
                 <GuestTableRow
                   key={g.id}
                   guest={g}
-                  mesaValue={mesaValues[g.id] ?? ""}
-                  savingId={savingId}
+                  mesaPrincipal={assignment(g.id, false)}
+                  mesaAcompanante={g.plusOne ? assignment(g.id, true) : undefined}
                   deleteId={deleteId}
                   loadingDelete={loadingDelete}
-                  onMesaChange={handleMesaSelect}
-                  onMesaSave={handleAssignMesa}
                   onDeleteClick={setDeleteId}
                   onDeleteCancel={() => setDeleteId(null)}
                   onDeleteConfirm={handleDelete}

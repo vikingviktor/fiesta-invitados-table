@@ -1,7 +1,6 @@
 
 import React, { useState } from "react";
 import { Guest, MenuOption } from "@/types/guestTypes";
-import GuestMesaSelect from "./GuestMesaSelect";
 import GuestDeleteModal from "./GuestDeleteModal";
 import GuestEditModal from "./GuestEditModal";
 import { menuTranslation } from "@/utils/guestUtils";
@@ -9,12 +8,10 @@ import { Switch } from "@/components/ui/switch";
 
 interface GuestTableRowProps {
   guest: Guest & { mesa?: string | null };
-  mesaValue: string;
-  savingId: string | null;
+  mesaPrincipal: string;
+  mesaAcompanante?: string;
   deleteId: string | null;
   loadingDelete: boolean;
-  onMesaChange: (guestId: string, value: string) => void;
-  onMesaSave: (guest: Guest & { mesa?: string | null }) => void;
   onDeleteClick: (guestId: string) => void;
   onDeleteCancel: () => void;
   onDeleteConfirm: (guestId: string) => void;
@@ -25,12 +22,10 @@ interface GuestTableRowProps {
 
 const GuestTableRow: React.FC<GuestTableRowProps> = ({
   guest,
-  mesaValue,
-  savingId,
+  mesaPrincipal,
+  mesaAcompanante,
   deleteId,
   loadingDelete,
-  onMesaChange,
-  onMesaSave,
   onDeleteClick,
   onDeleteCancel,
   onDeleteConfirm,
@@ -60,14 +55,8 @@ const GuestTableRow: React.FC<GuestTableRowProps> = ({
       <td className="p-3 border-b text-center">{guest.pernoctaSabado ? "Sí" : "No"}</td>
       <td className="p-3 border-b text-xs">{new Date(guest.date).toLocaleString()}</td>
       <td className="p-3 border-b">
-        <GuestMesaSelect
-          guest={guest}
-          mesaValue={mesaValue}
-          savingId={savingId}
-          onChange={val => onMesaChange(guest.id, val)}
-          onSave={() => onMesaSave(guest)}
-          disabled={savingId === guest.id}
-        />
+        <span className="text-sm">{mesaPrincipal}</span>
+        {mesaAcompanante && <span className="block text-xs text-muted-foreground">+1: {mesaAcompanante}</span>}
       </td>
       <td className="p-3 border-b text-center">
         <div className="flex flex-col items-center gap-1">
