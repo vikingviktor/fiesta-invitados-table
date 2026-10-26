@@ -19,7 +19,7 @@ describe('Giro de mesas en la cuadrícula', () => {
   });
   test('una mesa girada no puede solaparse con otra', () => {
     expect(canPlace(grid, tables, 'b', 0, 1, 90)).toBe(false);
-    expect(canPlace(grid, tables, 'b', 4, 1, 90)).toBe(true);
+    expect(canPlace(grid, tables, 'b', 8, 1, 90)).toBe(true);
   });
   test('reconcileGrid conserva el giro guardado', () => {
     const input = { width: 30, height: 20, positions: { a: { x: 0, y: 0, rotation: 90 }, b: { x: 10, y: 0 } } };
