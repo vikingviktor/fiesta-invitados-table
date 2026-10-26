@@ -218,7 +218,7 @@ export default function MapaMesasTab({ readOnly = false }: { readOnly?: boolean 
                 className={`absolute flex items-center justify-center overflow-visible border bg-secondary p-2 text-center text-xs text-secondary-foreground select-none ${
                   readOnly ? '' : 'cursor-grab active:cursor-grabbing'
                 } ${invalid ? 'border-destructive' : ''} ${isSelected ? 'ring-2 ring-primary' : ''}`}
-                style={{ left: pos.x * CELL, top: pos.y * CELL, width: size.width * CELL, height: size.height * CELL }}
+                style={{ left: pos.x * CELL, top: pos.y * CELL, width: size.width * CELL, height: size.height * CELL, backgroundColor: table.color ?? undefined }}
               >
                 <span>
                   {table.name}
