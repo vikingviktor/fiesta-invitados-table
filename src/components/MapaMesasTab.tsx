@@ -18,8 +18,9 @@ export default function MapaMesasTab({ readOnly = false }: { readOnly?: boolean 
   const [widthInput, setWidthInput] = useState('30');
   const [heightInput, setHeightInput] = useState('20');
   const [drag, setDrag] = useState<DragState | null>(null);
+  const [selected, setSelected] = useState<string | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
-  const dragRef = useRef<{ id: string; offX: number; offY: number } | null>(null);
+  const dragRef = useRef<{ id: string; offX: number; offY: number; startX: number; startY: number } | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -81,7 +82,7 @@ export default function MapaMesasTab({ readOnly = false }: { readOnly?: boolean 
     const pos = grid.positions[table.id];
     if (!pos) return;
     const cell = cellFromEvent(e);
-    dragRef.current = { id: table.id, offX: cell.x - pos.x, offY: cell.y - pos.y };
+    dragRef.current = { id: table.id, offX: cell.x - pos.x, offY: cell.y - pos.y, startX: pos.x, startY: pos.y };
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
     setDrag({ id: table.id, x: pos.x, y: pos.y });
   };
@@ -91,7 +92,7 @@ export default function MapaMesasTab({ readOnly = false }: { readOnly?: boolean 
     if (!d || !grid || !gridRef.current) return;
     const table = tables.find(t => t.id === d.id);
     if (!table) return;
-    const size = tableFootprint(table.modules);
+    const size = tableFootprint(table.modules, grid.positions[d.id]?.rotation ?? 0);
     const cell = cellFromEvent(e);
     const x = Math.max(0, Math.min(cell.x - d.offX, grid.width - size.width));
     const y = Math.max(0, Math.min(cell.y - d.offY, grid.height - size.height));
@@ -105,12 +106,29 @@ export default function MapaMesasTab({ readOnly = false }: { readOnly?: boolean 
     setDrag(current => {
       if (!current) return null;
       const old = grid.positions[d.id];
-      if (old && (old.x !== current.x || old.y !== current.y) && canPlace(grid, tables, d.id, current.x, current.y)) {
-        setGrid({ ...grid, positions: { ...grid.positions, [d.id]: { x: current.x, y: current.y } } });
+      const moved = old && (old.x !== current.x || old.y !== current.y);
+      if (moved && canPlace(grid, tables, d.id, current.x, current.y)) {
+        setGrid({ ...grid, positions: { ...grid.positions, [d.id]: { x: current.x, y: current.y, rotation: old?.rotation } } });
         setDirty(true);
+      } else if (!moved) {
+        setSelected(prev => (prev === d.id ? null : d.id));
       }
       return null;
     });
+  };
+
+  const rotate = (table: SeatingTable) => {
+    if (!grid) return;
+    const pos = grid.positions[table.id];
+    if (!pos) return;
+    const nextRotation = (pos.rotation ?? 0) === 90 ? 0 : 90;
+    if (!canPlace(grid, tables, table.id, pos.x, pos.y, nextRotation)) {
+      setNotice('La mesa no cabe girada en esa posición. Muévela primero.');
+      return;
+    }
+    setGrid({ ...grid, positions: { ...grid.positions, [table.id]: { ...pos, rotation: nextRotation } } });
+    setDirty(true);
+    setNotice('');
   };
 
   const applySize = () => {
@@ -189,26 +207,45 @@ export default function MapaMesasTab({ readOnly = false }: { readOnly?: boolean 
           {tables.map(table => {
             const pos = drag?.id === table.id ? drag : grid.positions[table.id];
             if (!pos) return null;
-            const size = tableFootprint(table.modules);
+            const rotation = grid.positions[table.id]?.rotation ?? 0;
+            const size = tableFootprint(table.modules, rotation);
             const invalid = drag?.id === table.id && !canPlace(grid, tables, table.id, drag.x, drag.y);
+            const isSelected = selected === table.id && !readOnly;
             return (
               <div
                 key={table.id}
                 onPointerDown={e => onPointerDown(e, table)}
-                className={`absolute flex items-center justify-center overflow-hidden border bg-secondary p-2 text-center text-xs text-secondary-foreground select-none ${
+                className={`absolute flex items-center justify-center overflow-visible border bg-secondary p-2 text-center text-xs text-secondary-foreground select-none ${
                   readOnly ? '' : 'cursor-grab active:cursor-grabbing'
-                } ${invalid ? 'border-destructive' : ''}`}
+                } ${invalid ? 'border-destructive' : ''} ${isSelected ? 'ring-2 ring-primary' : ''}`}
                 style={{ left: pos.x * CELL, top: pos.y * CELL, width: size.width * CELL, height: size.height * CELL }}
               >
                 <span>
                   {table.name}
                   <span className="block">{table.seats.filter(Boolean).length}/{table.seats.length}</span>
                 </span>
+                {isSelected && (
+                  <button
+                    type="button"
+                    aria-label={`Girar ${table.name} 90 grados`}
+                    title="Girar 90°"
+                    onPointerDown={e => e.stopPropagation()}
+                    onClick={e => { e.stopPropagation(); rotate(table); }}
+                    className="absolute -top-3 -right-3 flex h-7 w-7 items-center justify-center rounded-full border bg-primary text-sm text-primary-foreground shadow"
+                  >
+                    ↻
+                  </button>
+                )}
               </div>
             );
           })}
         </div>
       </div>
+      {!readOnly && (
+        <p className="mt-2 text-sm text-muted-foreground">
+          Arrastra las mesas para colocarlas. Pulsa una mesa para seleccionarla y usa el botón ↻ para girarla 90°.
+        </p>
+      )}
     </section>
   );
 }
