@@ -9,6 +9,7 @@ describe('Mesas de tres personas por lado y dos cabeceras', () => {
     expect(plan.map(t => t.seats.length)).toEqual([14,20,20,20,14,20]);
     expect(plan.flatMap(t => t.seats).filter(Boolean)).toHaveLength(105);
     expect(plan[0].seats[2]?.name).toBe('Beatriz Rubio Alonso');
+    expect(plan[0].color).toBeNull();
     expect(plan[2].seats[1]?.name).toBe('Carla');
   });
   test('intercambia personas entre mesas sin perderlas', () => {

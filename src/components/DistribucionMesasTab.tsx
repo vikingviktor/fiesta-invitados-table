@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from '@/hooks/use-toast';
-import { capacity, initialPlan, normalizeName, PERSON_TYPES, planSchema, resizeTable, seatLabel, seatingCsv, swapSeats, type SeatingPerson, type SeatingTable, type SeatPosition } from '@/utils/seatingPlan';
+import { capacity, initialPlan, normalizeName, PERSON_TYPES, planSchema, resizeTable, seatLabel, seatingCsv, swapSeats, TABLE_COLORS, type SeatingPerson, type SeatingTable, type SeatPosition } from '@/utils/seatingPlan';
 import type { Json } from '@/integrations/supabase/types';
 
 const typeClass: Record<string, string> = { Novios: 'seat-newlyweds', 'Familia V': 'seat-family-v', 'Familia S': 'seat-family-s', Amigos: 'seat-friends', Niños: 'seat-children', Otros: 'seat-other' };
@@ -91,7 +91,7 @@ export default function DistribucionMesasTab({ readOnly = false }: { readOnly?: 
     if (!edit) return;
     try {
       const existing = plan.find(t => t.id === edit.id);
-      const updated = existing ? { ...resizeTable(existing, edit.modules), name: edit.name.trim() } : resizeTable(edit, edit.modules);
+      const updated = existing ? { ...resizeTable(existing, edit.modules), name: edit.name.trim(), color: edit.color } : resizeTable(edit, edit.modules);
       if (await save(existing ? plan.map(t => t.id === edit.id ? updated : t) : [...plan, updated])) setEdit(null);
     } catch (e) { toast({ title: e instanceof Error ? e.message : 'Mesa inválida', variant: 'destructive' }); }
   };
@@ -125,14 +125,14 @@ export default function DistribucionMesasTab({ readOnly = false }: { readOnly?: 
       <Button variant="outline" size="icon" title="Imprimir" aria-label="Imprimir" onClick={() => window.print()}><Printer /></Button>
       {!readOnly && <><Button variant="outline" size="icon" title="Deshacer" aria-label="Deshacer" disabled={!history.length || saving} onClick={async () => { const previous = history[history.length - 1]; if (previous && await save(previous, false)) setHistory(h => h.slice(0, -1)); }}><Undo2 /></Button>
       <Button variant="outline" size="icon" title="Restaurar propuesta 4" aria-label="Restaurar propuesta 4" disabled={saving} onClick={() => { if (window.confirm('¿Restaurar la propuesta 4 del HTML? Se reemplazará la distribución actual.')) void save(initialPlan()); }}><RotateCcw /></Button>
-      <Button onClick={() => setEdit({ id: crypto.randomUUID(), name: `Mesa ${plan.length + 1}`, modules: 1, seats: Array(8).fill(null) })} disabled={saving}><Plus />Añadir mesa</Button></>}
+      <Button onClick={() => setEdit({ id: crypto.randomUUID(), name: `Mesa ${plan.length + 1}`, modules: 1, color: null, seats: Array(8).fill(null) })} disabled={saving}><Plus />Añadir mesa</Button></>}
     </header>
     <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs mb-5">{PERSON_TYPES.map(type => <span key={type} className="inline-flex items-center gap-2"><i className={`seat-swatch ${typeClass[type]}`} />{type} ({occupied.filter(p => p.type === type).length})</span>)}</div>
     {moving && <div className="seating-toolbar flex items-center gap-3 mb-4 text-sm"><span>Moviendo: {plan.find(t => t.id === moving.table)?.seats[moving.seat]?.name}</span><Button variant="ghost" size="icon" title="Cancelar movimiento" aria-label="Cancelar movimiento" onClick={() => setMoving(null)}><X /></Button></div>}
     <main className="space-y-5">{plan.map(table => {
       const count = table.seats.filter(Boolean).length;
       return <section key={table.id} className="long-table-section border-b pb-5" aria-label={table.name}>
-        <div className="flex flex-wrap items-center gap-2 mb-3"><h3 className="text-sm font-normal mr-auto">{table.name}</h3><span className="text-xs text-muted-foreground">{table.modules} mesas unidas · {count}/{table.seats.length} · {table.seats.length - count} libres</span>{!readOnly && <Button variant="ghost" size="icon" className="size-8" title={`Editar ${table.name}`} aria-label={`Editar ${table.name}`} onClick={() => setEdit(structuredClone(table))}><Pencil /></Button>}</div>
+        <div className="flex flex-wrap items-center gap-2 mb-3"><h3 className="text-sm font-normal mr-auto inline-flex items-center gap-2">{table.color && <i className="inline-block size-3 rounded-full border" style={{ backgroundColor: table.color }} />}{table.name}</h3><span className="text-xs text-muted-foreground">{table.modules} mesas unidas · {count}/{table.seats.length} · {table.seats.length - count} libres</span>{!readOnly && <Button variant="ghost" size="icon" className="size-8" title={`Editar ${table.name}`} aria-label={`Editar ${table.name}`} onClick={() => setEdit(structuredClone(table))}><Pencil /></Button>}</div>
         <div className="long-table-scroll"><div className="long-table-layout">{seat(table, 0)}<div className="long-table-middle"><div className="long-table-row">{Array.from({ length: table.modules * 3 }, (_, i) => seat(table, 2 + i * 2))}</div><div className="long-table-surface">{Array.from({ length: table.modules }, (_, i) => <span key={i} className="long-table-module" />)}</div><div className="long-table-row">{Array.from({ length: table.modules * 3 }, (_, i) => seat(table, 3 + i * 2))}</div></div>{seat(table, 1)}</div></div>
       </section>;
     })}</main>
@@ -149,6 +149,12 @@ export default function DistribucionMesasTab({ readOnly = false }: { readOnly?: 
     <Dialog open={!!edit} onOpenChange={open => { if (!open) setEdit(null); }}><DialogContent><DialogHeader><DialogTitle>{plan.some(t => t.id === edit?.id) ? 'Editar mesa' : 'Añadir mesa'}</DialogTitle></DialogHeader>{edit && <>
       <label className="text-sm">Nombre<Input aria-label="Nombre de mesa" value={edit.name} onChange={e => setEdit({ ...edit, name: e.target.value })} maxLength={200} /></label>
       <label className="text-sm">Mesas unidas<Input aria-label="Número de mesas unidas" type="number" min={1} max={10} value={edit.modules} onChange={e => setEdit({ ...edit, modules: Number(e.target.value) })} /></label><p className="text-sm text-muted-foreground">{capacity(edit.modules)} plazas</p>
+      <div className="text-sm">Color de la mesa
+        <div className="mt-1 flex flex-wrap items-center gap-2">
+          <button type="button" aria-label="Sin color" title="Sin color" onClick={() => setEdit({ ...edit, color: null })} className={`flex size-7 items-center justify-center rounded-full border text-xs text-muted-foreground ${edit.color === null ? 'ring-2 ring-primary' : ''}`}>✕</button>
+          {TABLE_COLORS.map(c => <button key={c} type="button" aria-label={`Color ${c}`} title={c} onClick={() => setEdit({ ...edit, color: c })} style={{ backgroundColor: c }} className={`size-7 rounded-full border ${edit.color === c ? 'ring-2 ring-primary' : ''}`} />)}
+        </div>
+      </div>
       <Button disabled={saving} onClick={editSave}>Guardar mesa</Button>
       {plan.some(t => t.id === edit.id) && <Button variant="destructive" disabled={saving} onClick={async () => { if (edit.seats.some(Boolean)) { toast({ title: 'La mesa tiene personas asignadas', description: 'Muévelas o quítalas antes de eliminar la mesa.', variant: 'destructive' }); return; } if (window.confirm('¿Eliminar esta mesa vacía?') && await save(plan.filter(t => t.id !== edit.id))) setEdit(null); }}><Trash2 />Eliminar mesa</Button>}
     </>}</DialogContent></Dialog>

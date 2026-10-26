@@ -3,7 +3,8 @@ import proposal from '@/data/seatingProposal4.json';
 
 export const PERSON_TYPES = ['Novios', 'Familia V', 'Familia S', 'Amigos', 'Niños', 'Otros'] as const;
 export const personSchema = z.object({ name: z.string().trim().min(1).max(200), type: z.enum(PERSON_TYPES), guestId: z.string().nullable(), plusOne: z.boolean() });
-export const tableSchema = z.object({ id: z.string(), name: z.string().trim().min(1).max(200), modules: z.number().int().min(1).max(10), seats: z.array(personSchema.nullable()) }).refine(t => t.seats.length === capacity(t.modules));
+export const TABLE_COLORS = ['#f4d03f', '#aed6f1', '#f5b7b1', '#abebc6', '#f5cba7', '#d7bde2', '#a2d9ce', '#f9e79f', '#d5dbdb', '#f0b27a', '#85c1e9', '#f1948a'] as const;
+export const tableSchema = z.object({ id: z.string(), name: z.string().trim().min(1).max(200), modules: z.number().int().min(1).max(10), color: z.string().regex(/^#[0-9a-fA-F]{6}$/).nullable().default(null), seats: z.array(personSchema.nullable()) }).refine(t => t.seats.length === capacity(t.modules));
 export const planSchema = z.array(tableSchema);
 export type SeatingPerson = z.infer<typeof personSchema>;
 export type SeatingTable = z.infer<typeof tableSchema>;
