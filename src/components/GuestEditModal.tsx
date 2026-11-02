@@ -115,6 +115,12 @@ const GuestEditModal: React.FC<GuestEditModalProps> = ({ guest, open, onClose, o
             <Switch checked={form.plusOne} onCheckedChange={(v) => handleChange("plusOne", v)} />
           </div>
 
+          {!form.plusOne && guest.plusOne && (
+            <p className="text-sm text-destructive -mt-2">
+              Al guardar se dará de baja al acompañante{guest.nombreAcompanante ? ` (${guest.nombreAcompanante})` : ""} y se borrarán sus datos. El invitado principal se mantiene.
+            </p>
+          )}
+
           {form.plusOne && (
             <>
               <div>
