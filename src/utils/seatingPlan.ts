@@ -2,7 +2,7 @@ import { z } from 'zod';
 import proposal from '@/data/seatingProposal4.json';
 
 export const PERSON_TYPES = ['Novios', 'Familia V', 'Familia S', 'Amigos', 'Niños', 'Otros'] as const;
-export const personSchema = z.object({ name: z.string().trim().min(1).max(200), type: z.enum(PERSON_TYPES), guestId: z.string().nullable(), plusOne: z.boolean(), adultMenu: z.boolean().optional(), tags: z.array(z.string().trim().min(1).max(30)).max(3).optional() });
+export const personSchema = z.object({ name: z.string().trim().min(1).max(200), type: z.enum(PERSON_TYPES), guestId: z.string().nullable(), plusOne: z.boolean(), adultMenu: z.boolean().optional(), specialMenu: z.boolean().optional(), tags: z.array(z.string().trim().min(1).max(30)).max(3).optional() });
 export const TABLE_COLORS = ['#f4d03f', '#aed6f1', '#f5b7b1', '#abebc6', '#f5cba7', '#d7bde2', '#a2d9ce', '#f9e79f', '#d5dbdb', '#f0b27a', '#85c1e9', '#f1948a'] as const;
 export const tableSchema = z.object({ id: z.string(), name: z.string().trim().min(1).max(200), modules: z.number().int().min(1).max(10), color: z.string().regex(/^#[0-9a-fA-F]{6}$/).nullable().default(null), seats: z.array(personSchema.nullable()) }).refine(t => t.seats.length === capacity(t.modules));
 export const planSchema = z.array(tableSchema);
@@ -14,7 +14,7 @@ export const normalizeName = (name: string) => name.normalize('NFD').replace(/[\
 export const initialPlan = () => planSchema.parse(structuredClone(proposal));
 export const seatLabel = (seat: number) => seat === 0 ? 'Cabecera izquierda' : seat === 1 ? 'Cabecera derecha' : `${seat % 2 === 0 ? 'Lado superior' : 'Lado inferior'} ${Math.floor((seat - 2) / 2) + 1}`;
 export const hasAdultMenu = (person: SeatingPerson) => person.type === 'Niños' && person.adultMenu === true;
-export const personDetails = (person: SeatingPerson) => [hasAdultMenu(person) ? 'Menú adulto' : '', ...(person.tags ?? [])].filter(Boolean).join(' · ');
+export const personDetails = (person: SeatingPerson) => [hasAdultMenu(person) ? 'Menú adulto' : '', person.specialMenu ? 'Menú especial' : '', ...(person.tags ?? [])].filter(Boolean).join(' · ');
 export function swapSeats(plan: SeatingTable[], from: SeatPosition, to: SeatPosition) {
   const next = structuredClone(plan);
   const a = next.find(t => t.id === from.table);
@@ -31,7 +31,7 @@ export function resizeTable(table: SeatingTable, modules: number): SeatingTable 
   return tableSchema.parse({ ...table, modules, seats: Array.from({ length: size }, (_, i) => table.seats[i] ?? null) });
 }
 export function seatingCsv(plan: SeatingTable[]) {
-  const rows = [['Mesa', 'Posición', 'Invitado', 'Tipo', 'Menú adulto (niño)', 'Etiquetas']];
-  plan.forEach(t => t.seats.forEach((p, i) => rows.push([t.name, seatLabel(i), p?.name ?? '', p?.type ?? '', p ? (hasAdultMenu(p) ? 'Sí' : 'No') : '', p?.tags?.join(' · ') ?? ''])));
+  const rows = [['Mesa', 'Posición', 'Invitado', 'Tipo', 'Menú adulto (niño)', 'Etiquetas', 'Menú especial']];
+  plan.forEach(t => t.seats.forEach((p, i) => rows.push([t.name, seatLabel(i), p?.name ?? '', p?.type ?? '', p ? (hasAdultMenu(p) ? 'Sí' : 'No') : '', p?.tags?.join(' · ') ?? '', p ? (p.specialMenu ? 'Sí' : 'No') : ''])));
   return '\ufeff' + rows.map(r => r.map(v => '"' + v.replace(/"/g, '""') + '"').join(';')).join('\r\n');
 }
