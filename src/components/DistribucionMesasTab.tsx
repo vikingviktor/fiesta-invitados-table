@@ -3,9 +3,10 @@ import { Download, Pencil, Plus, Printer, RotateCcw, Search, Trash2, Undo2, X } 
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from '@/hooks/use-toast';
-import { capacity, initialPlan, normalizeName, PERSON_TYPES, planSchema, resizeTable, seatLabel, seatingCsv, swapSeats, TABLE_COLORS, type SeatingPerson, type SeatingTable, type SeatPosition } from '@/utils/seatingPlan';
+import { capacity, hasAdultMenu, initialPlan, normalizeName, personDetails, PERSON_TYPES, planSchema, resizeTable, seatLabel, seatingCsv, swapSeats, TABLE_COLORS, type SeatingPerson, type SeatingTable, type SeatPosition } from '@/utils/seatingPlan';
 import type { Json } from '@/integrations/supabase/types';
 
 const typeClass: Record<string, string> = { Novios: 'seat-newlyweds', 'Familia V': 'seat-family-v', 'Familia S': 'seat-family-s', Amigos: 'seat-friends', Niños: 'seat-children', Otros: 'seat-other' };
@@ -23,6 +24,9 @@ export default function DistribucionMesasTab({ readOnly = false }: { readOnly?: 
   const [moving, setMoving] = useState<SeatPosition | null>(null);
   const [personSearch, setPersonSearch] = useState('');
   const [personType, setPersonType] = useState<SeatingPerson['type']>('Otros');
+  const [adultMenu, setAdultMenu] = useState(false);
+  const [personTags, setPersonTags] = useState<string[]>([]);
+  const [tagInput, setTagInput] = useState('');
   const [edit, setEdit] = useState<SeatingTable | null>(null);
   const [history, setHistory] = useState<SeatingTable[][]>([]);
   const drag = useRef<SeatPosition | null>(null);
@@ -97,6 +101,21 @@ export default function DistribucionMesasTab({ readOnly = false }: { readOnly?: 
   };
   const selectedTable = plan.find(t => t.id === selected?.table);
   const selectedPerson = selected && selectedTable ? selectedTable.seats[selected.seat] : null;
+  const personMetadata = { type: personType, adultMenu: personType === 'Niños' && adultMenu, tags: personTags };
+  const addTag = () => {
+    const tag = tagInput.trim();
+    if (tag && personTags.length < 3 && !personTags.some(t => normalizeName(t) === normalizeName(tag))) setPersonTags(tags => [...tags, tag]);
+    setTagInput('');
+  };
+  const metadataFields = <>
+    <label className="text-sm">Categoría<select aria-label="Categoría de persona" disabled={readOnly || saving} className="seating-select mt-1" value={personType} onChange={e => setPersonType(e.target.value as SeatingPerson['type'])}>{PERSON_TYPES.map(t => <option key={t}>{t}</option>)}</select></label>
+    {personType === 'Niños' && <label className="flex items-center justify-between gap-3 text-sm">Menú adulto<Switch aria-label="Menú adulto" checked={adultMenu} disabled={readOnly || saving} onCheckedChange={setAdultMenu} /></label>}
+    <div className="space-y-2 text-sm">
+      <label htmlFor="seat-tag">Etiquetas</label>
+      <div className="flex flex-wrap gap-2">{personTags.map(tag => <span key={tag} className="inline-flex max-w-full items-center gap-1 border rounded px-2 py-1"><span className="break-words min-w-0">{tag}</span>{!readOnly && <Button variant="ghost" size="icon" className="size-6 shrink-0" aria-label={`Quitar etiqueta ${tag}`} disabled={saving} onClick={() => setPersonTags(tags => tags.filter(t => t !== tag))}><X className="size-3" /></Button>}</span>)}</div>
+      {!readOnly && <div className="flex gap-2"><Input id="seat-tag" placeholder="Trona / Bebé: Lucía" maxLength={30} value={tagInput} disabled={saving || personTags.length >= 3} onChange={e => setTagInput(e.target.value)} onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addTag(); } }} /><Button variant="outline" size="icon" title="Añadir etiqueta" aria-label="Añadir etiqueta" disabled={saving || !tagInput.trim() || personTags.length >= 3} onClick={addTag}><Plus /></Button></div>}
+    </div>
+  </>;
   const q = normalizeName(search);
   const occupied = plan.flatMap(t => t.seats).filter((p): p is SeatingPerson => p !== null);
   const options = people.filter(p => !occupied.some(s => normalizeName(s.name) === normalizeName(p.name) || (s.guestId === p.guestId && s.plusOne === p.plusOne))).filter(p => normalizeName(p.name + ' ' + p.detail).includes(normalizeName(personSearch))).slice(0, 50);
@@ -104,13 +123,13 @@ export default function DistribucionMesasTab({ readOnly = false }: { readOnly?: 
   const seat = (table: SeatingTable, index: number) => {
     const p = table.seats[index]; const pos = { table: table.id, seat: index };
     const isMoving = moving?.table === table.id && moving.seat === index;
-    return <Button key={index} variant="outline" className={`long-seat ${p ? typeClass[p.type] : 'seat-empty'} ${q && p && normalizeName(p.name).includes(q) ? 'seat-match' : ''} ${isMoving ? 'seat-selected' : ''}`} title={`${seatLabel(index)} · ${p?.name ?? 'Libre'}`} aria-label={`${table.name}, ${seatLabel(index)}: ${p?.name ?? 'Libre'}`} disabled={saving}
+    return <Button key={index} variant="outline" className={`long-seat ${p ? hasAdultMenu(p) ? 'seat-adult-menu' : typeClass[p.type] : 'seat-empty'} ${q && p && normalizeName(p.name + ' ' + personDetails(p)).includes(q) ? 'seat-match' : ''} ${isMoving ? 'seat-selected' : ''}`} title={`${seatLabel(index)} · ${p?.name ?? 'Libre'}${p && personDetails(p) ? ' · ' + personDetails(p) : ''}`} aria-label={`${table.name}, ${seatLabel(index)}: ${p?.name ?? 'Libre'}`} disabled={saving}
       draggable={!readOnly && !saving && !!p}
       onDragStart={e => { drag.current = pos; e.dataTransfer.setData('text/plain', JSON.stringify(pos)); e.dataTransfer.effectAllowed = 'move'; }} onDragEnd={() => { drag.current = null; }}
       onDragOver={e => { if (!readOnly && drag.current) e.preventDefault(); }}
       onDrop={e => { e.preventDefault(); if (!readOnly && drag.current) void exchange(drag.current, pos); drag.current = null; }}
-      onClick={() => { if (moving && !readOnly) void exchange(moving, pos); else { setSelected(pos); setPersonSearch(''); setPersonType(p?.type ?? 'Otros'); } }}>
-      <span>{p?.name ?? 'Libre'}</span>
+      onClick={() => { if (moving && !readOnly) void exchange(moving, pos); else { setSelected(pos); setPersonSearch(''); setPersonType(p?.type ?? 'Otros'); setAdultMenu(p?.adultMenu ?? false); setPersonTags(p?.tags ?? []); setTagInput(''); } }}>
+      <span>{p?.name ?? 'Libre'}{p && personDetails(p) && <span className="seat-details">{personDetails(p)}</span>}</span>
     </Button>;
   };
 
@@ -127,7 +146,7 @@ export default function DistribucionMesasTab({ readOnly = false }: { readOnly?: 
       <Button variant="outline" size="icon" title="Restaurar propuesta 4" aria-label="Restaurar propuesta 4" disabled={saving} onClick={() => { if (window.confirm('¿Restaurar la propuesta 4 del HTML? Se reemplazará la distribución actual.')) void save(initialPlan()); }}><RotateCcw /></Button>
       <Button onClick={() => setEdit({ id: crypto.randomUUID(), name: `Mesa ${plan.length + 1}`, modules: 1, color: null, seats: Array(8).fill(null) })} disabled={saving}><Plus />Añadir mesa</Button></>}
     </header>
-    <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs mb-5">{PERSON_TYPES.map(type => <span key={type} className="inline-flex items-center gap-2"><i className={`seat-swatch ${typeClass[type]}`} />{type} ({occupied.filter(p => p.type === type).length})</span>)}</div>
+    <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs mb-5">{PERSON_TYPES.map(type => <span key={type} className="inline-flex items-center gap-2"><i className={`seat-swatch ${typeClass[type]}`} />{type} ({occupied.filter(p => p.type === type && !hasAdultMenu(p)).length})</span>)}<span className="inline-flex items-center gap-2"><i className="seat-swatch seat-adult-menu" />Niños · menú adulto ({occupied.filter(hasAdultMenu).length})</span></div>
     {moving && <div className="seating-toolbar flex items-center gap-3 mb-4 text-sm"><span>Moviendo: {plan.find(t => t.id === moving.table)?.seats[moving.seat]?.name}</span><Button variant="ghost" size="icon" title="Cancelar movimiento" aria-label="Cancelar movimiento" onClick={() => setMoving(null)}><X /></Button></div>}
     <main className="space-y-5">{plan.map(table => {
       const count = table.seats.filter(Boolean).length;
@@ -139,11 +158,11 @@ export default function DistribucionMesasTab({ readOnly = false }: { readOnly?: 
 
     <Dialog open={!!selected} onOpenChange={open => { if (!open) setSelected(null); }}><DialogContent><DialogHeader><DialogTitle>{selectedPerson?.name ?? 'Asignar persona'}</DialogTitle></DialogHeader>
       <p className="text-xs text-muted-foreground">{selectedTable?.name} · {selected ? seatLabel(selected.seat) : ''}</p>
-      {selectedPerson ? <><p className="text-sm">{selectedPerson.type}</p>{!readOnly && <><Button onClick={() => { setMoving(selected); setSelected(null); }}>Mover / intercambiar</Button><Button variant="destructive" disabled={saving} onClick={() => place(null)}><Trash2 />Quitar de este asiento</Button></>}</> : !readOnly && <>
+      {selectedPerson ? <>{metadataFields}{!readOnly && <><Button disabled={saving} onClick={() => place({ ...selectedPerson, ...personMetadata })}>Guardar cambios</Button><Button variant="outline" disabled={saving} onClick={() => { setMoving(selected); setSelected(null); }}>Mover / intercambiar</Button><Button variant="destructive" disabled={saving} onClick={() => place(null)}><Trash2 />Quitar de este asiento</Button></>}</> : !readOnly && <>
       <Input autoFocus aria-label="Buscar invitado o acompañante" placeholder="Buscar invitado o +1 / escribir nombre" value={personSearch} onChange={e => setPersonSearch(e.target.value)} maxLength={200} />
-      <label className="text-sm">Categoría<select aria-label="Categoría de persona" className="seating-select mt-1" value={personType} onChange={e => setPersonType(e.target.value as SeatingPerson['type'])}>{PERSON_TYPES.map(t => <option key={t}>{t}</option>)}</select></label>
-      <div className="max-h-64 overflow-y-auto flex flex-col gap-1">{options.map(p => <Button variant="ghost" key={`${p.guestId}-${p.plusOne}`} className="h-auto whitespace-normal text-left justify-between" disabled={saving} onClick={() => place({ name: p.name, guestId: p.guestId, plusOne: p.plusOne, type: personType })}><span>{p.name}</span><span className="text-xs text-muted-foreground">{p.detail}</span></Button>)}{!options.length && <p className="text-sm text-muted-foreground">Sin personas disponibles.</p>}</div>
-      {personSearch.trim() && <Button disabled={saving} variant="outline" className="whitespace-normal h-auto" onClick={() => place({ name: personSearch.trim(), guestId: null, plusOne: false, type: personType })}><Plus />Añadir «{personSearch.trim()}»</Button>}
+      {metadataFields}
+      <div className="max-h-64 overflow-y-auto flex flex-col gap-1">{options.map(p => <Button variant="ghost" key={`${p.guestId}-${p.plusOne}`} className="h-auto whitespace-normal text-left justify-between" disabled={saving} onClick={() => place({ name: p.name, guestId: p.guestId, plusOne: p.plusOne, ...personMetadata })}><span>{p.name}</span><span className="text-xs text-muted-foreground">{p.detail}</span></Button>)}{!options.length && <p className="text-sm text-muted-foreground">Sin personas disponibles.</p>}</div>
+      {personSearch.trim() && <Button disabled={saving} variant="outline" className="whitespace-normal h-auto" onClick={() => place({ name: personSearch.trim(), guestId: null, plusOne: false, ...personMetadata })}><Plus />Añadir «{personSearch.trim()}»</Button>}
       </>}
     </DialogContent></Dialog>
     <Dialog open={!!edit} onOpenChange={open => { if (!open) setEdit(null); }}><DialogContent><DialogHeader><DialogTitle>{plan.some(t => t.id === edit?.id) ? 'Editar mesa' : 'Añadir mesa'}</DialogTitle></DialogHeader>{edit && <>
