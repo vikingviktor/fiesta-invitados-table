@@ -42,4 +42,19 @@ describe('Mesas de tres personas por lado y dos cabeceras', () => {
     plan[0].seats[0] = { name: 'Bebé', type: 'Niños', guestId: null, plusOne: false, adultMenu: true, tags: ['Lucía', 'Trona'] };
     expect(seatingCsv(plan)).toContain('"Bebé";"Niños";"Sí";"Lucía · Trona"');
   });
+  test('el menú especial conserva categoría y restricciones al guardar y mover', () => {
+    const plan = initialPlan();
+    plan[0].seats[0] = { name: 'Lucía', type: 'Niños', guestId: null, plusOne: false, adultMenu: true, specialMenu: true, tags: ['Sin gluten'] };
+    const saved = planSchema.parse(JSON.parse(JSON.stringify(plan)));
+    const moved = swapSeats(saved, { table: plan[0].id, seat: 0 }, { table: plan[4].id, seat: 0 });
+    expect(moved[4].seats[0]).toEqual(plan[0].seats[0]);
+    expect(moved[4].seats[0]?.type).toBe('Niños');
+    expect(hasAdultMenu(moved[4].seats[0])).toBe(true);
+    expect(seatingCsv(moved)).toContain('"Lucía";"Niños";"Sí";"Sin gluten";"Sí"');
+  });
+  test('las etiquetas generales no activan menú especial automáticamente', () => {
+    const person = planSchema.parse(initialPlan())[0].seats[0];
+    expect(person?.specialMenu).toBeUndefined();
+    expect(planSchema.parse([{ ...initialPlan()[0], seats: initialPlan()[0].seats.map(p => p ? { ...p, tags: ['Trona'], specialMenu: false } : p) }])[0].seats[0]?.specialMenu).toBe(false);
+  });
 });

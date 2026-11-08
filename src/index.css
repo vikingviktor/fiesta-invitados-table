@@ -10,6 +10,7 @@
   --seat-friends: 112 43% 87%;
   --seat-children: 36 88% 82%;
   --seat-adult-menu: 170 40% 84%;
+  --seat-special-menu: 285 55% 84%;
   --seat-other: 40 15% 93%;
   --seat-ink: 30 20% 20%;
   --seat-wood: 40 28% 77%;
@@ -23,6 +24,7 @@
   --seat-friends: 112 25% 27%;
   --seat-children: 36 50% 28%;
   --seat-adult-menu: 170 30% 27%;
+  --seat-special-menu: 285 30% 30%;
   --seat-other: 40 10% 25%;
   --seat-ink: 40 20% 94%;
   --seat-wood: 40 22% 32%;
@@ -44,6 +46,7 @@
 .long-seat { width: 100px; min-height: 90px; height: auto; align-self: stretch; flex-shrink: 0; padding: 4px; white-space: normal; border-radius: 5px; font-size: 10px; line-height: 1.25; color: hsl(var(--seat-ink)); background: hsl(var(--seat-fill)); border-color: hsl(var(--seat-outline)); }
 .seat-details { display: block; margin-top: 4px; font-size: 9px; line-height: 1.3; }
 .long-seat:hover { color: hsl(var(--seat-ink)); background: hsl(var(--seat-fill)); filter: brightness(.96); }
+.seat-special-menu, .long-seat.seat-special-menu:hover { background: linear-gradient(135deg, hsl(var(--seat-fill)) 0%, hsl(var(--seat-fill)) 50%, hsl(var(--seat-special-menu)) 50%, hsl(var(--seat-special-menu)) 100%); }
 .long-seat span { overflow-wrap: anywhere; }
 .seat-empty, .seat-empty:hover { background: transparent; color: hsl(var(--muted-foreground)); border-style: dashed; }
 .seat-match { outline: 3px solid hsl(var(--seat-match)); outline-offset: 1px; }
