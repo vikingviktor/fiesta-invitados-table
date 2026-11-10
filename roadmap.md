@@ -6,3 +6,4 @@
 - [x] Añadir menú adulto para niños y etiquetas por persona visibles en impresión/PDF; verificar las reglas y la exportación con datos de prueba.
 - [x] Añadir menú especial con división diagonal y etiquetas alimentarias; comprobar impresión y conservación de datos con datos de prueba.
 - [x] Evitar que las cabeceras se estiren a la altura de toda la mesa; comprobar tamaño igual al resto en pantalla e impresión.
+- [x] Añadir descarga PNG completa con colores y etiquetas; descarga de 2400×3908 verificada en escritorio y móvil con datos controlados (sesión real externa no disponible).
