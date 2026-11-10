@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Download, Pencil, Plus, Printer, RotateCcw, Search, Trash2, Undo2, X } from 'lucide-react';
+import { Download, ImageDown, Pencil, Plus, Printer, RotateCcw, Search, Trash2, Undo2, X } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { toast } from '@/hooks/use-toast';
 import { capacity, hasAdultMenu, initialPlan, normalizeName, personDetails, PERSON_TYPES, planSchema, resizeTable, seatLabel, seatingCsv, swapSeats, TABLE_COLORS, type SeatingPerson, type SeatingTable, type SeatPosition } from '@/utils/seatingPlan';
 import type { Json } from '@/integrations/supabase/types';
+import { deliverSeatingImage, seatingImage } from '@/utils/seatingImage';
 
 const typeClass: Record<string, string> = { Novios: 'seat-newlyweds', 'Familia V': 'seat-family-v', 'Familia S': 'seat-family-s', Amigos: 'seat-friends', Niños: 'seat-children', Otros: 'seat-other' };
 type PersonOption = SeatingPerson & { detail: string };
@@ -32,6 +33,23 @@ export default function DistribucionMesasTab({ readOnly = false }: { readOnly?: 
   const [history, setHistory] = useState<SeatingTable[][]>([]);
   const drag = useRef<SeatPosition | null>(null);
   const busy = useRef(false);
+  const planRef = useRef<HTMLDivElement>(null);
+  const imageRequest = useRef(0);
+  const [imageOpen, setImageOpen] = useState(false);
+  const [imageBlob, setImageBlob] = useState<Blob | null>(null);
+  const [imageError, setImageError] = useState('');
+  const prepareImage = async () => {
+    const element = planRef.current;
+    if (!element) return;
+    const request = ++imageRequest.current;
+    setImageBlob(null); setImageError(''); setImageOpen(true);
+    try {
+      const blob = await seatingImage(element);
+      if (request === imageRequest.current) setImageBlob(blob);
+    } catch {
+      if (request === imageRequest.current) setImageError('No se ha podido crear la imagen. Inténtalo de nuevo.');
+    }
+  };
 
   const load = useCallback(async () => {
     setLoading(true); setError('');
@@ -138,11 +156,12 @@ export default function DistribucionMesasTab({ readOnly = false }: { readOnly?: 
   if (loading) return <p className="p-8 text-center">Cargando distribución...</p>;
   if (error) return <div className="p-8 text-center space-y-4"><p role="alert">{error}</p><Button onClick={load}>Reintentar</Button></div>;
 
-  return <div className="seating-plan mx-auto w-full max-w-[1500px] px-4 py-6">
+  return <div ref={planRef} className="seating-plan mx-auto w-full max-w-[1500px] px-4 py-6">
     <header className="seating-toolbar flex flex-wrap items-center gap-3 mb-5">
       <div className="mr-auto"><h2 className="text-xl font-normal">Distribucion mesas</h2><p className="text-sm text-muted-foreground" aria-live="polite">{occupied.length} personas · {plan.reduce((n, t) => n + t.seats.length, 0) - occupied.length} plazas libres · {saving ? 'Guardando…' : 'Guardado'}</p></div>
       <label className="relative"><Search className="absolute left-3 top-3 size-4 text-muted-foreground" /><Input aria-label="Buscar persona en las mesas" placeholder="Buscar persona…" className="pl-9 w-60" value={search} onChange={e => setSearch(e.target.value)} /></label>
       <Button variant="outline" size="icon" title="Descargar CSV" aria-label="Descargar CSV" onClick={download}><Download /></Button>
+      <Button variant="outline" size="icon" title="Descargar PNG" aria-label="Descargar PNG" disabled={saving || !plan.length} onClick={() => void prepareImage()}><ImageDown /></Button>
       <Button variant="outline" size="icon" title="Imprimir" aria-label="Imprimir" onClick={() => window.print()}><Printer /></Button>
       {!readOnly && <><Button variant="outline" size="icon" title="Deshacer" aria-label="Deshacer" disabled={!history.length || saving} onClick={async () => { const previous = history[history.length - 1]; if (previous && await save(previous, false)) setHistory(h => h.slice(0, -1)); }}><Undo2 /></Button>
       <Button variant="outline" size="icon" title="Restaurar propuesta 4" aria-label="Restaurar propuesta 4" disabled={saving} onClick={() => { if (window.confirm('¿Restaurar la propuesta 4 del HTML? Se reemplazará la distribución actual.')) void save(initialPlan()); }}><RotateCcw /></Button>
@@ -154,10 +173,14 @@ export default function DistribucionMesasTab({ readOnly = false }: { readOnly?: 
     <main className="space-y-5">{plan.map(table => {
       const count = table.seats.filter(Boolean).length;
       return <section key={table.id} className="long-table-section border-b pb-5" aria-label={table.name}>
-        <div className="flex flex-wrap items-center gap-2 mb-3"><h3 className="text-sm font-normal mr-auto inline-flex items-center gap-2">{table.color && <i className="inline-block size-3 rounded-full border" style={{ backgroundColor: table.color }} />}{table.name}</h3><span className="text-xs text-muted-foreground">{table.modules} mesas unidas · {count}/{table.seats.length} · {table.seats.length - count} libres</span>{!readOnly && <Button variant="ghost" size="icon" className="size-8" title={`Editar ${table.name}`} aria-label={`Editar ${table.name}`} onClick={() => setEdit(structuredClone(table))}><Pencil /></Button>}</div>
+        <div className="flex flex-wrap items-center gap-2 mb-3"><h3 className="text-sm font-normal mr-auto inline-flex items-center gap-2">{table.color && <i className="inline-block size-3 rounded-full border" style={{ backgroundColor: table.color }} />}{table.name}</h3><span className="text-xs text-muted-foreground">{table.modules} mesas unidas · {count}/{table.seats.length} · {table.seats.length - count} libres</span>{!readOnly && <Button data-html2canvas-ignore variant="ghost" size="icon" className="size-8" title={`Editar ${table.name}`} aria-label={`Editar ${table.name}`} onClick={() => setEdit(structuredClone(table))}><Pencil /></Button>}</div>
         <div className="long-table-scroll"><div className="long-table-layout">{seat(table, 0)}<div className="long-table-middle"><div className="long-table-row">{Array.from({ length: table.modules * 3 }, (_, i) => seat(table, 2 + i * 2))}</div><div className="long-table-surface">{Array.from({ length: table.modules }, (_, i) => <span key={i} className="long-table-module" />)}</div><div className="long-table-row">{Array.from({ length: table.modules * 3 }, (_, i) => seat(table, 3 + i * 2))}</div></div>{seat(table, 1)}</div></div>
       </section>;
     })}</main>
+
+    <Dialog open={imageOpen} onOpenChange={open => { setImageOpen(open); if (!open) imageRequest.current++; }}><DialogContent><DialogHeader><DialogTitle>Distribución en PNG</DialogTitle></DialogHeader>
+      {imageError ? <><p role="alert" className="text-sm">{imageError}</p><Button variant="outline" onClick={() => void prepareImage()}>Reintentar</Button></> : imageBlob ? <Button onClick={() => { void deliverSeatingImage(imageBlob).catch(() => toast({ title: 'No se pudo descargar la imagen', variant: 'destructive' })); }}><Download className="size-4" />Descargar imagen PNG</Button> : <p role="status" className="text-sm">Preparando imagen…</p>}
+    </DialogContent></Dialog>
 
     <Dialog open={!!selected} onOpenChange={open => { if (!open) setSelected(null); }}><DialogContent><DialogHeader><DialogTitle>{selectedPerson?.name ?? 'Asignar persona'}</DialogTitle></DialogHeader>
       <p className="text-xs text-muted-foreground">{selectedTable?.name} · {selected ? seatLabel(selected.seat) : ''}</p>
