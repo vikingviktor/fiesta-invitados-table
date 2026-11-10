@@ -5,3 +5,4 @@
 - Keep per-person menu overrides and name annotations inside official seating records, and derive seat display and exports from the shared seating utility so moving a person preserves their details.
 - Keep Guest types centralized in src/types/guestTypes.ts and map database snake_case to UI camelCase.
 - Generate seating PNGs from the rendered official plan with html2canvas-pro at full table width; prepare the blob before the final download click to preserve mobile user activation.
+- Derive payment-note filter choices from saved notes via the shared paymentNotes utility; normalize case and whitespace without changing stored notes so custom payment methods remain supported.
