@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { ArrowUp, ArrowDown, ArrowUpDown } from "lucide-react";
+import { matchesPaymentNote, paymentNoteOptions } from "@/utils/paymentNotes";
 
 interface Row {
   id: string;
@@ -27,6 +28,7 @@ const PagosTab: React.FC = () => {
   const [search, setSearch] = useState("");
   const [filtro, setFiltro] = useState("todos");
   const [filtroTag, setFiltroTag] = useState("todos");
+  const [filtroNota, setFiltroNota] = useState<string | null>(null);
   const [saving, setSaving] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [sort, setSort] = useState<SortState>({ key: "nombre", dir: "asc" });
@@ -72,11 +74,14 @@ const PagosTab: React.FC = () => {
     toast({ title: "Pago guardado" });
   };
 
+  const notas = useMemo(() => paymentNoteOptions(guests.map(g => pagos[g.id]?.nota)), [guests, pagos]);
+
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     return guests.filter((g) => {
       if (q && !g.nombre.toLowerCase().includes(q) && !(g.nombre_acompanante ?? "").toLowerCase().includes(q)) return false;
       const pago = pagos[g.id];
+      if (!matchesPaymentNote(pago?.nota, filtroNota)) return false;
       const paid = (pago?.importe ?? 0) > 0;
       if (filtro === "pagado" && !paid) return false;
       if (filtro === "pendiente" && paid) return false;
@@ -86,7 +91,7 @@ const PagosTab: React.FC = () => {
       }
       return true;
     });
-  }, [guests, pagos, search, filtro, filtroTag]);
+  }, [guests, pagos, search, filtro, filtroTag, filtroNota]);
 
   const sorted = useMemo(() => {
     const arr = [...filtered];
@@ -119,7 +124,7 @@ const PagosTab: React.FC = () => {
     return t;
   }, [pagos]);
 
-  const hayFiltros = search || filtro !== "todos" || filtroTag !== "todos";
+  const hayFiltros = search || filtro !== "todos" || filtroTag !== "todos" || filtroNota !== null;
 
   return (
     <div className="w-full max-w-5xl mx-auto mt-8 px-2">
@@ -145,6 +150,12 @@ const PagosTab: React.FC = () => {
           <option value="todos">Todas las etiquetas</option>
           {TAGS.map((tag) => <option key={tag} value={tag}>{tag}</option>)}
           <option value="sin_tag">Sin etiqueta</option>
+        </select>
+        <select aria-label="Filtrar por nota de pago" value={filtroNota === null ? "all" : `note:${filtroNota}`} onChange={e => setFiltroNota(e.target.value === "all" ? null : e.target.value.slice(5))} className="max-w-full border bg-background text-foreground px-2 py-2 rounded">
+          <option value="all">Todas las notas</option>
+          {notas.map(nota => <option key={nota.value} value={`note:${nota.value}`}>{nota.label}</option>)}
+          {filtroNota && !notas.some(nota => nota.value === filtroNota) && <option value={`note:${filtroNota}`}>{filtroNota}</option>}
+          <option value="note:">Sin nota</option>
         </select>
         <span className="text-sm text-muted-foreground">{filtered.length} de {guests.length} invitados · pulsa «Nombre» o «Importe pagado» para ordenar</span>
       </div>
