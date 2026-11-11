@@ -104,7 +104,7 @@ const Admin = () => {
           <p className="text-center mb-4 text-muted-foreground">Modo solo lectura</p>
         )}
         <Tabs defaultValue="invitados" className="w-full">
-          <TabsList className="mb-6">
+          <TabsList className="mb-6 flex w-full max-w-full justify-start overflow-x-auto">
             <TabsTrigger value="invitados">Invitados</TabsTrigger>
             <TabsTrigger value="mesas">Mesas</TabsTrigger>
             <TabsTrigger value="habitaciones">Habitaciones</TabsTrigger>

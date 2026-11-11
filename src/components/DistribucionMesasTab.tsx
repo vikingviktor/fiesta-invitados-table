@@ -159,7 +159,7 @@ export default function DistribucionMesasTab({ readOnly = false }: { readOnly?: 
   return <div ref={planRef} className="seating-plan mx-auto w-full max-w-[1500px] px-4 py-6">
     <header className="seating-toolbar flex flex-wrap items-center gap-3 mb-5">
       <div className="mr-auto"><h2 className="text-xl font-normal">Distribucion mesas</h2><p className="text-sm text-muted-foreground" aria-live="polite">{occupied.length} personas · {plan.reduce((n, t) => n + t.seats.length, 0) - occupied.length} plazas libres · {saving ? 'Guardando…' : 'Guardado'}</p></div>
-      <label className="relative"><Search className="absolute left-3 top-3 size-4 text-muted-foreground" /><Input aria-label="Buscar persona en las mesas" placeholder="Buscar persona…" className="pl-9 w-60" value={search} onChange={e => setSearch(e.target.value)} /></label>
+      <label className="relative w-full sm:w-auto"><Search className="absolute left-3 top-3 size-4 text-muted-foreground" /><Input aria-label="Buscar persona en las mesas" placeholder="Buscar persona…" className="pl-9 w-full sm:w-60" value={search} onChange={e => setSearch(e.target.value)} /></label>
       <Button variant="outline" size="icon" title="Descargar CSV" aria-label="Descargar CSV" onClick={download}><Download /></Button>
       <Button variant="outline" size="icon" title="Descargar PNG" aria-label="Descargar PNG" disabled={saving || !plan.length} onClick={() => void prepareImage()}><ImageDown /></Button>
       <Button variant="outline" size="icon" title="Imprimir" aria-label="Imprimir" onClick={() => window.print()}><Printer /></Button>
@@ -168,7 +168,7 @@ export default function DistribucionMesasTab({ readOnly = false }: { readOnly?: 
       <Button onClick={() => setEdit({ id: crypto.randomUUID(), name: `Mesa ${plan.length + 1}`, modules: 1, color: null, seats: Array(8).fill(null) })} disabled={saving}><Plus />Añadir mesa</Button></>}
     </header>
     <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs mb-5">{PERSON_TYPES.map(type => <span key={type} className="inline-flex items-center gap-2"><i className={`seat-swatch ${typeClass[type]}`} />{type} ({occupied.filter(p => p.type === type && !hasAdultMenu(p)).length})</span>)}<span className="inline-flex items-center gap-2"><i className="seat-swatch seat-adult-menu" />Niños · menú adulto ({occupied.filter(hasAdultMenu).length})</span></div>
-    {moving && <div className="seating-toolbar flex items-center gap-3 mb-4 text-sm"><span>Moviendo: {plan.find(t => t.id === moving.table)?.seats[moving.seat]?.name}</span><Button variant="ghost" size="icon" title="Cancelar movimiento" aria-label="Cancelar movimiento" onClick={() => setMoving(null)}><X /></Button></div>}
+    {moving && <div className="seating-toolbar sticky top-2 z-20 flex items-center gap-3 mb-4 rounded border bg-background p-2 text-sm shadow"><span>Toca otro asiento para mover a: {plan.find(t => t.id === moving.table)?.seats[moving.seat]?.name}</span><Button variant="ghost" size="icon" title="Cancelar movimiento" aria-label="Cancelar movimiento" onClick={() => setMoving(null)}><X /></Button></div>}
     <div className="flex items-center gap-2 text-xs mb-5"><i className="seat-swatch seat-other seat-special-menu" />Menú especial ({occupied.filter(p => p.specialMenu).length})</div>
     <main className="space-y-5">{plan.map(table => {
       const count = table.seats.filter(Boolean).length;

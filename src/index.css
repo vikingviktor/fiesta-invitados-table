@@ -55,6 +55,16 @@
 .long-table-surface { display: flex; height: 26px; gap: 0; border: 1px solid hsl(var(--seat-outline)); border-radius: 5px; overflow: hidden; background: hsl(var(--seat-wood)); }
 .long-table-module { flex: 1; border-right: 2px solid hsl(var(--seat-outline)); }
 .long-table-module:last-child { border: 0; }
+@media screen and (max-width: 767px) {
+  .long-table-scroll { overflow-x: visible; display: flex; justify-content: center; }
+  .long-table-layout { flex-direction: column; width: auto; }
+  .long-table-middle { flex-direction: row; }
+  .long-table-row { flex-direction: column; }
+  .long-table-surface { flex-direction: column; height: auto; width: 26px; }
+  .long-table-module { border-right: 0; border-bottom: 2px solid hsl(var(--seat-outline)); }
+  .long-seat { width: 38vw; max-width: 140px; min-height: 64px; font-size: 11px; touch-action: manipulation; }
+  .seat-details { font-size: 9px; }
+}
 .seating-select { display: block; width: 100%; padding: 8px; border: 1px solid hsl(var(--input)); border-radius: 6px; background: hsl(var(--background)); color: hsl(var(--foreground)); }
 @media print {
   body:has(.seating-plan) * { visibility: hidden; }
